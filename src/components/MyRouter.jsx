@@ -12,7 +12,7 @@ function MyRouter() {
   return (
     <GlobalProvider>
       <BrowserRouter>
-        <div class="page corners padding transp">
+        <div className="page corners padding transp">
           <MyNav />
 
           <main>

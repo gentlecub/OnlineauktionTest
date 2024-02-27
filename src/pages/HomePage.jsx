@@ -1,8 +1,11 @@
 
+import CarsHome from "../components/CarsHome.jsx"
+
 function HomePage() {
 
-
-  return <></>
+  return <>
+    < CarsHome />
+  </>
 
 }
 
