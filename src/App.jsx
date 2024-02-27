@@ -1,8 +1,11 @@
+
+import React from "react";
+import MyRouter from "./components/MyRouter.jsx";
+
 function App() {
 
-  return <h1>Online Auction</h1>
-      
-  
+  return <MyRouter />
+
 }
 
 export default App
