@@ -12,7 +12,7 @@ function CarsHome() {
       setCars(cars)
     }
     load()
-  }, []) // tom array som andra argument = körs endast vid komponentladdning
+  }, []) 
    console.log(cars)
   return <>
      <p>Hello</p>
