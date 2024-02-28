@@ -13,17 +13,21 @@ function MyAuction() {
       const cars = await responseCars.json()
       setCars(cars)
 
-      const responseAuctions = await fetch('/api/cars')
+      const responseAuctions = await fetch('/api/auctions')
       const auctions = await responseAuctions.json()
+      console.log(auctions)
       setAuctions(auctions)
     }
     load()
   }, []) // tom array som andra argument = körs endast vid komponentladdning
 
-  const handleSelectCars = (id) => {
-    const listItems = cars.map((item) => item.id === id);
-    setCars(listItems);
-    console.log(listItems)
+  const handleSelectedCar = (id) => {
+    const listItem = cars.filter((car) => (car.id == id))
+    return listItem;
+  }
+
+  function addNewBid(event, auction) {
+
   }
 
   return (
@@ -32,11 +36,12 @@ function MyAuction() {
         <ul className="container">
           {auctions.map((auction) => (
             <li className="item" key={auction.id}>
-              <div className="information">
-                <span className="auctionid">Auction ID: {auction.id}</span>
-                <span className="starttime">Start Time: {auction.startTime}</span>
-                <span className="endtime">End Time: {auction.endTime}</span>
-                <span className="highestbid">Highest Bid: {auction.highestBid}</span>
+              <div className=".container-p">
+                <span className="auctionid">Auction ID: {auction.id}</span><br />
+                <span className="starttime">Start Time: {auction.startTime}</span><br />
+                <span className="endtime">End Time: {auction.endTime}</span><br />
+                <span className="highestbid">Highest Bid: {auction.highestBid}</span><br />
+                <button onClick={(event) => addNewBid(event, auction)} data-click="AddNewBid">Add New Bid</button>
               </div>
             </li>
           ))}
