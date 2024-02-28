@@ -6,6 +6,7 @@ import MySearchInputPage from "../pages/MySearchInputPage.jsx"
 import ContactPage from "../pages/ContactPage.jsx"
 import { GlobalProvider } from './GlobalContext.jsx'
 import Cart from '../pages/Cart.jsx'
+import ShowAuctionPage from "../pages/ShowAuctionPage.jsx"
 
 function MyRouter() {
 
