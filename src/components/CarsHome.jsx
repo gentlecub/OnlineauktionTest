@@ -17,14 +17,13 @@ function CarsHome() {
   return <>
     <p>Cars in the auction</p>
     <ol>
-      { cars.map((car) => <li>
+      {cars.map((car) => <li>
         <p>{car.brand}</p>
         <p>{car.model}: {car.year}</p>
       </li>
       )}
     </ol>
-
   </>
 }
 
-export default CarsHome 
+export default CarsHome
