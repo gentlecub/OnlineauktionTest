@@ -10,6 +10,7 @@ function MyNav() {
         <Link to="/my-search-input-page" className="flex-sm-fill flex-grow-1 text-sm-left nav-link active">Search wares</Link>
         <Link to="/cart-page" className="flex-sm-fill flex-grow-1 text-sm-left nav-link active">To Cart</Link>
         <Link to="/contact-page" className="text-sm-right nav-link" >Kontakta oss</Link>
+        <Link to="/show-auction-page" className="text-sm-right nav-link" >Show Current Auction</Link>
       </nav>
     </header>
   )
