@@ -2,8 +2,8 @@
   "Auctions": [
     {
       "id": 1,
-      "startTime": "11:35:01",
-      "endTime": "11:45:01",
+      "startTime": "2024-02-28 11:35:01",
+      "endTime": "2024-02-28 11:45:01",
       "highestBid": "150000",
       "carId": "1",
       "userId": "2",
@@ -11,35 +11,35 @@
     },
     {
       "id": 2,
-      "startTime": "13:20:21",
-      "endTime": "13:30:01",
+      "startTime": "2024-02-28 13:20:21",
+      "endTime": "2024-02-28 13:30:01",
       "highestBid": "190000",
       "carId": "2",
       "userId": "1",
-      "status": "1"
+      "status": "0"
     },
     {
       "id": 3,
-      "startTime": "14:05:00",
-      "endTime": "15:00:01",
+      "startTime": "2024-02-28 14:05:00",
+      "endTime": "2024-02-28 15:00:01",
       "highestBid": "200000",
       "carId": "3",
       "userId": "3",
-      "status": "3"
+      "status": "0"
     },
     {
       "id": 4,
-      "startTime": "10:30:01",
-      "endTime": "11:50:01",
+      "startTime": "2024-02-28 10:30:01",
+      "endTime": "2024-02-28 11:50:01",
       "highestBid": "110000",
       "carId": "4",
       "userId": "5",
-      "status": "3"
+      "status": "0"
     },
     {
       "id": 5,
-      "startTime": "08:15:01",
-      "endTime": "10:00:01",
+      "startTime": "2024-02-28 08:15:01",
+      "endTime": "2024-02-28 10:00:01",
       "highestBid": "300000",
       "carId": "5",
       "userId": "4",
