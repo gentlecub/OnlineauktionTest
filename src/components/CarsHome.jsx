@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link} from "react-router-dom";
+
+
 
 function CarsHome() {
 
@@ -13,11 +16,7 @@ function CarsHome() {
     }
     load()
   }, []) // tom array som andra argument = körs endast vid komponentladdning
- const handleSelect = (id) => {
-        const listItems = cars.map((item) => item.id === id );
-        setCars(listItems);
-        console.log(listItems)
-    }
+  
 
   return (
       <main>
@@ -25,16 +24,18 @@ function CarsHome() {
                 <ul className="container">
                   {cars.map((car) => (
                     <li className="item" key={car.id}>
+                      <Link to={"/cars/" + car.id}>
                         <div>
                           <div className="item">
                             <img src="imagen1.jpg" alt="Imagen 1"/>
-                        </div>
+                          </div>
                         <div className="information">
                             <p>{ car.brand }</p>
                             <span className="name">{ car.brand }</span>
                             <span className="description">{car.color}</span>
                           </div>
                         </div>
+                        </Link>
                     </li>
                     ))}
                 </ul>
