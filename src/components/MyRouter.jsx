@@ -6,6 +6,7 @@ import MySearchInputPage from "../pages/MySearchInputPage.jsx"
 import ContactPage from "../pages/ContactPage.jsx"
 import { GlobalProvider } from './GlobalContext.jsx'
 import Cart from '../pages/Cart.jsx'
+import ShowAuctionPage from "../pages/ShowAuctionPage.jsx"
 import RegisterUser from '../pages/RegisterUser.jsx'
 
 function MyRouter() {
@@ -23,7 +24,8 @@ function MyRouter() {
                 <Route path="/my-search-input-page" element={<MySearchInputPage />} />
                 <Route path="/contact-page" element={<ContactPage />} />
                 <Route path="/cart-page" element={ <Cart /> } />
-                <Route path="/registering-page" element={<RegisterUser/>} />
+                <Route path="/registering-page" element={ <RegisterUser /> } />
+                <Route path="/show-auction-page" element={<ShowAuctionPage/>} />
               </Routes>
             </div>
           </main>

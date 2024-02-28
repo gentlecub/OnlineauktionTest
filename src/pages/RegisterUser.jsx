@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 function RegisterUser () {
   function successfullRegister () {
     const [ users, setUsers ] = useState( [
@@ -6,7 +7,7 @@ function RegisterUser () {
 
     useEffect( () => {
       async function load () {
-        const response = await fetch( '/api/users' )
+        const response = await fetch( '/api/db' )
         const users = await response.json()
         setUsers( users )
       }
