@@ -157,3 +157,70 @@ nav a:hover h1 {
   top: 15vh;
   background-color: #aabbcc;
 }
+
+
+.container {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.container li {
+  width: calc(33.33% - 20px);
+  /* 33.33% de ancho con un margen entre ellos */
+  margin: 10px;
+}
+
+.container li:nth-child(3n+1) {
+  clear: both;
+  /* Limpiar el float cada tres elementos */
+}
+
+.container li div {
+  text-align: center;
+  /* Centrar el contenido */
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  background-color: #e3e9f1;
+  border-radius: 20px;
+}
+
+.container li div:hover {
+  background-color: #6f7072;
+}
+
+.container li img {
+  /*max-width: 100%;*/
+    width: 320px;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 20px 20px 0px 0px;
+  /* Ajustar la imagen al ancho del div */
+}
+
+.container li .name {
+  font-weight: bold;
+  /* Estilo de texto en negrita */
+}
+
+.container li .description {
+  color: #666;
+  /* Color del texto de descripción */
+}
+
+.information {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.information>p:first-child {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 25px;
+  font-weight: 300;
+}
