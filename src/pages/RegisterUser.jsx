@@ -4,8 +4,9 @@ function RegisterUser () {
   
   return (
     <div>
-      <form onSubmit={NewUser}>
-                <h1>User Registration</h1>
+      <form onSubmit={ NewUser }>
+        <br />
+                <h3>User Registration</h3><br/>
                 <label>Username :</label> <input type="text" name="Username" placeholder="UserName..." /><br />
         <label>Password :</label> <input type="password" name="password" placeholder="Password..." /><br />
         <label>Name :</label> <input type="text" name="name" placeholder="Name..." /><br />
