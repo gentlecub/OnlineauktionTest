@@ -1,8 +1,7 @@
 {
-
   "cars": [
     {
-      "id": 1,
+      "id": "1",
       "brand": "Toyota",
       "model": "Corolla",
       "year": 2022,
@@ -21,7 +20,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "brand": "Honda",
       "model": "Civic",
       "year": 2020,
@@ -39,7 +38,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "brand": "Ford",
       "model": "F-150",
       "year": 2021,
@@ -57,7 +56,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": "4",
       "brand": "Chevrolet",
       "model": "Malibu",
       "year": 2019,
@@ -75,7 +74,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": "5",
       "brand": "Nissan",
       "model": "Altima",
       "year": 2020,
@@ -93,7 +92,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": "6",
       "brand": "BMW",
       "model": "3 Series",
       "year": 2021,
@@ -111,7 +110,7 @@
       ]
     },
     {
-      "id": 7,
+      "id": "7",
       "brand": "Audi",
       "model": "A4",
       "year": 2020,
@@ -129,7 +128,7 @@
       ]
     },
     {
-      "id": 8,
+      "id": "8",
       "brand": "Tesla",
       "model": "Model 3",
       "year": 2021,
@@ -147,7 +146,7 @@
       ]
     },
     {
-      "id": 9,
+      "id": "9",
       "brand": "Volkswagen",
       "model": "Golf",
       "year": 2018,
@@ -165,7 +164,7 @@
       ]
     },
     {
-      "id": 10,
+      "id": "10",
       "brand": "Subaru",
       "model": "Outback",
       "year": 2017,
@@ -183,58 +182,56 @@
       ]
     }
   ],
-
-    "Auctions": [
-      {
-        "id": 1,
-        "startTime": "2024-02-28 11:35:01",
-        "endTime": "2024-02-28 11:45:01",
-        "highestBid": "150000",
-        "carId": "1",
-        "userId": "2",
-        "status": "0"
-      },
-      {
-        "id": 2,
-        "startTime": "2024-02-28 13:20:21",
-        "endTime": "2024-02-28 13:30:01",
-        "highestBid": "190000",
-        "carId": "2",
-        "userId": "1",
-        "status": "0"
-      },
-      {
-        "id": 3,
-        "startTime": "2024-02-28 14:05:00",
-        "endTime": "2024-02-28 15:00:01",
-        "highestBid": "200000",
-        "carId": "3",
-        "userId": "3",
-        "status": "0"
-      },
-      {
-        "id": 4,
-        "startTime": "2024-02-28 10:30:01",
-        "endTime": "2024-02-28 11:50:01",
-        "highestBid": "110000",
-        "carId": "4",
-        "userId": "5",
-        "status": "0"
-      },
-      {
-        "id": 5,
-        "startTime": "2024-02-28 08:15:01",
-        "endTime": "2024-02-28 10:00:01",
-        "highestBid": "300000",
-        "carId": "5",
-        "userId": "4",
-        "status": "0"
-      }
-    ],
-    
+  "Auctions": [
+    {
+      "id": "1",
+      "startTime": "2024-02-28 11:35:01",
+      "endTime": "2024-02-28 11:45:01",
+      "highestBid": "150000",
+      "carId": "1",
+      "userId": "2",
+      "status": "0"
+    },
+    {
+      "id": "2",
+      "startTime": "2024-02-28 13:20:21",
+      "endTime": "2024-02-28 13:30:01",
+      "highestBid": "190000",
+      "carId": "2",
+      "userId": "1",
+      "status": "0"
+    },
+    {
+      "id": "3",
+      "startTime": "2024-02-28 14:05:00",
+      "endTime": "2024-02-28 15:00:01",
+      "highestBid": "200000",
+      "carId": "3",
+      "userId": "3",
+      "status": "0"
+    },
+    {
+      "id": "4",
+      "startTime": "2024-02-28 10:30:01",
+      "endTime": "2024-02-28 11:50:01",
+      "highestBid": "110000",
+      "carId": "4",
+      "userId": "5",
+      "status": "0"
+    },
+    {
+      "id": "5",
+      "startTime": "2024-02-28 08:15:01",
+      "endTime": "2024-02-28 10:00:01",
+      "highestBid": "300000",
+      "carId": "5",
+      "userId": "4",
+      "status": "0"
+    }
+  ],
   "Users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "john",
       "password": "123_john",
       "name": "John G",
@@ -242,7 +239,7 @@
       "roll": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "shiva",
       "password": "306_shiva",
       "name": "Shiva M",
@@ -250,7 +247,7 @@
       "roll": "admin"
     },
     {
-      "id": 3,
+      "id": "3",
       "username": "joakim",
       "password": "456_joakim",
       "name": "Joakim K",
@@ -258,7 +255,7 @@
       "roll": "user"
     },
     {
-      "id": 4,
+      "id": "4",
       "username": "Celeste",
       "password": "142_celeste",
       "name": "Celeste S",
@@ -266,13 +263,28 @@
       "roll": "user"
     },
     {
-      "id": 5,
+      "id": "5",
       "username": "Desmond",
       "password": "234_desmond",
       "name": "Desmond D",
       "email": "desmond.d@example.com",
       "roll": "user"
+    },
+    {
+      "id": "50de",
+      "Username": "fsdf",
+      "password": "dfddfsd",
+      "name": "dcdfd",
+      "Email": "dfd",
+      "roll": "fffv"
+    },
+    {
+      "id": "e426",
+      "Username": "Test",
+      "password": "test1234",
+      "name": "shivas test",
+      "Email": "test@test.se",
+      "roll": "user"
     }
-  ]   
-
+  ]
 }
