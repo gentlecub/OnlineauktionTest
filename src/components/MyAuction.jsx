@@ -97,7 +97,7 @@ function MyAuction() {
     const newTitleText = event.target.value.toLowerCase()
     setTitleText(event.target.value)
 
-    const newAuctionList = auctions.filter(item => item.title.toLowerCase().includes(titleText))
+    const newAuctionList = auctions.filter(item => item.title.toLowerCase().includes(newTitleText))
     setFilteredItems(newAuctionList)
 
   }
