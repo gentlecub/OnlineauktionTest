@@ -285,6 +285,11 @@
       "name": "shivas test",
       "Email": "test@test.se",
       "roll": "user"
+    },
+    {
+      "id": "0922",
+      "Username": "Test",
+      "password": "12345"
     }
   ]
 }
