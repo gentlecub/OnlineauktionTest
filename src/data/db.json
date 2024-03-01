@@ -185,6 +185,7 @@
   "auctions": [
     {
       "id": 1,
+      "title": "A nice Toyota of model Corolla",
       "startTime": "2024-02-28 11:35:01",
       "endTime": "2024-02-28 11:45:01",
       "highestBid": 150000,
@@ -194,6 +195,7 @@
     },
     {
       "id": 2,
+      "title": "A new Honda of model Civic",
       "startTime": "2024-02-28 13:20:21",
       "endTime": "2024-02-28 13:30:01",
       "highestBid": 190000,
@@ -203,6 +205,7 @@
     },
     {
       "id": 3,
+      "title": "A nice Ford of model F-150",
       "startTime": "2024-02-28 14:05:00",
       "endTime": "2024-02-28 15:00:01",
       "highestBid": 200000,
@@ -212,6 +215,7 @@
     },
     {
       "id": 4,
+      "title": "A new Chevrolet of model Malibu",
       "startTime": "2024-02-28 10:30:01",
       "endTime": "2024-02-28 11:50:01",
       "highestBid": 110000,
@@ -221,6 +225,7 @@
     },
     {
       "id": 5,
+      "title": "A nice Nissan of model Altina",
       "startTime": "2024-02-28 08:15:01",
       "endTime": "2024-02-28 10:00:01",
       "highestBid": 300000,
