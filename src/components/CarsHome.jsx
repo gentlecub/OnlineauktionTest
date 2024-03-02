@@ -1,49 +1,31 @@
-import { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import {useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { GlobalContext } from "./GlobalContext";
+import AuctionCard from "./AuctionCard";
 
 
 
 function CarsHome() {
-
-  const [cars, setCars] = useState([
-]);
-   
-  useEffect(() => {
-    async function load() {
-      const response = await fetch('/api/cars')
-      const cars = await response.json()
-      setCars(cars)
-    }
-    load()
-  }, []) // tom array som andra argument = körs endast vid komponentladdning
-  
+  const { carItem } = useContext(GlobalContext)
   return (
-      <main>
-            {cars.length ? (
-                <ul className="container">
-                  {cars.map((car) => (
-                    <li className="item" key={car.id}>
-                      <Link to={"/cars/" + car.id}>
-                        <div>
-                          <div className="item">
-                            <img src="imagen1.jpg" alt="Imagen 1"/>
-                          </div>
-                        <div className="information">
-                            <p>{ car.brand }</p>
-                            <span className="name">{ car.brand }</span>
-                            <span className="description">{car.color}</span>
-                          </div>
-                        </div>
-                        </Link>
-                    </li>
-                    ))}
-                </ul>
-            ) : (
-                <p style={{ marginTop: '2rem' }}>Your list is empty.</p>
-            )}
-        </main>   
-
-
-    )
+      <div className="py-5">
+      <div className="container">
+        {carItem && (
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {carItem.map((car) => (
+              <Link to={`/cars/${car.id}`} key={car.id} style={{textDecoration:'none'}}> 
+                <AuctionCard item={car} />
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
-export default  CarsHome 
+
+
+
+
+
+export default CarsHome
