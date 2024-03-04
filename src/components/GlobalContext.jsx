@@ -30,7 +30,6 @@ function GlobalProvider({ children }) {
           const match = listDuration.find((item) => item.carId === car.id);
           if (match) {
             const durationHrs = Math.abs(new Date(match.endTime));
-            // const durationHrs = difMin / (1000 * 60 * 60);
             return { ...car, duration: durationHrs };
           }
           return car;

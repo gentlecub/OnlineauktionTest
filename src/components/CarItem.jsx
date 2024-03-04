@@ -32,7 +32,6 @@ function CarItem(props) {
   return (
     <>
       {console.log("Item", props.item)}
-
       <div className="col-sm">
         <div className="container-xl ">
           <div className="card">

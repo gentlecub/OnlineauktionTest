@@ -17,20 +17,8 @@ function CarDetail() {
       <div className="container-xl">
         <div className="row">
           {<CarItem item={carId} key={id} />}
-          <div className="col col-lg-2">
-            <div className="card">
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item" key={1}>
-                  An item
-                </li>
-                <li className="list-group-item" key={2}>
-                  A second item
-                </li>
-                <li className="list-group-item" key={3}>
-                  A third item
-                </li>
-              </ul>
-            </div>
+          <div className="col col-lg-3">
+            <BidItem item={carId} />
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ const renderer = ({ days, hours, minutes, seconds, props }) => {
             </div>
             <p className="card-text">{props.item.desc}</p>
             <div className="d-flex justify-content-between align-item-center">
-              <p className="display-6">${props.item.mileage}</p>
+              <p className="display-6">${props.item.price}</p>
             </div>
           </div>
         </div>
@@ -36,7 +36,6 @@ const renderer = ({ days, hours, minutes, seconds, props }) => {
 
 const AuctionCard = ({ item }) => {
   let expiredDate = new Date(item.duration).getTime();
-  console.log(expiredDate);
   return <Countdown date={expiredDate} item={item} renderer={renderer} />;
 };
 
