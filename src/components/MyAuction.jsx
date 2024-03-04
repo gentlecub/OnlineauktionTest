@@ -8,6 +8,7 @@ function MyAuction() {
   const [titleText, setTitleText] = useState("")
   const [filteredItems, setFilteredItems] = useState([])
   const [bidText, setBidText] = useState("")
+  const [auctionIdText, setAuctionIdText] = useState("")
 
   useEffect(() => {
 
@@ -40,18 +41,14 @@ function MyAuction() {
 
   }
 
-  function getAuctionIndexFromId(id) {
+  function getAuctionIndexFromId(id, filteredItems) {
 
     let index = -1
     let i = 0
 
-    for (i = 0; i < auctions.length; i++) {
-      if (auctions[i].id == id) {
+    for (i = 0; i < filteredItems.length; i++) {
+      if (filteredItems[i].id == id) {
         index = i
-
-      }
-      else {
-        index = -5
       }
     }
 
@@ -59,36 +56,55 @@ function MyAuction() {
 
   }
 
-  function addNewBid(event, filteredItems, auction) {
+  function addNewBid(event, filteredItems) {
 
     event.preventDefault()
 
     let bFound = false
     let n = filteredItems.length
     let bid = 0
-    id = 3
-    let index = getAuctionIndexFromId(auction.id)
-
+    let id = -1
+    id = auctionIdText
+    let index = getAuctionIndexFromId(id, filteredItems)
+    console.log("The id is: " + id)
     console.log("The index is: " + index)
 
-    bid = parseInt(event.target.value)
+    bid = bidText
 
-    if (n > 0 && bid > filteredItems[index].highestBid) {
+    console.log("The bid is: " + bid)
+    console.log(filteredItems[index].highestBid)
+
+    if (n <= 0 || id < 0 || index < 0) {
+      alert(`Something went wrong or the price is too low!`)
+      return bFound
+    }
+
+    if (bid > filteredItems[index].highestBid) {
       filteredItems[index].highestBid = bid
       bFound = true
+    }
+    else {
+      alert(`The price is too low!`)
     }
 
     if (bFound) {
       setFilteredItems([...filteredItems])
-      // alert(`Auction object with id ${auctions[index].id} has now recieved a new highest bid!`)
+      alert(`Auction object with id ${filteredItems[index].id} has now recieved a new highest bid!`)
     }
 
   }
 
-  function setNewBidText(event, auction) {
+  function setNewBidText(event) {
 
     const newBidText = event.target.value.toLowerCase()
     setBidText(event.target.value)
+
+  }
+
+  function setNewAuctionIdText(event) {
+
+    const newIdText = event.target.value.toLowerCase()
+    setAuctionIdText(event.target.value)
 
   }
 
@@ -104,27 +120,40 @@ function MyAuction() {
 
   return (
     <main>
+
       <form>
         <label for="exampleFormControlInput1">Auction title of the car to search:</label>
         <input className="flex-sm-fill text-sm-center nav-link" name="titleText"
           value={titleText} onChange={searchTitle} />
         <br />
       </form>
+
+      <form onSubmit={(event) => addNewBid(event, filteredItems)} >
+
+        <label for="inputBid">Auction id to bid on:
+          <input className="flex-sm-fill text-sm-center nav-link" name="auctionIdText"
+            type="Number" value={auctionIdText} onChange={(event) => setNewAuctionIdText(event)} />
+        </label>
+
+        <label for="inputBid">Set new bid price on car:
+          <input className="flex-sm-fill text-sm-center nav-link" name="bidText"
+            type="Number" value={bidText} onChange={(event) => setNewBidText(event)} />
+        </label>
+
+        <button type="submit" data-click="AddNewBid">Add New Bid</button>
+      </form>
+
       {auctions.length ? (
         <ul className="container">
           {filteredItems.map((auction) => (
             <li className="item" key={auction.id}>
               <div className=".container-p">
+                <span className="auctionid">Auction Id: {auction.id}</span><br />
                 <span className="auctiontitle">Auction Title: {auction.title}</span><br />
                 <span className="starttime">Start Time: {auction.startTime}</span><br />
                 <span className="endtime">End Time: {auction.endTime}</span><br />
                 <span className="highestbid">Highest Bid: {auction.highestBid}</span><br />
                 <span className="carbrand">Brand for the Car: {getSelectedCar(auction.carId).brand}</span><br />
-                <form onSubmit={(event) => addNewBid(event, filteredItems, auction)} >
-                  <input className="flex-sm-fill text-sm-center nav-link" name="bidText"
-                    value={bidText} onChange={(event) => setNewBidText(event, auction.id)} />
-                  <button type="submit" data-click="AddNewBid">Add New Bid</button>
-                </form>
               </div>
             </li>
           ))}
