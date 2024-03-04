@@ -72,12 +72,14 @@ function MyAuction() {
     bid = bidText
 
     console.log("The bid is: " + bid)
-    console.log(filteredItems[index].highestBid)
+    
 
     if (n <= 0 || id < 0 || index < 0) {
       alert(`Something went wrong or the price is too low!`)
       return bFound
     }
+
+    console.log(filteredItems[index].highestBid)
 
     if (bid > filteredItems[index].highestBid) {
       filteredItems[index].highestBid = bid
