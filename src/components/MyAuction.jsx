@@ -56,7 +56,19 @@ function MyAuction() {
 
   }
 
-  function addNewBid(event, filteredItems) {
+  async function storeAuctionBid(data, id) {
+
+    await fetch(`/api/auctions/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+  }
+
+  async function addNewBid(event, filteredItems) {
 
     event.preventDefault()
 
@@ -72,7 +84,7 @@ function MyAuction() {
     bid = bidText
 
     console.log("The bid is: " + bid)
-    
+
 
     if (n <= 0 || id < 0 || index < 0) {
       alert(`Something went wrong or the price is too low!`)
@@ -91,6 +103,8 @@ function MyAuction() {
 
     if (bFound) {
       setFilteredItems([...filteredItems])
+      console.log(filteredItems[index])
+      // await storeAuctionBid(filteredItems[index], id)
       alert(`Auction object with id ${filteredItems[index].id} has now recieved a new highest bid!`)
     }
 
