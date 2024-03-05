@@ -1,6 +1,6 @@
 import Countdown from "react-countdown";
 
-const renderer = ({ days, hours, minutes, seconds, props }) => {
+const renderer = ({ days, hours, minutes, props }) => {
   return (
     <>
       <div className="col">
@@ -20,7 +20,7 @@ const renderer = ({ days, hours, minutes, seconds, props }) => {
             <p className="lead display-6">{props.item.brand}</p>
             <div className="d-flex jsutify-content-between align-item-center">
               <h5>
-                {days * 24 + hours} hr: {minutes} min: {seconds} sec
+                {days}days {hours} hr: {minutes} min:
               </h5>
             </div>
             <p className="card-text">{props.item.desc}</p>

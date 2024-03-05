@@ -171,7 +171,6 @@
       "features": ["all-wheel drive", "roof rails", "power liftgate"]
     }
   ],
-
   "Auctions": [
     {
       "id": 1,
@@ -212,14 +211,13 @@
     {
       "id": 5,
       "startTime": "2024-02-28 08:15:01",
-      "endTime": "2024-03-28 10:00:01",
+      "endTime": "2024-03-06 10:00:01",
       "highestBid": "300000",
       "carId": 5,
       "userId": "4",
       "status": "0"
     }
   ],
-
   "Users": [
     {
       "id": 1,
@@ -260,6 +258,46 @@
       "name": "Desmond D",
       "email": "desmond.d@example.com",
       "roll": "user"
+    },
+    {
+      "id": "ac72",
+      "email": "gentlejohan2@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "d75f",
+      "email": "gentlejohan2@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "7dfb",
+      "email": "gentlejohan2@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "06a9",
+      "email": "jsjddjsd@dsdd.com",
+      "password": "1234"
+    },
+    {
+      "id": "d0b3",
+      "email": "gentlejohan2@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "bb50",
+      "email": "gentlejohan2@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "c94c",
+      "email": "gentlejohan2@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "6be1",
+      "email": "gentlejohan2@gmail.com",
+      "password": "1234"
     }
   ]
 }
