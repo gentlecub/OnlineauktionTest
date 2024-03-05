@@ -59,7 +59,7 @@ function MyAuction() {
   async function storeAuctionBid(data, id) {
 
     await fetch(`/api/auctions/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -104,7 +104,7 @@ function MyAuction() {
     if (bFound) {
       setFilteredItems([...filteredItems])
       console.log(filteredItems[index])
-      // await storeAuctionBid(filteredItems[index], id)
+      await storeAuctionBid(filteredItems[index], id)
       alert(`Auction object with id ${filteredItems[index].id} has now recieved a new highest bid!`)
     }
 
