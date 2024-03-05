@@ -78,8 +78,10 @@ function MyAuction() {
     let id = -1
     id = auctionIdText
     let index = getAuctionIndexFromId(id, filteredItems)
+    let indexAuction = getAuctionIndexFromId(id, auctions)
     console.log("The id is: " + id)
     console.log("The index is: " + index)
+    console.log("The index of auction is: " + indexAuction)
 
     bid = bidText
 
@@ -95,6 +97,7 @@ function MyAuction() {
 
     if (bid > filteredItems[index].highestBid) {
       filteredItems[index].highestBid = bid
+      auctions[indexAuction].highestBid = bid
       bFound = true
     }
     else {
@@ -103,6 +106,7 @@ function MyAuction() {
 
     if (bFound) {
       setFilteredItems([...filteredItems])
+      setAuctions([...auctions])
       console.log(filteredItems[index])
       await storeAuctionBid(filteredItems[index], id)
       alert(`Auction object with id ${filteredItems[index].id} has now recieved a new highest bid!`)
