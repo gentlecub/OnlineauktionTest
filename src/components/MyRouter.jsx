@@ -8,6 +8,8 @@ import { GlobalProvider } from './GlobalContext.jsx'
 import Cart from '../pages/Cart.jsx'
 import CarDetail from "../pages/CarDetails.jsx"
 import ShowAuctionPage from "../pages/ShowAuctionPage.jsx"
+import UserPage from "../pages/UserPage.jsx"
+
 
 function MyRouter() {
 
@@ -26,6 +28,7 @@ function MyRouter() {
                 <Route path="/cars/:id" element={< CarDetail />} />
                 <Route path="/cart-page" element={<Cart />} />
                 <Route path="/show-auction-page" element={<ShowAuctionPage />} />
+                <Route path="/userpage" element={<UserPage />} />
               </Routes>
             </div>
           </main>
