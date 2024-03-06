@@ -2,7 +2,7 @@ import AuctionForm from "../components/Auctionform";
 
 function UserPage(){
 
-    // must be connected to user
+    // must be connected to user & should only be visible when user is logged in
 
     
     const handleAuctionSubmit = (auctionData) => {
