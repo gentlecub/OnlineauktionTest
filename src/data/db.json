@@ -33,7 +33,11 @@
         "displacement": "2.0L"
       },
       "transmission": "automatic",
-      "features": ["sunroof", "navigation system", "lane departure warning"]
+      "features": [
+        "sunroof",
+        "navigation system",
+        "lane departure warning"
+      ]
     },
     {
       "id": 3,
@@ -48,7 +52,11 @@
         "displacement": "3.5L"
       },
       "transmission": "automatic",
-      "features": ["towing package", "off-road capability", "parking sensors"]
+      "features": [
+        "towing package",
+        "off-road capability",
+        "parking sensors"
+      ]
     },
     {
       "id": 4,
@@ -82,7 +90,11 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["remote start", "blind spot monitoring", "apple carplay"]
+      "features": [
+        "remote start",
+        "blind spot monitoring",
+        "apple carplay"
+      ]
     },
     {
       "id": 6,
@@ -153,7 +165,11 @@
         "displacement": "1.4L"
       },
       "transmission": "automatic",
-      "features": ["heated seats", "android auto", "wireless phone charger"]
+      "features": [
+        "heated seats",
+        "android auto",
+        "wireless phone charger"
+      ]
     },
     {
       "id": 10,
@@ -168,12 +184,17 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["all-wheel drive", "roof rails", "power liftgate"]
+      "features": [
+        "all-wheel drive",
+        "roof rails",
+        "power liftgate"
+      ]
     }
   ],
   "Auctions": [
     {
       "id": 1,
+      "title": "Toyota Corolla Auction",
       "startTime": "2024-02-28 11:35:01",
       "endTime": "2024-04-28 11:45:01",
       "highestBid": "150000",
@@ -183,6 +204,7 @@
     },
     {
       "id": 2,
+      "title": "Honda Civic Auction",
       "startTime": "2024-02-28 13:20:21",
       "endTime": "2024-04-28 13:30:01",
       "highestBid": "190000",
@@ -192,6 +214,7 @@
     },
     {
       "id": 3,
+      "title": "Ford F-150 Auction",
       "startTime": "2024-02-28 14:05:00",
       "endTime": "2024-04-28 15:00:01",
       "highestBid": "200000",
@@ -201,6 +224,7 @@
     },
     {
       "id": 4,
+      "title": "Chevrolet Malibu Auction",
       "startTime": "2024-02-28 10:30:01",
       "endTime": "2024-03-28 11:50:01",
       "highestBid": "110000",
@@ -210,6 +234,7 @@
     },
     {
       "id": 5,
+      "title": "Nissan Altima Auction",
       "startTime": "2024-02-28 08:15:01",
       "endTime": "2024-03-06 10:00:01",
       "highestBid": "300000",
@@ -298,6 +323,23 @@
       "id": "6be1",
       "email": "gentlejohan2@gmail.com",
       "password": "1234"
+    }
+  ],
+  "bid": [
+    {
+      "userId": "user_id_here",
+      "auctionId": "auction_id_here",
+      "bidAmount": 1000
+    },
+    {
+      "id": "3307",
+      "auctionId": 1,
+      "bidAmount": 4000000
+    },
+    {
+      "id": "1748",
+      "auctionId": 1,
+      "bidAmount": 1000
     }
   ]
 }

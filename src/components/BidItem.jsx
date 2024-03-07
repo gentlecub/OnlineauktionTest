@@ -1,23 +1,10 @@
+import { useState } from "react";
 import Countdown from "react-countdown";
-function BidItem({ item }) {
-  let date = new Date(item.duration);
-  const day = date.getDate();
-  const namemonths = [
-    "jan",
-    "feb",
-    "mar",
-    "apr",
-    "may",
-    "jun",
-    "jul",
-    "aug",
-    "sep",
-    "oct",
-    "nov",
-    "dec",
-  ];
-  const moth = namemonths[date.getMonth()];
-  const year = date.getFullYear();
+
+function BidItem({ item, userId }) {
+  const date = new Date(item.endTime);
+  const [bidText, setBidText] = useState("");
+
   const renderer = ({ hours, minutes }) => {
     return (
       <span className="align-middle fs-4">
@@ -25,6 +12,40 @@ function BidItem({ item }) {
       </span>
     );
   };
+
+  async function addNewBid(event) {
+    event.preventDefault();
+
+    const newBid = {
+      auctionId: item.id,
+      bidAmount: parseInt(bidText),
+      userId: userId, // Användarens ID
+    };
+
+    try {
+      const response = await fetch("/api/bid", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newBid),
+      });
+
+      if (response.ok) {
+        alert("Bid placed successfully!");
+        // Implementera ytterligare logik efter lyckad budplacering
+      } else {
+        alert("Failed to place bid. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error placing bid:", error);
+      alert("An error occurred while placing the bid. Please try again later.");
+    }
+  }
+
+  function setNewBidText(event) {
+    setBidText(event.target.value);
+  }
 
   return (
     <>
@@ -34,10 +55,14 @@ function BidItem({ item }) {
             <div className="col">
               <span className="fs-6">Termina :</span>
               <br />
-              <span> {`${day} ${moth} ${year}`}</span>
+              <span>
+                {`${date.getDate()} ${date.toLocaleString("default", {
+                  month: "short",
+                })} ${date.getFullYear()}`}
+              </span>
             </div>
             <div className="col" style={{ paddingTop: "10px" }}>
-              <Countdown date={date.getTime()} renderer={renderer} />
+              <Countdown date={date} renderer={renderer} />
             </div>
           </div>
         </div>
@@ -48,21 +73,28 @@ function BidItem({ item }) {
           className="d-grid gap-2 col-6 mx-auto b-1"
           style={{ paddingBottom: "10px" }}
         >
-          <button className="btn btn-outline-secondary" type="button">
-            Bid
-          </button>
+          <form onSubmit={addNewBid}>
+            <input
+              className="form-control"
+              type="number"
+              value={bidText}
+              onChange={setNewBidText}
+              placeholder="Enter your bid"
+            />
+            <button className="btn btn-outline-secondary mt-2" type="submit">
+              Bid
+            </button>
+          </form>
         </div>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item" key={1}>
-            An item
-          </li>
-          <li className="list-group-item" key={2}>
-            A second item
-          </li>
-          <li className="list-group-item" key={3}>
-            A third item
-          </li>
-        </ul>
+        {item.features && (
+          <ul className="list-group list-group-flush">
+            {item.features.map((feature, index) => (
+              <li className="list-group-item" key={index}>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </>
   );
