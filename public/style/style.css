@@ -224,3 +224,11 @@ nav a:hover h1 {
   font-size: 25px;
   font-weight: 300;
 }
+.login {
+  width: 300px; 
+}
+.registerForm{
+  margin-top: 40px;
+  display: flex;
+  gap: 300px;
+}

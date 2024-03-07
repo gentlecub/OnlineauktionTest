@@ -9,7 +9,7 @@ import Cart from '../pages/Cart.jsx'
 import CarDetail from "../pages/CarDetails.jsx"
 import ShowAuctionPage from "../pages/ShowAuctionPage.jsx"
 import UserPage from "../pages/UserPage.jsx"
-
+import RegisterUser from '../pages/RegisterUser.jsx'
 
 function MyRouter() {
 
@@ -27,8 +27,11 @@ function MyRouter() {
                 <Route path="/contact-page" element={<ContactPage />} />
                 <Route path="/cars/:id" element={< CarDetail />} />
                 <Route path="/cart-page" element={<Cart />} />
-                <Route path="/show-auction-page" element={<ShowAuctionPage />} />
+       
                 <Route path="/userpage" element={<UserPage />} />
+                <Route path="/cart-page" element={ <Cart /> } />
+                <Route path="/registering-page" element={ <RegisterUser /> } />
+                <Route path="/show-auction-page" element={<ShowAuctionPage/>} />
               </Routes>
             </div>
           </main>
