@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import BidItem from "./BidItem";
 
 function MyAuction() {
   const [auctions, setAuctions] = useState([]);
@@ -40,39 +39,50 @@ function MyAuction() {
     setAuctionIdText(event.target.value);
   }
 
-  const addNewBid = async (event) => {
+  async function addNewBid(event) {
     event.preventDefault();
-    const id = parseInt(auctionIdText);
-    const bid = parseFloat(bidText);
 
-    if (!id || !bid) {
-      alert("Auction ID or Bid Price is invalid.");
-      return;
-    }
-
-    const index = auctions.findIndex(auction => auction.id === id);
-    if (index === -1) {
-      alert("Auction ID not found.");
-      return;
-    }
-
-    const updatedAuctions = [...auctions];
-    updatedAuctions[index].highestBid = bid;
+    const newBid = {
+      auctionId: parseInt(auctionIdText),
+      bidAmount: parseFloat(bidText)
+    };
 
     try {
-      await fetch(`/api/auctions/${id}`, {
-        method: "PATCH",
+      const response = await fetch("/api/bid", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedAuctions[index]),
+        body: JSON.stringify(newBid),
       });
-      setAuctions(updatedAuctions);
-      setFilteredItems(updatedAuctions);
-      alert(`Auction object with ID ${id} has now received a new highest bid!`);
+
+      if (response.ok) {
+        alert("Bid placed successfully!");
+
+        // Hämta den uppdaterade auktionen från servern
+        const updatedAuctionResponse = await fetch(`/api/auctions/${newBid.auctionId}`);
+        const updatedAuctionData = await updatedAuctionResponse.json();
+
+        // Uppdatera den lokala state-variabeln auctions med den uppdaterade auktionen
+        setAuctions(prevAuctions => {
+          const updatedAuctions = prevAuctions.map(auction => {
+            if (auction.id === updatedAuctionData.id) {
+              return updatedAuctionData;
+            }
+            return auction;
+          });
+          return updatedAuctions;
+        });
+
+        // Återställ formuläret efter att budet har lagts till
+        setBidText("");
+        setAuctionIdText("");
+      } else {
+        alert("Failed to place bid. Please try again.");
+      }
     } catch (error) {
-      console.error("Error updating bid:", error);
-      alert("Failed to update bid.");
+      console.error("Error placing bid:", error);
+      alert("An error occurred while placing the bid. Please try again later.");
     }
   }
 

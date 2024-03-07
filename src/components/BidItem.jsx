@@ -4,6 +4,7 @@ import Countdown from "react-countdown";
 function BidItem({ item, userId }) {
   const date = new Date(item.endTime);
   const [bidText, setBidText] = useState("");
+  const [feedbackMessage, setFeedbackMessage] = useState("");
 
   const renderer = ({ hours, minutes }) => {
     return (
@@ -19,7 +20,7 @@ function BidItem({ item, userId }) {
     const newBid = {
       auctionId: item.id,
       bidAmount: parseInt(bidText),
-      userId: userId, // Användarens ID
+      userId: userId,
     };
 
     try {
@@ -32,14 +33,13 @@ function BidItem({ item, userId }) {
       });
 
       if (response.ok) {
-        alert("Bid placed successfully!");
-        // Implementera ytterligare logik efter lyckad budplacering
+        setFeedbackMessage("Bid placed successfully!");
       } else {
-        alert("Failed to place bid. Please try again.");
+        setFeedbackMessage("Failed to place bid. Please try again.");
       }
     } catch (error) {
       console.error("Error placing bid:", error);
-      alert("An error occurred while placing the bid. Please try again later.");
+      setFeedbackMessage("An error occurred while placing the bid. Please try again later.");
     }
   }
 
@@ -85,6 +85,7 @@ function BidItem({ item, userId }) {
               Bid
             </button>
           </form>
+          {feedbackMessage && <p className={response.ok ? "text-success" : "text-danger"}>{feedbackMessage}</p>}
         </div>
         {item.features && (
           <ul className="list-group list-group-flush">

@@ -1,21 +1,15 @@
 import { createContext, useState, useEffect } from "react";
-import apiRequest from "./apiRequest";
-import { Await } from "react-router-dom";
 
 const GlobalContext = createContext();
 const API_CAR_URL = "http://localhost:3000/cars";
-const API_USER_URL = "http://localhost:3000/Users";
 const API_AUTION_URL = "http://localhost:3000/Auctions";
+const API_BID_URL = "http://localhost:3000/bid";
 
 function GlobalProvider({ children }) {
-  const [value, setValue] = useState(1);
   const [carItem, setCarItem] = useState([]);
-  const [user, setUser] = useState([]);
   const [auction, setAuction] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [filteredCartItems, setFilteredCartItems] = useState([]);
-  const [duration, setduration] = useState([]);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -34,7 +28,6 @@ function GlobalProvider({ children }) {
           }
           return car;
         });
-        console.log(updatedCarItem);
         setCarItem(updatedCarItem);
         setFetchError(null);
       } catch (err) {
@@ -66,18 +59,33 @@ function GlobalProvider({ children }) {
     }
   }, [carItem]);
 
+  const placeBid = async (auctionId, bidAmount) => {
+    try {
+      const response = await fetch(`${API_BID_URL}/${auctionId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bidAmount }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to send bid to server.");
+      }
+      console.log("Bid successfully sent to server.");
+    } catch (error) {
+      console.error("Error sending bid to server:", error);
+      throw error;
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
         carItem,
-        setCarItem,
-        fetchError,
-        setFetchError,
-        isLoading,
-        setIsLoading,
-        duration,
-        setduration,
         auction,
+        fetchError,
+        isLoading,
+        placeBid,
       }}
     >
       {children}
