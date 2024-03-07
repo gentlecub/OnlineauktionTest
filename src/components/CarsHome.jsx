@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -18,7 +18,9 @@ function CarsHome() {
   }, []) // tom array som andra argument = körs endast vid komponentladdning
   
   return (
-      <main>
+    <main>
+      
+
             {cars.length ? (
                 <ul className="container">
                   {cars.map((car) => (

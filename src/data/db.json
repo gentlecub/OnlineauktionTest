@@ -182,7 +182,7 @@
       ]
     }
   ],
-  "Auctions": [
+  "auctions": [
     {
       "id": "1",
       "startTime": "2024-02-28 11:35:01",
@@ -229,7 +229,7 @@
       "status": "0"
     }
   ],
-  "Users": [
+  "users": [
     {
       "id": "1",
       "username": "john",
@@ -290,6 +290,22 @@
       "id": "0922",
       "Username": "Test",
       "password": "12345"
+    },
+    {
+      "id": "2b63",
+      "Username": "Test 2",
+      "password": "245624fg",
+      "name": "Test test 2",
+      "Email": "test2@test.se",
+      "roll": "admin"
+    },
+    {
+      "id": "3ed0",
+      "Username": "final test",
+      "password": "12446",
+      "name": "Final",
+      "Email": "final@test.se",
+      "roll": "admin"
     }
   ]
 }

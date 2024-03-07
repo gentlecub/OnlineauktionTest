@@ -2,11 +2,11 @@ import NewUser from "../components/NewUser.jsx";
 import Login from "../components/Login.jsx";
 
 function RegisterUser () {
-  
+
   return (
     <div className="registerForm">
-      <form onSubmit={ NewUser }>
-        <br />
+      <form onSubmit={ NewUser } >
+        <br /> 
         <h3>Registration</h3><br/>
         <label>Username:</label><br /><input type="text" name="Username" placeholder="UserName..." /><br />
         <label>Password:</label><br /><input type="password" name="password" placeholder="Password..." /><br />
@@ -15,6 +15,7 @@ function RegisterUser () {
         <label>Roll:</label><br /><input type="text" name="roll" placeholder="admin or user?..." /><br /><br />
         <input type="submit" value="Register" />
       </form> 
+
       
       <div className="login"><br />
         <form onSubmit={Login}>
@@ -24,14 +25,15 @@ function RegisterUser () {
           <input type="submit" value="Login" />
 
         </form>
-        
+       
 
       </div>
-    </div>
-    
-   
-  )
-    
+    </div>  
+  )   
 
 }
+
+
+
+
 export default RegisterUser
