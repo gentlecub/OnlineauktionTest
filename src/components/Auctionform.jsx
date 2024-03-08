@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-function AuctionForm({ onSubmit, auction}){
+function AuctionForm({ onSubmit, closeForm, auction}){
 
     // should include user
-    
+    // create validation
+
     const [formState, setFormState] = useState(
         {
         brand: auction?.brand || '',
@@ -82,7 +83,7 @@ function AuctionForm({ onSubmit, auction}){
             };
 
 
-            const auctionResponse = await fetch('/api/Auctions', {
+            const auctionResponse = await fetch('/api/auctions', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(auctionData)
@@ -102,138 +103,74 @@ function AuctionForm({ onSubmit, auction}){
     };
 
 
-
-
-
-
-
-
-
-
-
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Brand:
-                    <input
-                        type="text"
-                        name="brand"
-                        value={formState.brand}
-                        onChange={handleChange}
-                    />
-                </label>
-                <label>
-                    Model:
-                    <input
-                        type="text"
-                        name="model"
-                        value={formState.model}
-                        onChange={handleChange}
-                    />
-                </label>
-                <label>
-                    Year:
-                    <input
-                        type="number"
-                        name="year"
-                        value={formState.year}
-                        onChange={handleChange}
-                        />
-                </label>
-                <label>
-                    Color:
-                    <input
-                        type="text"
-                        name="color"
-                        value={formState.color}
-                        onChange={handleChange}
-                        />
-                </label>
-                <label>
-                    Mileage:
-                    <input
-                        type="number"
-                        name="mileage"
-                        value={formState.mileage}
-                        onChange={handleChange}
-                        />
-                </label>
-                <label>
-                    Engine Type:
-                    <input
-                        type="text"
-                        name="engineType"
-                        value={formState.engineType}
-                        onChange={handleChange}
-                        />
-                </label>
-                <label>
-                    Engine Displacement:
-                    <input
-                        type="text"
-                        name="engineDisplacement"
-                        value={formState.engineDisplacement}
-                        onChange={handleChange}
-                        />
-                </label>
-                <label>
-                    Transmission:
-                    <select
-                        name="transmission"
-                        value={formState.transmission}
-                        onChange={handleChange}
-                        >
-                        <option value="">Select Transmission</option>
-                        <option value="automatic">Automatic</option>
-                        <option value="manual">Manual</option>
+        <div className="auction-form-container">
+ 
+
+            <form onSubmit={handleSubmit} className="container bg-light p-4 my-5 border rounded" style={{ backdropFilter: 'blur(10px)' }}>
+            <button className="close-button" onClick={closeForm}>X</button>
+
+                <div className="row g-2">
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="brand" className="form-label">Brand:</label>
+                    <input type="text" className="form-control" id="brand" name="brand" value={formState.brand} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="model" className="form-label">Model:</label>
+                    <input type="text" className="form-control" id="model" name="model" value={formState.model} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="year" className="form-label">Year:</label>
+                    <input type="number" className="form-control" id="year" name="year" value={formState.year} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="color" className="form-label">Color:</label>
+                    <input type="text" className="form-control" id="color" name="color" value={formState.color} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="mileage" className="form-label">Mileage:</label>
+                    <input type="number" className="form-control" id="mileage" name="mileage" value={formState.mileage} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="engineType" className="form-label">Engine Type:</label>
+                    <input type="text" className="form-control" id="engineType" name="engineType" value={formState.engineType} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="engineDisplacement" className="form-label">Engine Displacement:</label>
+                    <input type="text" className="form-control" id="engineDisplacement" name="engineDisplacement" value={formState.engineDisplacement} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="transmission" className="form-label">Transmission:</label>
+                    <select className="form-select" id="transmission" name="transmission" value={formState.transmission} onChange={handleChange}>
+                    <option value="">Select Transmission</option>
+                    <option value="automatic">Automatic</option>
+                    <option value="manual">Manual</option>
                     </select>
-                </label>
-                <label>
-                    Features:
-                    <input
-                        type="text"
-                        name="features"
-                        placeholder="Enter features separated by commas"
-                        value={formState.features.join(', ')}
-                        onChange={handleFeatureChange}
-                        />
-                </label>
-            </div>
-            
-
-
-
-            <label>
-                Start Time:
-                <input
-                    type="datetime-local"
-                    name="startTime"
-                    value={formState.startTime}
-                    onChange={handleChange}
-                />
-            </label>
-            <label>
-                End Time:
-                <input
-                    type="datetime-local"
-                    name="endTime"
-                    value={formState.endTime}
-                    onChange={handleChange}
-                />
-            </label>
-            <label>
-                Highest Bid:
-                <input
-                    type="number"
-                    name="highestBid"
-                    value={formState.highestBid}
-                    onChange={handleChange}
-                />
-            </label>
-            <button type="submit">Save Auction</button>
-        </form>
-    );
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="features" className="form-label">Features:</label>
+                    <input type="text" className="form-control" id="features" name="features" placeholder="Enter features separated by commas" value={formState.features.join(', ')} onChange={handleFeatureChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="startTime" className="form-label">Start Time:</label>
+                    <input type="datetime-local" className="form-control" id="startTime" name="startTime" value={formState.startTime} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="endTime" className="form-label">End Time:</label>
+                    <input type="datetime-local" className="form-control" id="endTime" name="endTime" value={formState.endTime} onChange={handleChange} />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="highestBid" className="form-label">Highest Bid:</label>
+                    <input type="number" className="form-control" id="highestBid" name="highestBid" value={formState.highestBid} onChange={handleChange} />
+                </div>
+                </div>
+                <div className="d-grid gap-2">
+                <button type="submit" className="btn btn-primary btn-lg">Save Auction</button>
+                </div>
+            </form>
+        </div>
+        );
+        
 }
 
 
