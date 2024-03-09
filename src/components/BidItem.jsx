@@ -6,6 +6,9 @@ function BidItem({ item, userId }) {
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
 
+  const latestBid = item.latestBid || {};
+  const highestBidAmount = latestBid.bidAmount || 0;
+
   const renderer = ({ hours, minutes }) => {
     return (
       <span className="align-middle fs-4">
@@ -15,15 +18,16 @@ function BidItem({ item, userId }) {
   };
 
   async function addNewBid(event) {
-    event.preventDefault();
+    event.preventDefault(); // Förhindra standardbeteendet för formuläret
 
     const newBid = {
       auctionId: item.id,
       bidAmount: parseInt(bidText),
-      userId: userId,
+      userId: userId, // Lägg till userId i budet
     };
 
     try {
+      // Skicka budet till servern
       const response = await fetch("/api/bid", {
         method: "POST",
         headers: {
@@ -33,6 +37,8 @@ function BidItem({ item, userId }) {
       });
 
       if (response.ok) {
+        // Uppdatera budet på hemsidan om anropet till servern lyckades
+        updateBidOnWebsite(parseInt(bidText));
         setFeedbackMessage("Bid placed successfully!");
       } else {
         setFeedbackMessage("Failed to place bid. Please try again.");
@@ -41,6 +47,11 @@ function BidItem({ item, userId }) {
       console.error("Error placing bid:", error);
       setFeedbackMessage("An error occurred while placing the bid. Please try again later.");
     }
+  }
+
+  async function updateBidOnWebsite(newBidAmount) {
+    // Implementera funktionen för att uppdatera budet på hemsidan här
+    // Det kan vara att du behöver göra ett anrop till en annan API-endpoint eller uppdatera state för att spegla det nya budet på hemsidan
   }
 
   function setNewBidText(event) {
@@ -85,7 +96,10 @@ function BidItem({ item, userId }) {
               Bid
             </button>
           </form>
-          {feedbackMessage && <p className={response.ok ? "text-success" : "text-danger"}>{feedbackMessage}</p>}
+          {feedbackMessage && <p className="text-success">{feedbackMessage}</p>}
+        </div>
+        <div className="text-center">
+          <p>Highest Bid: ${highestBidAmount}</p>
         </div>
         {item.features && (
           <ul className="list-group list-group-flush">
