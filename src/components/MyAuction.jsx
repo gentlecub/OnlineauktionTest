@@ -6,6 +6,7 @@ function MyAuction() {
   const [bidText, setBidText] = useState("");
   const [auctionIdText, setAuctionIdText] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
+  const [userId, setUserId] = useState(""); // Användar-ID, du behöver hämta detta från inloggningen eller användaren
 
   useEffect(() => {
     async function loadAuctions() {
@@ -16,7 +17,7 @@ function MyAuction() {
         }
         const data = await responseAuctions.json();
         setAuctions(data);
-        setFilteredItems(data); // Sätt filterad lista till alla auktioner vid första laddningen
+        setFilteredItems(data); // Set filtered list to all auctions initially
       } catch (error) {
         console.error("Error loading auctions:", error);
       }
@@ -25,10 +26,12 @@ function MyAuction() {
     loadAuctions();
   }, []);
 
+  useEffect(() => {
+    setFilteredItems(auctions.filter(item => item.title.toLowerCase().includes(searchTitle.toLowerCase())));
+  }, [searchTitle, auctions]);
+
   const handleSearchTitle = (event) => {
     setSearchTitle(event.target.value);
-    const newAuctionList = auctions.filter(item => item.title.toLowerCase().includes(event.target.value.toLowerCase()));
-    setFilteredItems(newAuctionList);
   }
 
   const setNewBidText = (event) => {
@@ -42,12 +45,23 @@ function MyAuction() {
   async function addNewBid(event) {
     event.preventDefault();
 
+    const id = parseInt(auctionIdText);
+    const index = getAuctionIndexFromId(id, filteredItems);
+    const bid = parseFloat(bidText);
+
+    if (filteredItems.length <= 0 || id < 0 || index < 0) {
+      alert(`Something went wrong or the price is too low!`);
+      return;
+    }
+
     const newBid = {
-      auctionId: parseInt(auctionIdText),
-      bidAmount: parseFloat(bidText)
+      auctionId: id,
+      bidAmount: bid,
+      userId: userId,
     };
 
     try {
+      // POST request to save the bid to the database
       const response = await fetch("/api/bid", {
         method: "POST",
         headers: {
@@ -56,34 +70,27 @@ function MyAuction() {
         body: JSON.stringify(newBid),
       });
 
-      if (response.ok) {
-        alert("Bid placed successfully!");
-
-        // Hämta den uppdaterade auktionen från servern
-        const updatedAuctionResponse = await fetch(`/api/auctions/${newBid.auctionId}`);
-        const updatedAuctionData = await updatedAuctionResponse.json();
-
-        // Uppdatera den lokala state-variabeln auctions med den uppdaterade auktionen
-        setAuctions(prevAuctions => {
-          const updatedAuctions = prevAuctions.map(auction => {
-            if (auction.id === updatedAuctionData.id) {
-              return updatedAuctionData;
-            }
-            return auction;
-          });
-          return updatedAuctions;
-        });
-
-        // Återställ formuläret efter att budet har lagts till
-        setBidText("");
-        setAuctionIdText("");
-      } else {
-        alert("Failed to place bid. Please try again.");
+      if (!response.ok) {
+        throw new Error("Failed to place bid. Please try again.");
       }
+
+      // Update the local state with the new bid
+      const updatedItems = [...filteredItems];
+      updatedItems[index].highestBid = bid;
+      setFilteredItems(updatedItems);
+
+      alert("Bid placed successfully!");
+
+      setBidText("");
+      setAuctionIdText("");
     } catch (error) {
       console.error("Error placing bid:", error);
       alert("An error occurred while placing the bid. Please try again later.");
     }
+  }
+
+  function getAuctionIndexFromId(id, items) {
+    return items.findIndex(item => item.id === id);
   }
 
   return (
@@ -123,7 +130,6 @@ function MyAuction() {
                 <span className="starttime">Start Time: {auction.startTime}</span><br />
                 <span className="endtime">End Time: {auction.endTime}</span><br />
                 <span className="highestbid">Highest Bid: {typeof auction.highestBid === 'number' ? `$${auction.highestBid.toFixed(2)}` : auction.highestBid}</span><br />
-                {/* För att visa övrig information om auktionen */}
               </div>
             </li>
           ))}

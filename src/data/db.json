@@ -340,6 +340,18 @@
       "id": "1748",
       "auctionId": 1,
       "bidAmount": 1000
+    },
+    {
+      "id": "17bc",
+      "auctionId": 1,
+      "bidAmount": 12121212,
+      "userId": ""
+    },
+    {
+      "id": "a97c",
+      "auctionId": 1,
+      "bidAmount": 160000,
+      "userId": ""
     }
   ]
 }
