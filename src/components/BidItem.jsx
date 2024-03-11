@@ -1,33 +1,51 @@
 import { useState } from "react";
 import Countdown from "react-countdown";
 
-function BidItem({ item, userId }) {
+function BidItem({ item, userId }) { // Ta emot userId som en prop
   const date = new Date(item.endTime);
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [isBidSuccessful, setIsBidSuccessful] = useState(true);
 
   const latestBid = item.latestBid || {};
   const highestBidAmount = latestBid.bidAmount || 0;
 
-  const renderer = ({ hours, minutes }) => {
-    return (
-      <span className="align-middle fs-4">
-        {hours}hr :{minutes} min
-      </span>
-    );
+  const renderer = ({ hours, minutes }) => (
+    <span className="align-middle fs-4">
+      {hours}hr :{minutes} min
+    </span>
+  );
+
+  const validateBid = (bidAmount) => {
+    if (isNaN(bidAmount)) {
+      setFeedbackMessage("Please enter a valid number for your bid.");
+      setIsBidSuccessful(false);
+      return false;
+    }
+
+    if (bidAmount <= highestBidAmount) {
+      setFeedbackMessage(`Your bid must be higher than the current highest bid of $${highestBidAmount}.`);
+      setIsBidSuccessful(false);
+      return false;
+    }
+
+    return true;
   };
 
   async function addNewBid(event) {
-    event.preventDefault(); // Förhindra standardbeteendet för formuläret
+    event.preventDefault();
+
+    const bidAmount = parseInt(bidText);
+    if (!validateBid(bidAmount)) return;
 
     const newBid = {
       auctionId: item.id,
-      bidAmount: parseInt(bidText),
-      userId: userId, // Lägg till userId i budet
+      bidAmount: bidAmount,
+      userId, // Använd userId här som tas emot som en prop
     };
 
     try {
-      // Skicka budet till servern
+      // Uppdatera denna URL till din server-endpoint
       const response = await fetch("/api/bid", {
         method: "POST",
         headers: {
@@ -37,21 +55,17 @@ function BidItem({ item, userId }) {
       });
 
       if (response.ok) {
-        // Uppdatera budet på hemsidan om anropet till servern lyckades
-        updateBidOnWebsite(parseInt(bidText));
         setFeedbackMessage("Bid placed successfully!");
+        setIsBidSuccessful(true);
       } else {
         setFeedbackMessage("Failed to place bid. Please try again.");
+        setIsBidSuccessful(false);
       }
     } catch (error) {
       console.error("Error placing bid:", error);
       setFeedbackMessage("An error occurred while placing the bid. Please try again later.");
+      setIsBidSuccessful(false);
     }
-  }
-
-  async function updateBidOnWebsite(newBidAmount) {
-    // Implementera funktionen för att uppdatera budet på hemsidan här
-    // Det kan vara att du behöver göra ett anrop till en annan API-endpoint eller uppdatera state för att spegla det nya budet på hemsidan
   }
 
   function setNewBidText(event) {
@@ -59,31 +73,13 @@ function BidItem({ item, userId }) {
   }
 
   return (
-    <>
-      <div className="card">
-        <div className="text-center">
-          <div className="row">
-            <div className="col">
-              <span className="fs-6">Termina :</span>
-              <br />
-              <span>
-                {`${date.getDate()} ${date.toLocaleString("default", {
-                  month: "short",
-                })} ${date.getFullYear()}`}
-              </span>
-            </div>
-            <div className="col" style={{ paddingTop: "10px" }}>
-              <Countdown date={date} renderer={renderer} />
-            </div>
-          </div>
-        </div>
-        <div className=" text-center">
-          <p className="fs-5">$ {item.price} </p>
-        </div>
-        <div
-          className="d-grid gap-2 col-6 mx-auto b-1"
-          style={{ paddingBottom: "10px" }}
-        >
+    <div className="card">
+      {item.imageUrl && <img src={item.imageUrl} className="card-img-top" alt={item.name} />}
+      <div className="card-body">
+        <h5 className="card-title">{item.name}</h5>
+        <p className="card-text">Starting price: ${item.price}</p>
+        <p className="card-text"><small className="text-muted">Ends in: <Countdown date={date} renderer={renderer} /></small></p>
+        <div className="d-grid gap-2">
           <form onSubmit={addNewBid}>
             <input
               className="form-control"
@@ -92,26 +88,20 @@ function BidItem({ item, userId }) {
               onChange={setNewBidText}
               placeholder="Enter your bid"
             />
-            <button className="btn btn-outline-secondary mt-2" type="submit">
-              Bid
-            </button>
+            <button className="btn btn-primary mt-2" type="submit">Place Bid</button>
           </form>
-          {feedbackMessage && <p className="text-success">{feedbackMessage}</p>}
+          <p className={`text-${isBidSuccessful ? 'success' : 'danger'}`}>{feedbackMessage}</p>
         </div>
-        <div className="text-center">
-          <p>Highest Bid: ${highestBidAmount}</p>
-        </div>
-        {item.features && (
-          <ul className="list-group list-group-flush">
-            {item.features.map((feature, index) => (
-              <li className="list-group-item" key={index}>
-                {feature}
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
-    </>
+      <ul className="list-group list-group-flush">
+        {item.features && item.features.map((feature, index) => (
+          <li className="list-group-item" key={index}>{feature}</li>
+        ))}
+      </ul>
+      <div className="card-footer">
+        <small className="text-muted">Highest Bid: ${highestBidAmount}</small>
+      </div>
+    </div>
   );
 }
 
