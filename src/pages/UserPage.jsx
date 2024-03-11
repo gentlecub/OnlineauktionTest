@@ -16,10 +16,11 @@ function UserPage(){
 
     return (
 
-        <div>
-            <h1>User Dashboard</h1>
+        <div><br />
+            <h3>User Dashboard</h3><br />
             { showForm ? ( <AuctionForm onSubmit={handleAuctionSubmit} closeForm = {() => setShowForm(false)} />) : 
-            (<button className="btn btn-primary" onClick={ () => setShowForm(true)}> Create new Auction </button> ) }
+                ( <button className="btn btn-primary" onClick={ () => setShowForm( true ) }> Create new Auction </button> ) }
+            <br /><br />
         </div>
     )
 
