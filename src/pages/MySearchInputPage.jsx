@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useContext } from 'react'
-import { GlobalContext, GlobalProvider } from "../components/GlobalContext.jsx";
+import { GlobalContext, GlobalProvider } from "../context/GlobalContext.jsx";
 
 
 function MySearchInputPage() {

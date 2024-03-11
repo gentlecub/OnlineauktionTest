@@ -18,14 +18,7 @@ function RegisterUser () {
 
       
       <div className="login"><br />
-        <form onSubmit={Login}>
-          <h3>Login</h3><br />
-          <label>Username:</label><br /><input type="text" name="Username" placeholder="UserName..." /><br />
-          <label>Password:</label><br /><input type="password" name="password" placeholder="Password..." /><br /><br />
-          <input type="submit" value="Login" />
-
-        </form>
-       
+      <Login />
 
       </div>
     </div>  
