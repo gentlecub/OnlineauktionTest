@@ -4,7 +4,7 @@ import MyNav from "./MyNav.jsx"
 import HomePage from "../pages/HomePage.jsx"
 import MySearchInputPage from "../pages/MySearchInputPage.jsx"
 import ContactPage from "../pages/ContactPage.jsx"
-import { GlobalProvider } from './GlobalContext.jsx'
+import { GlobalProvider } from '../context/GlobalContext.jsx'
 import Cart from '../pages/Cart.jsx'
 import CarDetail from "../pages/CarDetails.jsx"
 import ShowAuctionPage from "../pages/ShowAuctionPage.jsx"
