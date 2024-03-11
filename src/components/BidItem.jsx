@@ -47,7 +47,7 @@ function BidItem({ item, userId }) {
     const newBid = {
       auctionId: item.id,
       bidAmount,
-      userId: "userId", // Anta att userId är korrekt hanterat och finns
+      userId: "", // Anta att userId är korrekt hanterat och finns
     };
 
     try {
