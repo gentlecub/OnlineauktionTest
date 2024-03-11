@@ -1,30 +1,36 @@
 import { useState } from "react";
 import Countdown from "react-countdown";
 
-function BidItem({ item, userId }) { // Ta emot userId som en prop
-  const date = new Date(item.endTime);
+function BidItem({ item, userId }) {
+  const endTime = new Date(item.endTime);
+  const isValidDate = !isNaN(endTime.getTime());
+
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
-  const [isBidSuccessful, setIsBidSuccessful] = useState(true);
+  const [isBidSuccessful, setIsBidSuccessful] = useState(false);
 
   const latestBid = item.latestBid || {};
   const highestBidAmount = latestBid.bidAmount || 0;
+  const startPrice = item.price; // Antag att detta är startpriset för auktionen
 
-  const renderer = ({ hours, minutes }) => (
-    <span className="align-middle fs-4">
-      {hours}hr :{minutes} min
-    </span>
-  );
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <span className="align-middle fs-4">Auktionen har avslutats</span>;
+    } else {
+      return <span className="align-middle fs-4">{days}d {hours}h {minutes}m {seconds}s kvar</span>;
+    }
+  };
 
   const validateBid = (bidAmount) => {
     if (isNaN(bidAmount)) {
-      setFeedbackMessage("Please enter a valid number for your bid.");
+      setFeedbackMessage("Ange ett giltigt tal för ditt bud.");
       setIsBidSuccessful(false);
       return false;
     }
 
-    if (bidAmount <= highestBidAmount) {
-      setFeedbackMessage(`Your bid must be higher than the current highest bid of $${highestBidAmount}.`);
+    const minimumBid = Math.max(startPrice, highestBidAmount + 1); // Budet måste vara minst en enhet högre
+    if (bidAmount < minimumBid) {
+      setFeedbackMessage(`Ditt bud måste vara högre än $${minimumBid}.`);
       setIsBidSuccessful(false);
       return false;
     }
@@ -40,12 +46,11 @@ function BidItem({ item, userId }) { // Ta emot userId som en prop
 
     const newBid = {
       auctionId: item.id,
-      bidAmount: bidAmount,
-      userId, // Använd userId här som tas emot som en prop
+      bidAmount,
+      userId: "userId", // Anta att userId är korrekt hanterat och tillhandahållet
     };
 
     try {
-      // Uppdatera denna URL till din server-endpoint
       const response = await fetch("/api/bid", {
         method: "POST",
         headers: {
@@ -55,15 +60,15 @@ function BidItem({ item, userId }) { // Ta emot userId som en prop
       });
 
       if (response.ok) {
-        setFeedbackMessage("Bid placed successfully!");
+        setFeedbackMessage("Budet har lagts framgångsrikt!");
         setIsBidSuccessful(true);
       } else {
-        setFeedbackMessage("Failed to place bid. Please try again.");
+        setFeedbackMessage("Det gick inte att lägga budet. Försök igen.");
         setIsBidSuccessful(false);
       }
     } catch (error) {
-      console.error("Error placing bid:", error);
-      setFeedbackMessage("An error occurred while placing the bid. Please try again later.");
+      console.error("Fel vid placering av bud:", error);
+      setFeedbackMessage("Ett fel inträffade vid placering av budet. Försök igen senare.");
       setIsBidSuccessful(false);
     }
   }
@@ -77,18 +82,23 @@ function BidItem({ item, userId }) { // Ta emot userId som en prop
       {item.imageUrl && <img src={item.imageUrl} className="card-img-top" alt={item.name} />}
       <div className="card-body">
         <h5 className="card-title">{item.name}</h5>
-        <p className="card-text">Starting price: ${item.price}</p>
-        <p className="card-text"><small className="text-muted">Ends in: <Countdown date={date} renderer={renderer} /></small></p>
+        <p className="card-text">Startpris: ${startPrice}</p>
+        <p className="card-text">
+          <small className="text-muted">
+            Slutdatum: {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : 'Ogiltigt eller saknas'}
+          </small>
+        </p>
         <div className="d-grid gap-2">
           <form onSubmit={addNewBid}>
             <input
               className="form-control"
               type="number"
+              min={Math.max(startPrice, highestBidAmount) + 1}
               value={bidText}
               onChange={setNewBidText}
-              placeholder="Enter your bid"
+              placeholder="Ange ditt bud"
             />
-            <button className="btn btn-primary mt-2" type="submit">Place Bid</button>
+            <button className="btn btn-primary mt-2" type="submit">Lägg Bud</button>
           </form>
           <p className={`text-${isBidSuccessful ? 'success' : 'danger'}`}>{feedbackMessage}</p>
         </div>
@@ -99,7 +109,7 @@ function BidItem({ item, userId }) { // Ta emot userId som en prop
         ))}
       </ul>
       <div className="card-footer">
-        <small className="text-muted">Highest Bid: ${highestBidAmount}</small>
+        <small className="text-muted">Högsta bud: ${highestBidAmount}</small>
       </div>
     </div>
   );
