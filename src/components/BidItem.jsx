@@ -11,7 +11,7 @@ function BidItem({ item, userId }) {
 
   const latestBid = item.latestBid || {};
   const highestBidAmount = latestBid.bidAmount || 0;
-  const startPrice = item.price; // Antag att detta är startpriset för auktionen
+  const startPrice = item.price; //startpriset för denna auction?
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -28,7 +28,7 @@ function BidItem({ item, userId }) {
       return false;
     }
 
-    const minimumBid = Math.max(startPrice, highestBidAmount + 1); // Budet måste vara minst en enhet högre
+    const minimumBid = Math.max(startPrice, highestBidAmount + 1); 
     if (bidAmount < minimumBid) {
       setFeedbackMessage(`Ditt bud måste vara högre än $${minimumBid}.`);
       setIsBidSuccessful(false);
@@ -47,7 +47,7 @@ function BidItem({ item, userId }) {
     const newBid = {
       auctionId: item.id,
       bidAmount,
-      userId: "userId", // Anta att userId är korrekt hanterat och tillhandahållet
+      userId: "userId", // Anta att userId är korrekt hanterat och finns
     };
 
     try {
