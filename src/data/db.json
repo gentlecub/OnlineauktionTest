@@ -286,11 +286,7 @@
       "Email": "test@test.se",
       "roll": "user"
     },
-    {
-      "id": "0922",
-      "Username": "Test",
-      "password": "12345"
-    },
+    
     {
       "id": "2b63",
       "Username": "Test 2",
