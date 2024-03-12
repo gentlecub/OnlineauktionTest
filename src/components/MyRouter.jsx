@@ -5,11 +5,10 @@ import HomePage from "../pages/HomePage.jsx"
 import MySearchInputPage from "../pages/MySearchInputPage.jsx"
 import ContactPage from "../pages/ContactPage.jsx"
 import { GlobalProvider } from '../context/GlobalContext.jsx'
-import Cart from '../pages/Cart.jsx'
 import CarDetail from "../pages/CarDetails.jsx"
 import UserPage from "../pages/UserPage.jsx"
 import RegisterUser from '../pages/RegisterUser.jsx'
-import ProtectedRoute from "./ProtectedRoute.jsx"
+//import ProtectedRoute from "./ProtectedRoute.jsx"
 
 function MyRouter() {
 
@@ -28,7 +27,6 @@ function MyRouter() {
                 <Route path="/cars/:id" element={< CarDetail />} />
                 <Route path="/userpage" element={<UserPage />} />
                 <Route path="/registering-page" element={ <RegisterUser /> } />
-                <Route path="/show-auction-page" element={<ShowAuctionPage/>} />
               </Routes>
             </div>
           </main>
