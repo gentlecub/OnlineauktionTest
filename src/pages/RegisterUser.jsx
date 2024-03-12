@@ -17,10 +17,10 @@ function RegisterUser () {
       </form> 
 
       
-      <div className="login"><br />
-      <Login />
-
-      </div>
+      <div className="login">
+        <br/><h3>Login</h3><br/>
+          <Login />
+        </div>
     </div>  
   )   
 
