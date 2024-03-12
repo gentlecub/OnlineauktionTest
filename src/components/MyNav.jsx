@@ -5,9 +5,15 @@ import { GlobalProvider } from "./GlobalContext";
 import Filter from "./Filter";
 import { useContext } from "react";
 import { AuthContext } from "./authentiction/AuthContext";
+import { useState } from "react";
+import { GlobalContext } from "./GlobalContext";
 
 function MyNav() {
   const { currentUser, logout } = useContext(AuthContext);
+  const [showFiltre, setShowFiltre] = useState(false);
+  const { filteredCartItems, setFilteredCartItems } = useContext(GlobalContext);
+  console.log("FiltreCar item", filteredCartItems);
+
   return (
     <header>
       <nav className="nav flex-column flex-sm-row">
@@ -55,7 +61,8 @@ function MyNav() {
           </div>
         </div>
       </nav>
-      <Filter />
+
+      {filteredCartItems ? <Filter /> : null}
     </header>
   );
 }

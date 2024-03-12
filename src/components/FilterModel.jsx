@@ -1,17 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import CarsHome from "./CarsHome";
-import AuctionCard from "./AuctionCard";
+
 import { GlobalContext } from "./GlobalContext";
-import CarItem from "./CarItem";
 import OptionModel from "./OptionModel";
 function FilterModel() {
-  const { setCarItem, carItem, originalCarItem } = useContext(GlobalContext);
+  const { carItem, setCarItem, originalCarItem } = useContext(GlobalContext);
   const [fetchError, setFetchError] = useState(null);
   const [carmodel, SetCarModel] = useState([]);
   const [listcar, SetListCard] = useState([]);
   const [actioncar, SetActionCar] = useState([]);
-
+  console.log("CAR ITEM SETTER: ", setCarItem);
   useEffect(() => {
     const fetchCar = async () => {
       try {
@@ -36,14 +34,18 @@ function FilterModel() {
     fetchCar();
   }, []);
 
-  const handleModel = (e) => {
+  function handleModel(e) {
     e.preventDefault();
     const selectBrach = e.target.value;
-    const originalCarItem = carItem;
-    console.log(originalCarItem);
-    const models = carItem.filter((model) => model.brand === selectBrach);
+    console.debug("SELECTED: ", selectBrach === "Model");
+    let models;
+    if (selectBrach === "Model") {
+      models = originalCarItem;
+    } else {
+      models = carItem.filter((model) => model.brand === selectBrach);
+    }
     setCarItem(models);
-  };
+  }
 
   return (
     <>

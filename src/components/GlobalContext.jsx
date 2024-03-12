@@ -1,21 +1,20 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import apiRequest from "./apiRequest";
-import { Await } from "react-router-dom";
+import { createContext, useState, useEffect } from "react";
 
 const GlobalContext = createContext();
 const API_CAR_URL = "http://localhost:3000/cars";
+const API_USER_URL = "http://localhost:3000/Users";
 const API_AUTION_URL = "http://localhost:3000/Auctions";
-const API_BID_URL = "http://localhost:3000/bid";
 
 function GlobalProvider({ children }) {
+  const [value, setValue] = useState(1);
   const [carItem, setCarItem] = useState([]);
+  const [user, setUser] = useState([]);
   const [auction, setAuction] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [filteredCartItems, setFilteredCartItems] = useState([]);
+  const [filteredCartItems, setFilteredCartItems] = useState(true);
   const [duration, setduration] = useState([]);
   const [originalCarItem, setOriginalCarItem] = useState([]);
-  const [globalMsg, setGlobalMsg] = useState("Holaa");
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -37,7 +36,9 @@ function GlobalProvider({ children }) {
           }
           return car;
         });
+        console.log(updatedCarItem);
         setCarItem(updatedCarItem);
+        setOriginalCarItem(updatedCarItem);
         setFetchError(null);
       } catch (err) {
         setFetchError(err.message);
@@ -47,7 +48,7 @@ function GlobalProvider({ children }) {
     };
     fetchItems();
   }, []);
-   console.log("GLOBAL",carItem)
+
   useEffect(() => {
     const fetchDurations = async () => {
       try {
@@ -68,34 +69,21 @@ function GlobalProvider({ children }) {
     }
   }, [carItem]);
 
-  const placeBid = async (auctionId, bidAmount) => {
-    try {
-      const response = await fetch(`${API_BID_URL}/${auctionId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ bidAmount }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to send bid to server.");
-      }
-      console.log("Bid successfully sent to server.");
-    } catch (error) {
-      console.error("Error sending bid to server:", error);
-      throw error;
-    }
-  };
-
   return (
     <GlobalContext.Provider
       value={{
         carItem,
-        auction,
+        setCarItem,
         fetchError,
+        setFetchError,
         isLoading,
-        placeBid,
+        setIsLoading,
+        duration,
+        setduration,
+        auction,
         originalCarItem,
+        filteredCartItems,
+        setFilteredCartItems,
       }}
     >
       {children}
