@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { GlobalContext } from "./GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 import { AuthContext } from "./authentiction/AuthContext";
 import AuctionCard from "./AuctionCard";
 function CarsHome() {

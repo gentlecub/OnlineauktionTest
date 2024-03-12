@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import LoginComp from "./authentiction/LoginComp";
 import RegisterComp from "./authentiction/RegisterComp";
-import { GlobalProvider } from "./GlobalContext";
 import Filter from "./Filter";
 import { useContext } from "react";
-import { AuthContext } from "./authentiction/AuthContext";
 import { useState } from "react";
-import { GlobalContext } from "./GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
+import { AuthContext } from "../context/AuthContext.jsx"
 
 function MyNav() {
+
+  const { user } = useContext(AuthContext);
   const { currentUser, logout } = useContext(AuthContext);
   const [showFiltre, setShowFiltre] = useState(false);
   const { filteredCartItems, setFilteredCartItems } = useContext(GlobalContext);
@@ -17,49 +18,16 @@ function MyNav() {
   return (
     <header>
       <nav className="nav flex-column flex-sm-row">
-        <Link
-          to="/"
-          className="flex-sm-fill flex-grow-1 text-sm-left nav-link active"
-        >
-          <h1>Online Auction</h1>
-        </Link>
-        <Link
-          to="/my-search-input-page"
-          className="flex-sm-fill flex-grow-1 text-sm-left nav-link active"
-        >
-          Search wares
-        </Link>
-        <Link
-          to="/cart-page"
-          className="flex-sm-fill flex-grow-1 text-sm-left nav-link active"
-        >
-          To Cart
-        </Link>
-        <Link to="/contact-page" className="text-sm-right nav-link">
-          Kontakta oss
-        </Link>
+        <Link to="/" className="text-sm-right nav-link" >Home</Link>
+
+        {user ? (<Link to="/userpage" className="text-sm-right nav-link" >Userpage</Link>) : (<Link to="/registering-page" className="text-sm-right nav-link" >Register / Login</Link>)}
+
+        <Link to="/contact-page" className="text-sm-right nav-link" >Contact Us</Link>
+
         <Link to="/show-auction-page" className="text-sm-right nav-link">
           Show Current Auction
         </Link>
-        <div className="d-flex">
-          <div className="col">
-            {currentUser ? (
-              <>
-                <div className="btn btn-outline-secondary mx-2 disabled">
-                  {currentUser.email}
-                </div>
-                <div
-                  onClick={() => logout()}
-                  className="btn btn-outline-secondary mx-2"
-                >
-                  Logout
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
-        </div>
+
       </nav>
 
       {filteredCartItems ? <Filter /> : null}

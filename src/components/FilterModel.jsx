@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 
-import { GlobalContext } from "./GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 import OptionModel from "./OptionModel";
 function FilterModel() {
   const { carItem, setCarItem, originalCarItem } = useContext(GlobalContext);

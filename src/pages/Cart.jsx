@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import { GlobalContext } from "../components/GlobalContext.jsx";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import { Link } from "react-router-dom";
 
 export default function Cart() {

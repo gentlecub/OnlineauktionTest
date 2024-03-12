@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { GlobalContext } from "../components/GlobalContext.jsx";
+import { GlobalContext } from "../context/GlobalContext";
 import CarItem from "../components/CarItem.jsx";
 import BidItem from "../components/BidItem.jsx";
 
