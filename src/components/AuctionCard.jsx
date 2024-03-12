@@ -1,5 +1,6 @@
 import Countdown from "react-countdown";
-
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "./authentiction/AuthContext";
 const renderer = ({ days, hours, minutes, props }) => {
   return (
     <>
@@ -17,15 +18,15 @@ const renderer = ({ days, hours, minutes, props }) => {
           />
 
           <div className="card-body">
-            <p className="lead display-6">{props.item.brand}</p>
+            <p className="lead display-6">{props.auction.brand}</p>
             <div className="d-flex jsutify-content-between align-item-center">
               <h5>
                 {days}days {hours} hr: {minutes} min:
               </h5>
             </div>
-            <p className="card-text">{props.item.desc}</p>
+            <p className="card-text">{props.auction.desc}</p>
             <div className="d-flex justify-content-between align-item-center">
-              <p className="display-6">${props.item.price}</p>
+              <p className="display-6">${props.auction.price}</p>
             </div>
           </div>
         </div>
@@ -35,8 +36,45 @@ const renderer = ({ days, hours, minutes, props }) => {
 };
 
 const AuctionCard = ({ item }) => {
+  console.log(item);
   let expiredDate = new Date(item.duration).getTime();
-  return <Countdown date={expiredDate} item={item} renderer={renderer} />;
+  const { currentUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
+  console.log(currentUser);
+  const [auction, setAuction] = useState([]);
+  useEffect(() => {
+    const fetchDurations = async () => {
+      try {
+        const response = await fetch("api/Auctions");
+        if (!response.ok) throw Error("Did not receive expected data");
+        const listDurationItem = await response.json();
+        const foundItem = listDurationItem.find((a) => a.carId === item.id);
+        console.log(foundItem);
+        if (foundItem) {
+          setAuction({ ...item, userId: foundItem.userId });
+        }
+
+        setFetchError(null);
+      } catch (err) {
+        setFetchError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDurations();
+  }, []);
+
+  console.log(auction);
+  return (
+    <Countdown
+      auction={auction}
+      owner={currentUser}
+      date={expiredDate}
+      item={item}
+      renderer={renderer}
+    />
+  );
 };
 
 export default AuctionCard;

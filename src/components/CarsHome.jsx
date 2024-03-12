@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "./GlobalContext";
+import { AuthContext } from "./authentiction/AuthContext";
 import AuctionCard from "./AuctionCard";
-
 function CarsHome() {
   const { carItem } = useContext(GlobalContext);
+  const { currentUser } = useContext(AuthContext);
   console.log(carItem);
   return (
     <div className="py-5">
