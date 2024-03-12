@@ -1,7 +1,10 @@
 import AuctionForm from "../components/Auctionform";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function UserPage(){
+
+    const {logout} = useContext(AuthContext);
 
     // must be connected to user & should only be visible when user is logged in
 
@@ -9,18 +12,34 @@ function UserPage(){
 
     
     const handleAuctionSubmit = (auctionFormData) => {
-        console.log(auctionFormData + "Was created in the Database.")
+        console.log(auctionFormData, "Was created in the Database.")
         setShowForm(false);
     }
 
 
-    return (
+    const handleLogout = () => {
+        logout()
+    }
+
+    return ( 
+        <> 
+        <h1>User Dashboard</h1>
+
+  
 
         <div>
-            <h1>User Dashboard</h1>
             { showForm ? ( <AuctionForm onSubmit={handleAuctionSubmit} closeForm = {() => setShowForm(false)} />) : 
             (<button className="btn btn-primary" onClick={ () => setShowForm(true)}> Create new Auction </button> ) }
         </div>
+
+
+        <div>
+            <br></br>
+            <button onClick={logout} className="btn btn-primary" >Logout</button>
+        </div>
+
+
+        </>
     )
 
 }
