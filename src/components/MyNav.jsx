@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import LoginComp from "./authentiction/LoginComp";
 import RegisterComp from "./authentiction/RegisterComp";
+import { GlobalProvider } from "./GlobalContext";
+import Filter from "./Filter";
+import { useContext } from "react";
+import { AuthContext } from "./authentiction/AuthContext";
+
 function MyNav() {
+  const { currentUser, logout } = useContext(AuthContext);
   return (
     <header>
       <nav className="nav flex-column flex-sm-row">
@@ -29,9 +35,27 @@ function MyNav() {
         <Link to="/show-auction-page" className="text-sm-right nav-link">
           Show Current Auction
         </Link>
-        <LoginComp />
-        <RegisterComp />
+        <div className="d-flex">
+          <div className="col">
+            {currentUser ? (
+              <>
+                <div className="btn btn-outline-secondary mx-2 disabled">
+                  {currentUser.email}
+                </div>
+                <div
+                  onClick={() => logout()}
+                  className="btn btn-outline-secondary mx-2"
+                >
+                  Logout
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
       </nav>
+      <Filter />
     </header>
   );
 }

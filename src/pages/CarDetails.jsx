@@ -7,10 +7,9 @@ import BidItem from "../components/BidItem.jsx";
 function CarDetail() {
   const { carItem, auction } = useContext(GlobalContext);
   const { id } = useParams();
-  const idAsInt = parseInt(id);
   console.log(id);
   console.log(carItem);
-  const carId = carItem.find((car) => car.id === idAsInt);
+  const carId = carItem.find((car) => car.id === id);
   console.log("CarId", carId);
   return (
     <>

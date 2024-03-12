@@ -1,14 +1,41 @@
 import { createContext, useEffect, useState } from "react";
 import apiRequest from "../apiRequest";
+import { ListGroupItem } from "react-bootstrap";
 
-export const AuthContext = createContext();
-export const AuthProvider = ({ children }) => {
+const AuthContext = createContext();
+
+function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState([]);
   const [globalMsg, setGlobalMsg] = useState("");
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/Users");
+        if (!response.ok) throw Error("Did not receive expected data");
+        const listUserItem = await response.json();
+        setUser(listUserItem);
+      } catch (err) {
+        setFetchError(err.message);
+      }
+    };
 
-  async function register(email, password) {
+    fetchUser();
+  }, []);
+  const bidAuction = (auctionId, price) => {
+    if (!currentUser) {
+      return setGlobalMsg("Please login first");
+    }
+
+    let newPrice = Math.floor((price / 100) * 110);
+  };
+
+  const register = async (email, password) => {
+    const id = user.length ? parseInt(user[user.length - 1].id) + 1 : 1;
+    const idString = id.toString();
     const newUser = {
+      id: idString,
       email: email,
       password: password,
     };
@@ -22,49 +49,73 @@ export const AuthProvider = ({ children }) => {
 
     const result = await apiRequest("/api/Users", postOptions);
     return result;
-  }
-
-  const login = (email, password) => {
-    return authApp.signInWithEmailAndPassword(email, password);
   };
 
-  const logout = () => {
-    return authApp.signOut();
-  };
-
-  const bidAuction = (auctionId, price) => {
-    if (!currentUser) {
-      return setGlobalMsg("Please login first");
-    }
-
-    let newPrice = Math.floor((price / 100) * 110);
-    const db = firestoreApp.collection("auctions");
-
-    return db.doc(auctionId).update({
-      curPrice: newPrice,
-      curWinner: currentUser.email,
-    });
-  };
-
-  const endAuction = (auctionId) => {
-    const db = firestoreApp.collection("auctions");
-
-    return db.doc(auctionId).delete();
-  };
-
-  useEffect(() => {
-    const subscribe = authApp.onAuthStateChanged((user) => {
+  const login = async (email, password) => {
+    const loginUser = {
+      email: email,
+      password: password,
+    };
+    const postOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const result = await apiRequest("/api/Users", postOptions);
+      if (!result.ok) throw Error("User not found ");
+      const loginuser = await result.json();
+      const user = loginuser.find(
+        (user) => user.email === email && user.password === password
+      );
+      if (!user) setCurrentUser(null);
+      console.log("LoginUser", user);
       setCurrentUser(user);
-      setLoading(false);
-    });
+    } catch (err) {
+      setGlobalMsg(err.message);
+    }
+  };
 
-    return subscribe;
-  }, []);
+  const logout = async () => {
+    try {
+      const logoutOption = {
+        method: "POST",
+        credentials: "include",
+      };
+      const result = await apiRequest("/api/Users", logoutOption);
+
+      if (!result.ok) {
+        throw new Error("Failed to logout");
+      }
+      setCurrentUser(null);
+    } catch (err) {
+      setGlobalMsg(err);
+    }
+  };
 
   useEffect(() => {
-    const interval = setTimeout(() => setGlobalMsg(""), 5000);
-    return () => clearTimeout(interval);
-  }, [globalMsg]);
+    const subscribe = async (user) => {
+      try {
+        const response = await fetch("http://localhost:3000/Users");
+        if (!response.ok) throw Error("Did not receive expected data");
+        const listUserItem = await response.json();
+        console.log(listUserItem);
+        const userSubcribe = listUserItem.find(
+          (subscribe) => subscribe.id === user.id
+        );
+        if (userSubcribe) {
+          setCurrentUser(userSubcribe);
+          setLoading(false);
+        } else {
+          setGlobalMsg("The inserted data is not correct");
+        }
+      } catch (err) {
+        setGlobalMsg(err.message);
+      }
+    };
+    subscribe();
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -72,9 +123,12 @@ export const AuthProvider = ({ children }) => {
         currentUser,
         register,
         globalMsg,
+        login,
+        logout,
       }}
     >
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
-};
+}
+export { AuthProvider, AuthContext };

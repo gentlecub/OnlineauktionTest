@@ -16,6 +16,7 @@ function MyAuction() {
         const response = await fetch('/api/Auctions');
         if (!response.ok) throw new Error("Failed to fetch auctions");
         const data = await response.json();
+        console.log("DATA", data)
         setAuctions(data);
         applyFilters(data);
       } catch (error) {
@@ -25,8 +26,10 @@ function MyAuction() {
     loadAuctions();
   }, []);
 
-  const applyFilters = (auctionsData) => {
-    let result = auctionsData.filter(auction => auction.title.toLowerCase().includes(searchTitle.toLowerCase()));
+  console.log("ACTION", auctions)
+  
+  const applyFilters = (auctions) => {
+    let result = auctions.filter(auction => auction.title.toLowerCase().includes(searchTitle.toLowerCase()));
     if (maxBidText) {
       result = result.filter(auction => parseFloat(auction.highestBid) <= parseFloat(maxBidText));
     }

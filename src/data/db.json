@@ -1,7 +1,7 @@
 {
   "cars": [
     {
-      "id": 1,
+      "id": "1",
       "brand": "Toyota",
       "model": "Corolla",
       "price": 30000,
@@ -21,7 +21,27 @@
       ]
     },
     {
-      "id": 2,
+      "id": "11",
+      "brand": "Toyota",
+      "model": "Corolla",
+      "price": 300500,
+      "year": 2023,
+      "color": "silver",
+      "mileage": 15000,
+      "engine": {
+        "type": "4-cylinder",
+        "displacement": "1.8L"
+      },
+      "transmission": "automatic",
+      "features": [
+        "backup camera",
+        "bluetooth connectivity",
+        "power windows",
+        "keyless entry"
+      ]
+    },
+    {
+      "id": "2",
       "brand": "Honda",
       "model": "Civic",
       "price": 60000,
@@ -40,7 +60,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "brand": "Ford",
       "model": "F-150",
       "price": 20000,
@@ -59,7 +79,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": "4",
       "brand": "Chevrolet",
       "model": "Malibu",
       "price": 40000,
@@ -78,7 +98,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": "5",
       "brand": "Nissan",
       "model": "Altima",
       "price": 50000,
@@ -97,7 +117,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": "6",
       "brand": "BMW",
       "model": "3 Series",
       "year": 2021,
@@ -115,7 +135,7 @@
       ]
     },
     {
-      "id": 7,
+      "id": "7",
       "brand": "Audi",
       "model": "A4",
       "price": 40000,
@@ -134,7 +154,7 @@
       ]
     },
     {
-      "id": 8,
+      "id": "8",
       "brand": "Tesla",
       "model": "Model 3",
       "price": 40000,
@@ -153,7 +173,7 @@
       ]
     },
     {
-      "id": 9,
+      "id": "9",
       "brand": "Volkswagen",
       "model": "Golf",
       "price": 40000,
@@ -172,7 +192,7 @@
       ]
     },
     {
-      "id": 10,
+      "id": "10",
       "brand": "Subaru",
       "model": "Outback",
       "price": 70000,
@@ -245,7 +265,7 @@
   ],
   "Users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "john",
       "password": "123_john",
       "name": "John G",
@@ -253,7 +273,7 @@
       "roll": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "shiva",
       "password": "306_shiva",
       "name": "Shiva M",
@@ -261,7 +281,7 @@
       "roll": "admin"
     },
     {
-      "id": 3,
+      "id": "3",
       "username": "joakim",
       "password": "456_joakim",
       "name": "Joakim K",
@@ -269,7 +289,7 @@
       "roll": "user"
     },
     {
-      "id": 4,
+      "id": "4",
       "username": "Celeste",
       "password": "142_celeste",
       "name": "Celeste S",
@@ -277,7 +297,7 @@
       "roll": "user"
     },
     {
-      "id": 5,
+      "id": "5",
       "username": "Desmond",
       "password": "234_desmond",
       "name": "Desmond D",
@@ -285,44 +305,16 @@
       "roll": "user"
     },
     {
-      "id": "ac72",
-      "email": "gentlejohan2@gmail.com",
-      "password": "1234"
+      "id": "37e3"
     },
     {
-      "id": "d75f",
-      "email": "gentlejohan2@gmail.com",
-      "password": "12345"
+      "id": "4ec5"
     },
     {
-      "id": "7dfb",
-      "email": "gentlejohan2@gmail.com",
-      "password": "1234"
+      "id": "e52e"
     },
     {
-      "id": "06a9",
-      "email": "jsjddjsd@dsdd.com",
-      "password": "1234"
-    },
-    {
-      "id": "d0b3",
-      "email": "gentlejohan2@gmail.com",
-      "password": "1234"
-    },
-    {
-      "id": "bb50",
-      "email": "gentlejohan2@gmail.com",
-      "password": "1234"
-    },
-    {
-      "id": "c94c",
-      "email": "gentlejohan2@gmail.com",
-      "password": "1234"
-    },
-    {
-      "id": "6be1",
-      "email": "gentlejohan2@gmail.com",
-      "password": "1234"
+      "id": "c0da"
     }
   ],
   "bid": [

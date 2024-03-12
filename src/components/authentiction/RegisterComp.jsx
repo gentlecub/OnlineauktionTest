@@ -1,36 +1,30 @@
 import { Button, Form, Modal, Alert } from "react-bootstrap";
 import React, { useContext, useRef, useState } from "react";
-import NewUser from "./NewUser";
 import apiRequest from "../apiRequest";
+import NewUser from "./NewUser";
+import { AuthContext } from "./AuthContext";
+
 function RegisterComp() {
+  const { register } = useContext(AuthContext);
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState("");
   const [newuser, setNewUser] = useState({ email: "", password: "" });
   const emailRef = useRef();
   const passwordRef = useRef();
   const cmfPasswordRef = useRef();
-
   const openForm = () => setShowForm(true);
   const closeForm = () => setShowForm(false);
-  const submitForm = async (e) => {
+
+  async function submitForm(e) {
     e.preventDefault();
+
     setError("");
     if (passwordRef.current.value !== cmfPasswordRef.current.value) {
       return setError("Passwords does not match");
     } else {
-      const newUser = {
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      };
-      const postOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      };
-      console.log("User", newUser);
-      const result = await apiRequest("/api/Users", postOptions);
+      const email = emailRef.current.value;
+      const password = passwordRef.current.value;
+      const result = await register(email, password);
       if (result === null) {
         setError("Successful");
         closeForm();
@@ -38,7 +32,7 @@ function RegisterComp() {
         setError(result);
       }
     }
-  };
+  }
 
   return (
     <>
