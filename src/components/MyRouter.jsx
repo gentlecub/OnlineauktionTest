@@ -8,7 +8,7 @@ import { GlobalProvider } from '../context/GlobalContext.jsx'
 import CarDetail from "../pages/CarDetails.jsx"
 import UserPage from "../pages/UserPage.jsx"
 import RegisterUser from '../pages/RegisterUser.jsx'
-//import ProtectedRoute from "./ProtectedRoute.jsx"
+import ProtectedRoute from "./ProtectedRoute.jsx"
 
 function MyRouter() {
 
@@ -25,8 +25,10 @@ function MyRouter() {
                 <Route path="/my-search-input-page" element={<MySearchInputPage />} />
                 <Route path="/contact-page" element={<ContactPage />} />
                 <Route path="/cars/:id" element={< CarDetail />} />
-                <Route path="/userpage" element={<UserPage />} />
                 <Route path="/registering-page" element={ <RegisterUser /> } />
+
+                <Route element = {< ProtectedRoute />}>
+                  <Route path="/userpage" element={<UserPage />} /> </Route>
               </Routes>
             </div>
           </main>
