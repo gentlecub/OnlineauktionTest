@@ -352,6 +352,12 @@
       "auctionId": 1,
       "bidAmount": 160000,
       "userId": ""
+    },
+    {
+      "id": "1c32",
+      "auctionId": 2,
+      "bidAmount": 222222,
+      "userId": "user123"
     }
   ]
 }

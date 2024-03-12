@@ -3,21 +3,21 @@ import { useEffect, useState } from "react";
 function MyAuction() {
   const [auctions, setAuctions] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
-  const [bidText, setBidText] = useState("");
-  const [auctionId, setAuctionId] = useState("");
+  const [maxBidText, setMaxBidText] = useState("");
+  const [currDateText, setCurrDateText] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
-  const [userId, setUserId] = useState("");
+  const [selectedAuction, setSelectedAuction] = useState(null);
+  const [bidAmount, setBidAmount] = useState("");
+  const [userId, setUserId] = useState("user123"); // Ersätt med faktisk användare logik
 
   useEffect(() => {
     async function loadAuctions() {
       try {
-        const responseAuctions = await fetch('/api/Auctions');
-        if (!responseAuctions.ok) {
-          throw new Error("Failed to fetch auctions");
-        }
-        const data = await responseAuctions.json();
+        const response = await fetch('/api/Auctions');
+        if (!response.ok) throw new Error("Failed to fetch auctions");
+        const data = await response.json();
         setAuctions(data);
-        setFilteredItems(data);
+        applyFilters(data);
       } catch (error) {
         console.error("Error loading auctions:", error);
       }
@@ -25,124 +25,107 @@ function MyAuction() {
     loadAuctions();
   }, []);
 
+  const applyFilters = (auctionsData) => {
+    let result = auctionsData.filter(auction => auction.title.toLowerCase().includes(searchTitle.toLowerCase()));
+    if (maxBidText) {
+      result = result.filter(auction => parseFloat(auction.highestBid) <= parseFloat(maxBidText));
+    }
+    if (currDateText) {
+      const targetDate = new Date(currDateText).toISOString().split('T')[0];
+      result = result.filter(auction => new Date(auction.endTime).toISOString().split('T')[0] === targetDate);
+    }
+    setFilteredItems(result);
+  };
+
   useEffect(() => {
-    setFilteredItems(auctions.filter(item => item.title.toLowerCase().includes(searchTitle.toLowerCase())));
-  }, [searchTitle, auctions]);
+    applyFilters(auctions);
+  }, [searchTitle, maxBidText, currDateText, auctions]);
 
-  const handleSearchTitle = (event) => {
-    setSearchTitle(event.target.value);
-  }
+  const handleBidInputChange = (e) => {
+    setBidAmount(e.target.value);
+  };
 
-  const setNewBidText = (event) => {
-    setBidText(event.target.value);
-  }
-
-  const setNewAuctionId = (event) => {
-    setAuctionId(event.target.value);
-  }
-
-  async function addNewBid(event) {
-    event.preventDefault();
-
-    const id = parseInt(auctionId);
-    const index = getAuctionIndexFromId(id, filteredItems);
-    const bid = parseFloat(bidText);
-
-    if (filteredItems.length <= 0 || id < 0 || index < 0) {
-      alert(`Something went wrong or the price is too low!`);
-      return;
-    }
-
-    const currentHighestBid = filteredItems[index].highestBid || 0;
-
-    if (bid <= currentHighestBid) {
-      alert(`Your bid must be higher than the current highest bid!`);
-      return;
-    }
-
-    const newBid = {
-      auctionId: id,
-      bidAmount: bid,
-      userId: userId,
-    };
-
+  async function placeBid(auctionId, bidAmount) {
     try {
-      const response = await fetch("/api/bid", {
+      const highestBid = filteredItems.find(auction => auction.id === auctionId)?.highestBid;
+
+      if (bidAmount <= highestBid) {
+        throw new Error("Bid amount must be higher than the highest bid");
+      }
+
+      const response = await fetch(`/api/bid`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newBid),
+        body: JSON.stringify({
+          auctionId,
+          bidAmount,
+          userId,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to place bid. Please try again.");
+        throw new Error("Failed to place bid");
       }
 
-      const updatedItems = [...filteredItems];
-      updatedItems[index].highestBid = bid;
-      setFilteredItems(updatedItems);
-
       alert("Bid placed successfully!");
-
-      setBidText("");
-      setAuctionId("");
+      loadAuctions();
     } catch (error) {
-      console.error("Error placing bid:", error);
-      alert("An error occurred while placing the bid. Please try again later.");
+      console.error("Error placing bid:", error.message);
+      alert(error.message);
     }
-  }
-
-  function getAuctionIndexFromId(id, items) {
-    return items.findIndex(item => item.id === id);
   }
 
   return (
     <main>
       <div>
-        <input
-          type="text"
-          value={searchTitle}
-          onChange={handleSearchTitle}
-          placeholder="Search by title"
-        />
+        <input type="text" value={searchTitle} onChange={(e) => setSearchTitle(e.target.value)} placeholder="Search by title" />
+        <input type="number" value={maxBidText} onChange={(e) => setMaxBidText(e.target.value)} placeholder="Max bid" />
+        <input type="date" value={currDateText} onChange={(e) => setCurrDateText(e.target.value)} />
       </div>
-      <form onSubmit={addNewBid}>
-        <label htmlFor="auctionIdText">Select Auction to Bid On:</label>
-        <select id="auctionIdText" value={auctionId} onChange={setNewAuctionId}>
+      <div>
+        <select value={selectedAuction} onChange={(e) => setSelectedAuction(parseInt(e.target.value))}>
           <option value="">-- Select Auction --</option>
-          {filteredItems.map((auction) => (
-            <option key={auction.id} value={auction.id}>{auction.id} - {auction.title}</option>
+          {filteredItems.map(auction => (
+            <option key={auction.id} value={auction.id}>{auction.title}</option>
           ))}
         </select>
-        <label htmlFor="bidText">Set new bid price on car:</label>
-        <input
-          id="bidText"
-          type="number"
-          value={bidText}
-          onChange={setNewBidText}
-        />
-        <button type="submit">Add New Bid</button>
-      </form>
-      {filteredItems.length > 0 ? (
-        <ul className="container">
-          {filteredItems.map((auction) => (
-            <li className="item" key={auction.id}>
-              <div className=".container-p">
-                <span className="auctionid">Auction Id: {auction.id}</span><br />
-                <span className="auctiontitle">Auction Title: {auction.title}</span><br />
-                <span className="starttime">Start Time: {auction.startTime}</span><br />
-                <span className="endtime">End Time: {auction.endTime}</span><br />
-                <span className="highestbid">Highest Bid: {typeof auction.highestBid === 'number' ? `$${auction.highestBid.toFixed(2)}` : auction.highestBid}</span><br />
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p style={{ marginTop: '2rem' }}>Your list is empty.</p>
-      )}
+        {selectedAuction && (
+          <button onClick={() => setSelectedAuction(null)}>Back to Auctions</button>
+        )}
+      </div>
+      <div>
+        {selectedAuction ? (
+          <div className="auction-details">
+            <h3>{filteredItems.find(auction => auction.id === selectedAuction).title}</h3>
+            <p>Auction ID: {selectedAuction}</p>
+            <p>Start Time: {filteredItems.find(auction => auction.id === selectedAuction).startTime}</p>
+            <p>End Time: {filteredItems.find(auction => auction.id === selectedAuction).endTime}</p>
+            <p>Highest Bid: ${filteredItems.find(auction => auction.id === selectedAuction).highestBid}</p>
+            <div>
+              <input type="number" value={bidAmount} onChange={handleBidInputChange} placeholder="Enter bid amount" />
+              <button onClick={() => placeBid(selectedAuction, parseFloat(bidAmount))}>Place Bid</button>
+            </div>
+          </div>
+        ) : (
+          <ul className="container">
+            {filteredItems.map(auction => (
+              <li key={auction.id} className="item">
+                <div className="auction-details">
+                  <h3>{auction.title}</h3>
+                  <p>Auction ID: {auction.id}</p>
+                  <p>Start Time: {auction.startTime}</p>
+                  <p>End Time: {auction.endTime}</p>
+                  <p>Highest Bid: ${auction.highestBid}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </main>
-  )
+  );
 }
 
 export default MyAuction;
