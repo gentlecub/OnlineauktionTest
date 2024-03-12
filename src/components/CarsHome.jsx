@@ -11,22 +11,20 @@ function CarsHome() {
   }, []);
   console.log(carItem);
   return (
-    <div className="py-5">
-      <div className="container">
-        {carItem && (
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {carItem.map((car) => (
-              <Link
-                to={`/cars/${car.id}`}
-                key={car.id}
-                style={{ textDecoration: "none" }}
-              >
-                <AuctionCard item={car} />
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
+    <div className="py-3">
+      {carItem && (
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {carItem.map((car) => (
+            <Link
+              to={`/cars/${car.id}`}
+              key={car.id}
+              style={{ textDecoration: "none" }}
+            >
+              <AuctionCard item={car} />
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

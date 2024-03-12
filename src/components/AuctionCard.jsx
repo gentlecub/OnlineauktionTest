@@ -39,13 +39,7 @@ const AuctionCard = ({ item }) => {
   console.log("Item", item);
   let expiredDate = new Date(item.duration).getTime();
 
-  return (
-    <Countdown
-      date={expiredDate}
-      item={item}
-      renderer={renderer}
-    />
-  );
+  return <Countdown date={expiredDate} item={item} renderer={renderer} />;
 };
 
 export default AuctionCard;

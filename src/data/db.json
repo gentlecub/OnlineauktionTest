@@ -21,26 +21,6 @@
       ]
     },
     {
-      "id": "11",
-      "brand": "Toyota",
-      "model": "Corolla",
-      "price": 300500,
-      "year": 2023,
-      "color": "silver",
-      "mileage": 15000,
-      "engine": {
-        "type": "4-cylinder",
-        "displacement": "1.8L"
-      },
-      "transmission": "automatic",
-      "features": [
-        "backup camera",
-        "bluetooth connectivity",
-        "power windows",
-        "keyless entry"
-      ]
-    },
-    {
       "id": "2",
       "brand": "Honda",
       "model": "Civic",
@@ -53,11 +33,7 @@
         "displacement": "2.0L"
       },
       "transmission": "automatic",
-      "features": [
-        "sunroof",
-        "navigation system",
-        "lane departure warning"
-      ]
+      "features": ["sunroof", "navigation system", "lane departure warning"]
     },
     {
       "id": "3",
@@ -72,11 +48,7 @@
         "displacement": "3.5L"
       },
       "transmission": "automatic",
-      "features": [
-        "towing package",
-        "off-road capability",
-        "parking sensors"
-      ]
+      "features": ["towing package", "off-road capability", "parking sensors"]
     },
     {
       "id": "4",
@@ -110,11 +82,7 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": [
-        "remote start",
-        "blind spot monitoring",
-        "apple carplay"
-      ]
+      "features": ["remote start", "blind spot monitoring", "apple carplay"]
     },
     {
       "id": "6",
@@ -185,11 +153,7 @@
         "displacement": "1.4L"
       },
       "transmission": "automatic",
-      "features": [
-        "heated seats",
-        "android auto",
-        "wireless phone charger"
-      ]
+      "features": ["heated seats", "android auto", "wireless phone charger"]
     },
     {
       "id": "10",
@@ -204,11 +168,7 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": [
-        "all-wheel drive",
-        "roof rails",
-        "power liftgate"
-      ]
+      "features": ["all-wheel drive", "roof rails", "power liftgate"]
     }
   ],
   "Auctions": [
