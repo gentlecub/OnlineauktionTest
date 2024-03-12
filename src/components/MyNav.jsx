@@ -50,10 +50,7 @@ function MyNav() {
                 </div>
               </>
             ) : (
-              <>
-                <LoginComp />
-                <RegisterComp />
-              </>
+              <></>
             )}
           </div>
         </div>
