@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import {AuthContext} from '../context/AuthContext.jsx'
 
 function AuctionForm({ onSubmit, closeForm, auction}){
+    
+    const {user} = useContext(AuthContext)
 
     // should include user
     // create validation
-
-    const [formState, setFormState] = useState(
+    const [auctionForm, setAuctionForm] = useState(
         {
+        userId: user?.id || undefined,
+         
         brand: auction?.brand || '',
         model: auction?.model || '',
         year: auction?.year || '',
@@ -19,15 +23,17 @@ function AuctionForm({ onSubmit, closeForm, auction}){
 
         startTime: auction?.startTime || '',
         endTime: auction?.endTime || '',
-        highestBid: auction?.highestBid || '',
+        highestBid: auction?.highestBid || ''
 
         /*     "userId": and  "status": must be added */ 
     });
 
 
+
     const handleChange = (e) => {
         const {name, value} = e.target;
-        setFormState(prevState => ({
+        
+        setAuctionForm(prevState => ({
             ...prevState, [name]: value,
         }));
     };
@@ -35,30 +41,78 @@ function AuctionForm({ onSubmit, closeForm, auction}){
 
     const handleFeatureChange = (e) => {
         const features = e.target.value.split(',').map(feature => feature.trim());
-        setFormState(prevState => ({ ...prevState, features}))
+
+        setAuctionForm(prevState => ({ ...prevState, features}))
     }
 
 
-    /* const validateForm = () => {
-        return formState.brand && formState.model && formState.year;
-    } */
+    const validateForm = () => {
+        const errors = {};
 
+        if(!user.id){
+            errors.userId = 'No user found.'
+        }
 
+        if (!auctionForm.brand){
+            errors.brand = 'Brand is required.'
+        }
+
+        if (!auctionForm.model){
+            errors.model = 'Model is required.'
+        }
+        
+        const currentYear = new Date().getFullYear();
+        if (!auctionForm.year || isNaN(auctionForm.year) || auctionForm.year < 1900 || auctionForm.year > currentYear+1){
+            errors.year = 'Invalid year'
+        }
+
+        if (!auctionForm.color){
+            errors.color = 'Color is required.'
+        }
+
+        if (!auctionForm.mileage || isNaN(auctionForm.mileage) || auctionForm.mileage < 0){
+            errors.mileage = 'Please enter valid mileage.'
+        }
+
+        if (!auctionForm.engineType){
+            errors.engineType = 'Please enter engine type.'
+        }
+
+        if (!auctionForm.engineDisplacement){
+            errors.engineDisplacement = 'Please enter engine displacement.'
+        }
+
+        if (!auctionForm.highestBid  || auctionForm.highestBid < 0){
+            errors.highestBid = 'Please enter a valid starting bid.'
+        }
+
+        return errors
+    } 
+
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+
+        const errors = validateForm();
+
+        if(Object.keys(errors).length > 0 ){
+            console.error(errors)
+            return;
+        }
         
         const carData = {
-            brand: formState.brand,
-            model: formState.model,
-            year: formState.year,
-            color: formState.color,
-            mileage: formState.mileage,
+            brand: auctionForm.brand,
+            model: auctionForm.model,
+            year: auctionForm.year,
+            color: auctionForm.color,
+            mileage: auctionForm.mileage,
             engine: {
-              type: formState.engineType,
-              displacement: formState.engineDisplacement,
+              type: auctionForm.engineType,
+              displacement: auctionForm.engineDisplacement,
             },
-            transmission: formState.transmission,
-            features: formState.features,
+            transmission: auctionForm.transmission,
+            features: auctionForm.features,
         };
           
         
@@ -72,13 +126,15 @@ function AuctionForm({ onSubmit, closeForm, auction}){
     
 
             if (!carRespone.ok) throw new Error('Problem posting car data');
-
+           
+            
             const car = await carRespone.json();
     
             const auctionData = {
-                startTime: formState.startTime,
-                endTime: formState.endTime,
-                highestBid: formState.highestBid,
+                startTime: auctionForm.startTime,
+                endTime: auctionForm.endTime,
+                highestBid: auctionForm.highestBid,
+                userId: auctionForm.userId,
                 carId: car.id
             };
 
@@ -113,35 +169,35 @@ function AuctionForm({ onSubmit, closeForm, auction}){
                 <div className="row g-2">
                 <div className="col-md-6 mb-3">
                     <label htmlFor="brand" className="form-label">Brand:</label>
-                    <input type="text" className="form-control" id="brand" name="brand" value={formState.brand} onChange={handleChange} />
+                    <input type="text" className="form-control" id="brand" name="brand" value={auctionForm.brand} onChange={handleChange} />
                 </div>
                 <div className="col-md-6 mb-3">
                     <label htmlFor="model" className="form-label">Model:</label>
-                    <input type="text" className="form-control" id="model" name="model" value={formState.model} onChange={handleChange} />
+                    <input type="text" className="form-control" id="model" name="model" value={auctionForm.model} onChange={handleChange} />
                 </div>
                 <div className="col-md-6 mb-3">
                     <label htmlFor="year" className="form-label">Year:</label>
-                    <input type="number" className="form-control" id="year" name="year" value={formState.year} onChange={handleChange} />
+                    <input type="number" className="form-control" id="year" name="year" value={auctionForm.year} onChange={handleChange} />
                 </div>
                 <div className="col-md-6 mb-3">
                     <label htmlFor="color" className="form-label">Color:</label>
-                    <input type="text" className="form-control" id="color" name="color" value={formState.color} onChange={handleChange} />
+                    <input type="text" className="form-control" id="color" name="color" value={auctionForm.color} onChange={handleChange} />
                 </div>
                 <div className="col-md-6 mb-3">
                     <label htmlFor="mileage" className="form-label">Mileage:</label>
-                    <input type="number" className="form-control" id="mileage" name="mileage" value={formState.mileage} onChange={handleChange} />
+                    <input type="number" className="form-control" id="mileage" name="mileage" value={auctionForm.mileage} onChange={handleChange} />
                 </div>
                 <div className="col-md-6 mb-3">
                     <label htmlFor="engineType" className="form-label">Engine Type:</label>
-                    <input type="text" className="form-control" id="engineType" name="engineType" value={formState.engineType} onChange={handleChange} />
+                    <input type="text" className="form-control" id="engineType" name="engineType" value={auctionForm.engineType} onChange={handleChange} />
                 </div>
                 <div className="col-md-6 mb-3">
                     <label htmlFor="engineDisplacement" className="form-label">Engine Displacement:</label>
-                    <input type="text" className="form-control" id="engineDisplacement" name="engineDisplacement" value={formState.engineDisplacement} onChange={handleChange} />
+                    <input type="text" className="form-control" id="engineDisplacement" name="engineDisplacement" value={auctionForm.engineDisplacement} onChange={handleChange} />
                 </div>
                 <div className="col-md-6 mb-3">
                     <label htmlFor="transmission" className="form-label">Transmission:</label>
-                    <select className="form-select" id="transmission" name="transmission" value={formState.transmission} onChange={handleChange}>
+                    <select className="form-select" id="transmission" name="transmission" value={auctionForm.transmission} onChange={handleChange}>
                     <option value="">Select Transmission</option>
                     <option value="automatic">Automatic</option>
                     <option value="manual">Manual</option>
@@ -149,20 +205,19 @@ function AuctionForm({ onSubmit, closeForm, auction}){
                 </div>
                 <div className="col-md-6 mb-3">
                     <label htmlFor="features" className="form-label">Features:</label>
-                    <input type="text" className="form-control" id="features" name="features" placeholder="Enter features separated by commas" value={formState.features.join(', ')} onChange={handleFeatureChange} />
+                    <input type="text" className="form-control" id="features" name="features" placeholder="Enter features separated by commas" value={auctionForm.features.join(', ')} onChange={handleFeatureChange} />
                 </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="startTime" className="form-label">Start Time:</label>
-                    <input type="datetime-local" className="form-control" id="startTime" name="startTime" value={formState.startTime} onChange={handleChange} />
-                </div>
+
                 <div className="col-md-6 mb-3">
                     <label htmlFor="endTime" className="form-label">End Time:</label>
-                    <input type="datetime-local" className="form-control" id="endTime" name="endTime" value={formState.endTime} onChange={handleChange} />
+                    <input type="datetime-local" className="form-control" id="endTime" name="endTime" value={auctionForm.endTime} onChange={handleChange} />
                 </div>
+
                 <div className="col-md-6 mb-3">
-                    <label htmlFor="highestBid" className="form-label">Highest Bid:</label>
-                    <input type="number" className="form-control" id="highestBid" name="highestBid" value={formState.highestBid} onChange={handleChange} />
+                    <label htmlFor="highestBid" className="form-label">Starting Bid:</label>
+                    <input type="number" className="form-control" id="highestBid" name="highestBid" value={auctionForm.highestBid} onChange={handleChange} />
                 </div>
+                
                 </div>
                 <div className="d-grid gap-2">
                 <button type="submit" className="btn btn-primary btn-lg">Save Auction</button>
