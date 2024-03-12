@@ -7,10 +7,10 @@ function AuctionForm({ onSubmit, closeForm, auction}){
 
     // should include user
     // create validation
-
-  
     const [auctionForm, setAuctionForm] = useState(
         {
+        userId: user?.id || undefined,
+         
         brand: auction?.brand || '',
         model: auction?.model || '',
         year: auction?.year || '',
@@ -21,10 +21,9 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         transmission: auction?.transmission || '',
         features: auction?.features || [],
 
-        userId: user?.id || undefined,
         startTime: auction?.startTime || '',
         endTime: auction?.endTime || '',
-        highestBid: auction?.highestBid || '',
+        highestBid: auction?.highestBid || ''
 
         /*     "userId": and  "status": must be added */ 
     });
@@ -47,13 +46,60 @@ function AuctionForm({ onSubmit, closeForm, auction}){
     }
 
 
-    /* const validateForm = () => {
-        return formState.brand && formState.model && formState.year;
-    } */
+    const validateForm = () => {
+        const errors = {};
 
+        if(!user.id){
+            errors.userId = 'No user found.'
+        }
 
+        if (!auctionForm.brand){
+            errors.brand = 'Brand is required.'
+        }
+
+        if (!auctionForm.model){
+            errors.model = 'Model is required.'
+        }
+        
+        const currentYear = new Date().getFullYear();
+        if (!auctionForm.year || isNaN(auctionForm.year) || auctionForm.year < 1900 || auctionForm.year > currentYear+1){
+            errors.year = 'Invalid year'
+        }
+
+        if (!auctionForm.color){
+            errors.color = 'Color is required.'
+        }
+
+        if (!auctionForm.mileage || isNaN(auctionForm.mileage) || auctionForm.mileage < 0){
+            errors.mileage = 'Please enter valid mileage.'
+        }
+
+        if (!auctionForm.engineType){
+            errors.engineType = 'Please enter engine type.'
+        }
+
+        if (!auctionForm.engineDisplacement){
+            errors.engineDisplacement = 'Please enter engine displacement.'
+        }
+
+        if (!auctionForm.highestBid  || auctionForm.highestBid < 0){
+            errors.highestBid = 'Please enter a valid starting bid.'
+        }
+
+        return errors
+    } 
+
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+
+        const errors = validateForm();
+
+        if(Object.keys(errors).length > 0 ){
+            console.error(errors)
+            return;
+        }
         
         const carData = {
             brand: auctionForm.brand,
@@ -161,18 +207,17 @@ function AuctionForm({ onSubmit, closeForm, auction}){
                     <label htmlFor="features" className="form-label">Features:</label>
                     <input type="text" className="form-control" id="features" name="features" placeholder="Enter features separated by commas" value={auctionForm.features.join(', ')} onChange={handleFeatureChange} />
                 </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="startTime" className="form-label">Start Time:</label>
-                    <input type="datetime-local" className="form-control" id="startTime" name="startTime" value={auctionForm.startTime} onChange={handleChange} />
-                </div>
+
                 <div className="col-md-6 mb-3">
                     <label htmlFor="endTime" className="form-label">End Time:</label>
                     <input type="datetime-local" className="form-control" id="endTime" name="endTime" value={auctionForm.endTime} onChange={handleChange} />
                 </div>
+
                 <div className="col-md-6 mb-3">
-                    <label htmlFor="highestBid" className="form-label">Highest Bid:</label>
+                    <label htmlFor="highestBid" className="form-label">Starting Bid:</label>
                     <input type="number" className="form-control" id="highestBid" name="highestBid" value={auctionForm.highestBid} onChange={handleChange} />
                 </div>
+                
                 </div>
                 <div className="d-grid gap-2">
                 <button type="submit" className="btn btn-primary btn-lg">Save Auction</button>
