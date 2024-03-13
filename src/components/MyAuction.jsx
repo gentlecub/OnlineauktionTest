@@ -6,7 +6,7 @@ function MyAuction() {
   const [maxBidText, setMaxBidText] = useState("");
   const [currDateText, setCurrDateText] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
-  const [selectedAuction, setSelectedAuction] = useState(null);
+  const [selectedAuction, setSelectedAuction] = useState("");
   const [bidAmount, setBidAmount] = useState("");
   const [userId, setUserId] = useState("user123"); // Ersätt med faktisk användare logik
 
@@ -101,13 +101,13 @@ function MyAuction() {
       <div>
         {selectedAuction ? (
           <div className="auction-details">
-            <h3>{filteredItems.find(auction => auction.id === selectedAuction).title}</h3>
+            <h3>{filteredItems.find(auction => auction.id === selectedAuction.title)}</h3>
             <p>Auction ID: {selectedAuction}</p>
-            <p>Start Time: {filteredItems.find(auction => auction.id === selectedAuction).startTime}</p>
-            <p>End Time: {filteredItems.find(auction => auction.id === selectedAuction).endTime}</p>
-            <p>Highest Bid: ${filteredItems.find(auction => auction.id === selectedAuction).highestBid}</p>
+            <p>Start Time: {filteredItems.find(auction => auction.id === selectedAuction.startTime)}</p>
+            <p>End Time: {filteredItems.find(auction => auction.id === selectedAuction.endTime)}</p>
+            <p>Highest Bid: {filteredItems.find(auction => auction.id === selectedAuction.highestBid)}</p>
             <div>
-              <input type="number" value={bidAmount} onChange={handleBidInputChange} placeholder="Enter bid amount" />
+              <input type="number" value={bidAmount} onChange={handleBidInputChange} placeholder="Enter bid amount" ></input>
               <button onClick={() => placeBid(selectedAuction, parseFloat(bidAmount))}>Place Bid</button>
             </div>
           </div>
