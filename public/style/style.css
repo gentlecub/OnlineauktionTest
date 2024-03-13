@@ -166,6 +166,13 @@ nav a:hover h1 {
   margin-bottom: 20px;
 }
 
+.container-p {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
 .container li {
   width: calc(33.33% - 20px);
   /* 33.33% de ancho con un margen entre ellos */
@@ -193,10 +200,10 @@ nav a:hover h1 {
 
 .container li img {
   /*max-width: 100%;*/
-    width: 320px;
-    height: 340px;
-    object-fit: cover;
-    border-radius: 20px 20px 0px 0px;
+  width: 320px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 20px 20px 0px 0px;
   /* Ajustar la imagen al ancho del div */
 }
 

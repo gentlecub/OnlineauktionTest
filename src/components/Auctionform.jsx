@@ -61,10 +61,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             errors.model = 'Model is required.'
         }
         
-        const currentYear = new Date().getFullYear();
-        if (!auctionForm.year || isNaN(auctionForm.year) || auctionForm.year < 1900 || auctionForm.year > currentYear+1){
-            errors.year = 'Invalid year'
-        }
+        // Add validations for start/end-time + more
 
         if (!auctionForm.color){
             errors.color = 'Color is required.'

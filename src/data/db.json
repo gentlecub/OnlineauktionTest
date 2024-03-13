@@ -4,6 +4,7 @@
       "id": "1",
       "brand": "Toyota",
       "model": "Corolla",
+      "price": 30000,
       "year": 2022,
       "color": "silver",
       "mileage": 15000,
@@ -23,6 +24,7 @@
       "id": "2",
       "brand": "Honda",
       "model": "Civic",
+      "price": 60000,
       "year": 2020,
       "color": "black",
       "mileage": 20000,
@@ -41,6 +43,7 @@
       "id": "3",
       "brand": "Ford",
       "model": "F-150",
+      "price": 20000,
       "year": 2021,
       "color": "red",
       "mileage": 30000,
@@ -59,6 +62,7 @@
       "id": "4",
       "brand": "Chevrolet",
       "model": "Malibu",
+      "price": 40000,
       "year": 2019,
       "color": "blue",
       "mileage": 25000,
@@ -77,6 +81,7 @@
       "id": "5",
       "brand": "Nissan",
       "model": "Altima",
+      "price": 50000,
       "year": 2020,
       "color": "white",
       "mileage": 18000,
@@ -113,6 +118,7 @@
       "id": "7",
       "brand": "Audi",
       "model": "A4",
+      "price": 40000,
       "year": 2020,
       "color": "black",
       "mileage": 22000,
@@ -131,6 +137,7 @@
       "id": "8",
       "brand": "Tesla",
       "model": "Model 3",
+      "price": 40000,
       "year": 2021,
       "color": "red",
       "mileage": 15000,
@@ -149,6 +156,7 @@
       "id": "9",
       "brand": "Volkswagen",
       "model": "Golf",
+      "price": 40000,
       "year": 2018,
       "color": "white",
       "mileage": 28000,
@@ -167,6 +175,7 @@
       "id": "10",
       "brand": "Subaru",
       "model": "Outback",
+      "price": 70000,
       "year": 2017,
       "color": "green",
       "mileage": 32000,
@@ -185,8 +194,9 @@
   "auctions": [
     {
       "id": "1",
+      "title": "Toyota Corolla Auction",
       "startTime": "2024-02-28 11:35:01",
-      "endTime": "2024-02-28 11:45:01",
+      "endTime": "2024-04-28 11:45:01",
       "highestBid": "150000",
       "carId": "1",
       "userId": "2",
@@ -194,8 +204,9 @@
     },
     {
       "id": "2",
+      "title": "Honda Civic Auction",
       "startTime": "2024-02-28 13:20:21",
-      "endTime": "2024-02-28 13:30:01",
+      "endTime": "2024-04-28 13:30:01",
       "highestBid": "190000",
       "carId": "2",
       "userId": "1",
@@ -203,8 +214,9 @@
     },
     {
       "id": "3",
+      "title": "Ford F-150 Auction",
       "startTime": "2024-02-28 14:05:00",
-      "endTime": "2024-02-28 15:00:01",
+      "endTime": "2024-04-28 15:00:01",
       "highestBid": "200000",
       "carId": "3",
       "userId": "3",
@@ -212,8 +224,9 @@
     },
     {
       "id": "4",
+      "title": "Chevrolet Malibu Auction",
       "startTime": "2024-02-28 10:30:01",
-      "endTime": "2024-02-28 11:50:01",
+      "endTime": "2024-03-28 11:50:01",
       "highestBid": "110000",
       "carId": "4",
       "userId": "5",
@@ -221,8 +234,9 @@
     },
     {
       "id": "5",
+      "title": "Nissan Altima Auction",
       "startTime": "2024-02-28 08:15:01",
-      "endTime": "2024-02-28 10:00:01",
+      "endTime": "2024-03-06 10:00:01",
       "highestBid": "300000",
       "carId": "5",
       "userId": "4",
@@ -271,41 +285,147 @@
       "roll": "user"
     },
     {
-      "id": "50de",
-      "Username": "fsdf",
-      "password": "dfddfsd",
-      "name": "dcdfd",
-      "Email": "dfd",
-      "roll": "fffv"
+      "id": "37e3"
     },
     {
-      "id": "e426",
-      "Username": "Test",
-      "password": "test1234",
-      "name": "shivas test",
-      "Email": "test@test.se",
-      "roll": "user"
+      "id": "4ec5"
     },
     {
-      "id": "0922",
-      "Username": "Test",
-      "password": "12345"
+      "id": "e52e"
     },
     {
-      "id": "2b63",
-      "Username": "Test 2",
-      "password": "245624fg",
-      "name": "Test test 2",
-      "Email": "test2@test.se",
-      "roll": "admin"
+      "id": "c0da"
+    }
+  ],
+  "bid": [
+    {
+      "userId": "user_id_here",
+      "auctionId": "auction_id_here",
+      "bidAmount": 1000
     },
     {
-      "id": "3ed0",
-      "Username": "final test",
-      "password": "12446",
-      "name": "Final",
-      "Email": "final@test.se",
-      "roll": "admin"
+      "id": "3307",
+      "auctionId": 1,
+      "bidAmount": 4000000
+    },
+    {
+      "id": "1748",
+      "auctionId": 1,
+      "bidAmount": 1000
+    },
+    {
+      "id": "17bc",
+      "auctionId": 1,
+      "bidAmount": 12121212,
+      "userId": ""
+    },
+    {
+      "id": "a97c",
+      "auctionId": 1,
+      "bidAmount": 160000,
+      "userId": ""
+    },
+    {
+      "id": "1c32",
+      "auctionId": 2,
+      "bidAmount": 222222,
+      "userId": "user123"
+    },
+    {
+      "id": "3deb",
+      "auctionId": "2",
+      "bidAmount": 70000,
+      "userId": ""
+    },
+    {
+      "id": "3ff3",
+      "auctionId": "3",
+      "bidAmount": 20002,
+      "userId": ""
+    },
+    {
+      "id": "e51d",
+      "auctionId": "3",
+      "bidAmount": 200000,
+      "userId": ""
+    },
+    {
+      "id": "e730",
+      "auctionId": "3",
+      "bidAmount": 200003,
+      "userId": ""
+    },
+    {
+      "id": "d946",
+      "auctionId": "3",
+      "bidAmount": 200003,
+      "userId": ""
+    },
+    {
+      "id": "f2c9",
+      "auctionId": 2,
+      "bidAmount": 2000000,
+      "userId": "user123"
+    },
+    {
+      "id": "538b",
+      "auctionId": 2,
+      "bidAmount": 2222222222222,
+      "userId": "user123"
+    },
+    {
+      "id": "cfdf",
+      "auctionId": "1",
+      "bidAmount": 30001,
+      "userId": ""
+    },
+    {
+      "id": "ca53",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "8a14",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "3b15",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "1b9e",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "8545",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "5114",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "cfd8",
+      "auctionId": "3",
+      "bidAmount": 2222222222,
+      "userId": ""
+    },
+    {
+      "id": "98a6",
+      "auctionId": 2,
+      "bidAmount": 222222222222222,
+      "userId": "user123"
     }
   ]
 }
