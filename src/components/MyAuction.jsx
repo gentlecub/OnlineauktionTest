@@ -6,7 +6,7 @@ function MyAuction() {
   const [maxBidText, setMaxBidText] = useState("");
   const [currDateText, setCurrDateText] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
-  const [selectedAuction, setSelectedAuction] = useState(null);
+  const [selectedAuction, setSelectedAuction] = useState("");
   const [bidAmount, setBidAmount] = useState("");
   const [userId, setUserId] = useState("user123"); // Ersätt med faktisk användare logik
 
