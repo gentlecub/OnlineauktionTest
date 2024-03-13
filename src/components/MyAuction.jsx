@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext  } from "../context/AuthContext";
 
 function MyAuction() {
+
+  const {user} = useContext(AuthContext);
+
   const [auctions, setAuctions] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [maxBidText, setMaxBidText] = useState("");
@@ -213,6 +217,7 @@ function MyAuction() {
                 ).highestBid
               }
             </p>
+            {user ? (
             <div>
               <input
                 type="number"
@@ -225,7 +230,7 @@ function MyAuction() {
               >
                 Place Bid
               </button>
-            </div>
+            </div>) : ''}
           </div>
         ) : (
           <ul className="container">
