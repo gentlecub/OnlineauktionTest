@@ -3,7 +3,7 @@ import Countdown from "react-countdown";
 import {AuthContext} from '../context/AuthContext.jsx'
 
 
-function BidItem({ item, userId }) {
+function BidItem({ item }) {
   
   const {user} = useContext(AuthContext)
 
@@ -69,7 +69,7 @@ function BidItem({ item, userId }) {
     const newBid = {
       auctionId: item.id,
       bidAmount,
-      userId: userId, // Anta att userId är korrekt hanterat och finns
+      userId: user.id, // Anta att userId är korrekt hanterat och finns
     };
 
     try {
