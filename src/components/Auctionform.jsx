@@ -73,7 +73,11 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         if (!auctionForm.model){
             errors.model = 'Model is required.'
         }
-        
+
+        if(!auctionForm.year || auctionForm.year < 1900 || auctionForm.year > new Date().getFullYear() + 1){
+          errors.year = 'Invalid year.'
+        }
+
 
         const endDateTime = new Date(auctionForm.endDate)
 
@@ -183,7 +187,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         <div className="auction-form-container">
         <form onSubmit={handleSubmit} className="container bg-light p-4 my-5 rounded" style={{ backdropFilter: 'blur(10px)' }}>
           <div className="row g-2">
-  
+
             <div className="col-12">
               <div className="card mb-4">
               <div className="col-12">
