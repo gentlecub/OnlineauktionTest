@@ -1,16 +1,27 @@
 import { useState, useContext } from "react";
 import {AuthContext} from '../context/AuthContext.jsx'
 
+
+function formatDateTime(date) {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = `${d.getMonth() + 1}`.padStart(2, '0'); 
+  const day = `${d.getDate()}`.padStart(2, '0');
+  const hour = `${d.getHours()}`.padStart(2, '0');
+  const minute = `${d.getMinutes()}`.padStart(2, '0');
+  const second = `${d.getSeconds()}`.padStart(2, '0');
+  return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+}
+
+
 function AuctionForm({ onSubmit, closeForm, auction}){
     
     const {user} = useContext(AuthContext)
 
-    // should include user
-    // create validation
     const [auctionForm, setAuctionForm] = useState(
         {
         userId: user?.id || undefined,
-         
+        
         brand: auction?.brand || '',
         model: auction?.model || '',
         year: auction?.year || '',
@@ -21,11 +32,13 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         transmission: auction?.transmission || '',
         features: auction?.features || [],
 
-        startTime: auction?.startTime || '',
-        endTime: auction?.endTime || '',
+
+        title: auction?.title || '',
+        startDate: auction?.startDate || formatDateTime(new Date()),
+        endDate: auction?.endDate || '',
         highestBid: auction?.highestBid || ''
 
-        /*     "userId": and  "status": must be added */ 
+        // "status": must be added */ 
     });
 
 
@@ -61,7 +74,12 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             errors.model = 'Model is required.'
         }
         
-        // Add validations for start/end-time + more
+
+        const endDateTime = new Date(auctionForm.endDate)
+
+        if(!auctionForm.endDate || endDateTime <= new Date(auctionForm.startDate)){
+          errors.endDate = 'End date must be in the future'
+        }
 
         if (!auctionForm.color){
             errors.color = 'Color is required.'
@@ -79,14 +97,17 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             errors.engineDisplacement = 'Please enter engine displacement.'
         }
 
+        if(!auctionForm.transmission || auctionForm.transmission === ''){
+          errors.transmission = 'Transmission type is required.'
+        }
+
         if (!auctionForm.highestBid  || auctionForm.highestBid < 0){
             errors.highestBid = 'Please enter a valid starting bid.'
         }
 
         return errors
     } 
-
-    
+      
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -127,12 +148,13 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             
             const car = await carRespone.json();
     
+
             const auctionData = {
-                startTime: auctionForm.startTime,
-                endTime: auctionForm.endTime,
+                startTime: auctionForm.startDate,
+                endTime: auctionForm.endDate,
                 highestBid: auctionForm.highestBid,
                 userId: auctionForm.userId,
-                carId: car.id
+                carId: car.id,
             };
 
 
@@ -156,72 +178,95 @@ function AuctionForm({ onSubmit, closeForm, auction}){
     };
 
 
+
     return (
         <div className="auction-form-container">
- 
+        <form onSubmit={handleSubmit} className="container bg-light p-4 my-5 rounded" style={{ backdropFilter: 'blur(10px)' }}>
+          <div className="row g-2">
+  
+            <div className="col-12">
+              <div className="card mb-4">
+              <div className="col-12">
+              <div className="card">
+                <div className="card-header">Auction Details</div>
+                <div className="card-body">
+                  <div className="row g-3">
+                    <div className="col-md-6">
+                      <label htmlFor="title" className="form-label">Title:</label>
+                      <input type="text" className="form-control" id="title" name="title" value={auctionForm.title} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="endDate" className="form-label">End Date:</label>
+                      <input type="date" className="form-control" id="endDate" name="endDate" value={auctionForm.endDate} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="highestBid" className="form-label">Starting Bid:</label>
+                      <input type="number" className="form-control" id="highestBid" name="highestBid" value={auctionForm.highestBid} onChange={handleChange} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                <div className="card-header">Car Details</div>
+                <div className="card-body">
+                  <div className="row g-3">
+                    <div className="col-md-6">
+                      <label htmlFor="brand" className="form-label">Brand:</label>
+                      <input type="text" className="form-control" id="brand" name="brand" value={auctionForm.brand} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="model" className="form-label">Model:</label>
+                      <input type="text" className="form-control" id="model" name="model" value={auctionForm.model} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="year" className="form-label">Year:</label>
+                      <input type="number" className="form-control" id="year" name="year" value={auctionForm.year} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="color" className="form-label">Color:</label>
+                      <input type="text" className="form-control" id="color" name="color" value={auctionForm.color} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="mileage" className="form-label">Mileage:</label>
+                      <input type="number" className="form-control" id="mileage" name="mileage" value={auctionForm.mileage} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="engineType" className="form-label">Engine Type:</label>
+                      <input type="text" className="form-control" id="engineType" name="engineType" value={auctionForm.engineType} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="engineDisplacement" className="form-label">Engine Displacement:</label>
+                      <input type="text" className="form-control" id="engineDisplacement" name="engineDisplacement" value={auctionForm.engineDisplacement} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="transmission" className="form-label">Transmission:</label>
+                      <select className="form-select" id="transmission" name="transmission" value={auctionForm.transmission} onChange={handleChange}>
+                        <option value="">Select Transmission</option>
+                        <option value="automatic">Automatic</option>
+                        <option value="manual">Manual</option>
+                      </select>
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="features" className="form-label">Features:</label>
+                      <input type="text" className="form-control" id="features" name="features" placeholder="Enter features separated by commas" value={auctionForm.features.join(', ')} onChange={handleFeatureChange} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            <form onSubmit={handleSubmit} className="container bg-light p-4 my-5 border rounded" style={{ backdropFilter: 'blur(10px)' }}>
-            <button className="close-button" onClick={closeForm}>X</button>
 
-                <div className="row g-2">
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="brand" className="form-label">Brand:</label>
-                    <input type="text" className="form-control" id="brand" name="brand" value={auctionForm.brand} onChange={handleChange} />
-                </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="model" className="form-label">Model:</label>
-                    <input type="text" className="form-control" id="model" name="model" value={auctionForm.model} onChange={handleChange} />
-                </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="year" className="form-label">Year:</label>
-                    <input type="number" className="form-control" id="year" name="year" value={auctionForm.year} onChange={handleChange} />
-                </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="color" className="form-label">Color:</label>
-                    <input type="text" className="form-control" id="color" name="color" value={auctionForm.color} onChange={handleChange} />
-                </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="mileage" className="form-label">Mileage:</label>
-                    <input type="number" className="form-control" id="mileage" name="mileage" value={auctionForm.mileage} onChange={handleChange} />
-                </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="engineType" className="form-label">Engine Type:</label>
-                    <input type="text" className="form-control" id="engineType" name="engineType" value={auctionForm.engineType} onChange={handleChange} />
-                </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="engineDisplacement" className="form-label">Engine Displacement:</label>
-                    <input type="text" className="form-control" id="engineDisplacement" name="engineDisplacement" value={auctionForm.engineDisplacement} onChange={handleChange} />
-                </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="transmission" className="form-label">Transmission:</label>
-                    <select className="form-select" id="transmission" name="transmission" value={auctionForm.transmission} onChange={handleChange}>
-                    <option value="">Select Transmission</option>
-                    <option value="automatic">Automatic</option>
-                    <option value="manual">Manual</option>
-                    </select>
-                </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="features" className="form-label">Features:</label>
-                    <input type="text" className="form-control" id="features" name="features" placeholder="Enter features separated by commas" value={auctionForm.features.join(', ')} onChange={handleFeatureChange} />
-                </div>
+          </div>
 
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="endTime" className="form-label">End Time:</label>
-                    <input type="datetime-local" className="form-control" id="endTime" name="endTime" value={auctionForm.endTime} onChange={handleChange} />
-                </div>
+          <div className="d-grid gap-2 d-md-flex justify-content-center">
+            <button type="submit" className="btn btn-primary btn-lg ms-md-2">Save Auction</button>
+            <button type="button" className="btn btn-secondary btn-lg" onClick={closeForm}>Cancel</button>   
+          </div>
 
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="highestBid" className="form-label">Starting Bid:</label>
-                    <input type="number" className="form-control" id="highestBid" name="highestBid" value={auctionForm.highestBid} onChange={handleChange} />
-                </div>
-                
-                </div>
-                <div className="d-grid gap-2">
-                <button type="submit" className="btn btn-primary btn-lg">Save Auction</button>
-                </div>
-            </form>
-        </div>
-        );
+        </form>
+      </div>
+      
+  );
         
 }
 
