@@ -31,12 +31,14 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         engineDisplacement: auction?.engine?.displacement || '',
         transmission: auction?.transmission || '',
         features: auction?.features || [],
+        price: auction?.price || '',
 
 
         title: auction?.title || '',
         startDate: auction?.startDate || formatDateTime(new Date()),
         endDate: auction?.endDate || '',
-        highestBid: auction?.highestBid || ''
+        highestBid: auction?.highestBid || '',
+        status: auction?.highestBid || '0'
 
         // "status": must be added */ 
     });
@@ -126,6 +128,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         const carData = {
             brand: auctionForm.brand,
             model: auctionForm.model,
+            price: auctionForm.highestBid,
             year: auctionForm.year,
             color: auctionForm.color,
             mileage: auctionForm.mileage,
@@ -152,13 +155,20 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             
             const car = await carRespone.json();
     
+            const endDateWithTime = new Date(auctionForm.endDate);
+            endDateWithTime.setHours(new Date().getHours());
+            endDateWithTime.setMinutes(new Date().getMinutes());
+            endDateWithTime.setSeconds(new Date().getSeconds());
+            
+            const formattedEndTime = formatDateTime(endDateWithTime);
 
             const auctionData = {
+                title: auctionForm.title,
                 startTime: auctionForm.startDate,
-                endTime: auctionForm.endDate,
+                endTime: formattedEndTime,
                 highestBid: auctionForm.highestBid,
-                userId: auctionForm.userId,
                 carId: car.id,
+                userId: auctionForm.userId,
             };
 
 
