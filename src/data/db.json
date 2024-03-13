@@ -33,7 +33,11 @@
         "displacement": "2.0L"
       },
       "transmission": "automatic",
-      "features": ["sunroof", "navigation system", "lane departure warning"]
+      "features": [
+        "sunroof",
+        "navigation system",
+        "lane departure warning"
+      ]
     },
     {
       "id": "3",
@@ -48,7 +52,11 @@
         "displacement": "3.5L"
       },
       "transmission": "automatic",
-      "features": ["towing package", "off-road capability", "parking sensors"]
+      "features": [
+        "towing package",
+        "off-road capability",
+        "parking sensors"
+      ]
     },
     {
       "id": "4",
@@ -82,7 +90,11 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["remote start", "blind spot monitoring", "apple carplay"]
+      "features": [
+        "remote start",
+        "blind spot monitoring",
+        "apple carplay"
+      ]
     },
     {
       "id": "6",
@@ -153,7 +165,11 @@
         "displacement": "1.4L"
       },
       "transmission": "automatic",
-      "features": ["heated seats", "android auto", "wireless phone charger"]
+      "features": [
+        "heated seats",
+        "android auto",
+        "wireless phone charger"
+      ]
     },
     {
       "id": "10",
@@ -168,10 +184,14 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["all-wheel drive", "roof rails", "power liftgate"]
+      "features": [
+        "all-wheel drive",
+        "roof rails",
+        "power liftgate"
+      ]
     }
   ],
-  "Auctions": [
+  "auctions": [
     {
       "id": "1",
       "title": "Toyota Corolla Auction",
@@ -223,7 +243,7 @@
       "status": "0"
     }
   ],
-  "Users": [
+  "users": [
     {
       "id": "1",
       "username": "john",
@@ -316,6 +336,96 @@
       "auctionId": "2",
       "bidAmount": 70000,
       "userId": ""
+    },
+    {
+      "id": "3ff3",
+      "auctionId": "3",
+      "bidAmount": 20002,
+      "userId": ""
+    },
+    {
+      "id": "e51d",
+      "auctionId": "3",
+      "bidAmount": 200000,
+      "userId": ""
+    },
+    {
+      "id": "e730",
+      "auctionId": "3",
+      "bidAmount": 200003,
+      "userId": ""
+    },
+    {
+      "id": "d946",
+      "auctionId": "3",
+      "bidAmount": 200003,
+      "userId": ""
+    },
+    {
+      "id": "f2c9",
+      "auctionId": 2,
+      "bidAmount": 2000000,
+      "userId": "user123"
+    },
+    {
+      "id": "538b",
+      "auctionId": 2,
+      "bidAmount": 2222222222222,
+      "userId": "user123"
+    },
+    {
+      "id": "cfdf",
+      "auctionId": "1",
+      "bidAmount": 30001,
+      "userId": ""
+    },
+    {
+      "id": "ca53",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "8a14",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "3b15",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "1b9e",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "8545",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "5114",
+      "auctionId": "1",
+      "bidAmount": 30007,
+      "userId": ""
+    },
+    {
+      "id": "cfd8",
+      "auctionId": "3",
+      "bidAmount": 2222222222,
+      "userId": ""
+    },
+    {
+      "id": "98a6",
+      "auctionId": 2,
+      "bidAmount": 222222222222222,
+      "userId": "user123"
     }
   ]
 }

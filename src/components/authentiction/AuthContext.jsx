@@ -12,7 +12,7 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:3000/Users");
+        const response = await fetch("http://localhost:3000/users");
         if (!response.ok) throw Error("Did not receive expected data");
         const listUserItem = await response.json();
         setUser(listUserItem);
@@ -47,7 +47,7 @@ function AuthProvider({ children }) {
       body: JSON.stringify(newUser),
     };
 
-    const result = await apiRequest("/api/Users", postOptions);
+    const result = await apiRequest("/api/users", postOptions);
     return result;
   };
 
@@ -63,7 +63,7 @@ function AuthProvider({ children }) {
       },
     };
     try {
-      const result = await apiRequest("/api/Users", postOptions);
+      const result = await apiRequest("/api/users", postOptions);
       if (!result.ok) throw Error("User not found ");
       const loginuser = await result.json();
       const user = loginuser.find(
@@ -83,7 +83,7 @@ function AuthProvider({ children }) {
         method: "POST",
         credentials: "include",
       };
-      const result = await apiRequest("/api/Users", logoutOption);
+      const result = await apiRequest("/api/users", logoutOption);
 
       if (!result.ok) {
         throw new Error("Failed to logout");
@@ -97,7 +97,7 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const subscribe = async (user) => {
       try {
-        const response = await fetch("http://localhost:3000/Users");
+        const response = await fetch("http://localhost:3000/users");
         if (!response.ok) throw Error("Did not receive expected data");
         const listUserItem = await response.json();
         console.log(listUserItem);

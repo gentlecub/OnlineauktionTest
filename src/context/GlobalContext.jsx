@@ -2,8 +2,8 @@ import { createContext, useState, useEffect } from "react";
 
 const GlobalContext = createContext();
 const API_CAR_URL = "http://localhost:3000/cars";
-const API_USER_URL = "http://localhost:3000/Users";
-const API_AUTION_URL = "http://localhost:3000/Auctions";
+const API_USER_URL = "http://localhost:3000/users";
+const API_AUTION_URL = "http://localhost:3000/auctions";
 
 function GlobalProvider({ children }) {
   const [value, setValue] = useState(1);
