@@ -197,7 +197,7 @@
       "title": "Toyota Corolla Auction",
       "startTime": "2024-02-28 11:35:01",
       "endTime": "2024-04-28 11:45:01",
-      "highestBid": "125000",
+      "highestBid": "1250024",
       "carId": "1",
       "userId": "2",
       "status": "0"
@@ -207,7 +207,7 @@
       "title": "Honda Civic Auction",
       "startTime": "2024-02-28 13:20:21",
       "endTime": "2024-04-28 13:30:01",
-      "highestBid": "120000",
+      "highestBid": "160000",
       "carId": "2",
       "userId": "1",
       "status": "0"
@@ -527,6 +527,88 @@
       "id": "0674",
       "auctionId": 2,
       "bidAmount": 120000,
+      "userId": "user123"
+    },
+    {
+      "id": "e01b",
+      "auctionId": 2,
+      "bidAmount": 160000,
+      "userId": "user123"
+    },
+    {
+      "id": "8e68",
+      "auctionId": "1",
+      "bidAmount": 40000,
+      "userId": ""
+    },
+    {
+      "id": "0c22",
+      "auctionId": "4",
+      "bidAmount": 77777777,
+      "userId": ""
+    },
+    {
+      "id": "1c32",
+      "auctionId": "4",
+      "bidAmount": 77777778,
+      "userId": ""
+    },
+    {
+      "id": "1a23",
+      "auctionId": "4",
+      "bidAmount": 77777779,
+      "userId": ""
+    },
+    {
+      "id": "1d89",
+      "auctionId": "5",
+      "bidAmount": 50001,
+      "userId": ""
+    },
+    {
+      "id": "83d2",
+      "auctionId": "1",
+      "bidAmount": 125001
+    },
+    {
+      "id": "8ff9",
+      "auctionId": "1",
+      "bidAmount": 125002
+    },
+    {
+      "id": "d9e3",
+      "auctionId": "1",
+      "bidAmount": 125003
+    },
+    {
+      "id": "894b",
+      "auctionId": "1",
+      "bidAmount": 125001
+    },
+    {
+      "id": "90b4",
+      "auctionId": "1",
+      "bidAmount": 125002
+    },
+    {
+      "id": "21ab",
+      "auctionId": "1",
+      "bidAmount": 125001
+    },
+    {
+      "id": "5cb1",
+      "auctionId": "1",
+      "bidAmount": 1250022
+    },
+    {
+      "id": "e527",
+      "auctionId": "1",
+      "bidAmount": 1250023
+    },
+    {
+      "id": "6e18",
+      "auctionId": 1,
+      "bidAmount": 1250024,
       "userId": "user123"
     }
   ]
