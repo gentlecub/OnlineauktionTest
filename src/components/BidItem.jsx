@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import Countdown from "react-countdown";
 
 function BidItem({ item, userId }) {
-  const endTime = new Date(item.endTime);
-  const isValidDate = !isNaN(endTime.getTime());
-
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isBidSuccessful, setIsBidSuccessful] = useState(false);
   const [auctions, setAuctions] = useState([]);
   const [startPrice, setStartPrice] = useState(item.price);
+  const [endTime, setEndTime] = useState(null);
+  const isValidDate = endTime !== null
 
   useEffect(() => {
     async function loadAuctions() {
@@ -26,7 +25,13 @@ function BidItem({ item, userId }) {
     loadAuctions();
   }, []);
 
-  console.log("ACTION", auctions);
+  useEffect(() => {
+    const auction = auctions.find((auction) => auction.carId === item.id);
+    if (auction) {
+      const auctionEndTime = new Date(auction.endTime);
+      setEndTime(auctionEndTime);
+    }
+  }, [auctions, item.id]);
 
   const highestBid = auctions.find((auction) => auction.carId === item.id)?.highestBid || 0;
 
@@ -88,7 +93,6 @@ function BidItem({ item, userId }) {
         });
         setAuctions(updatedAuctions);
 
-        
         await fetch(`/api/auctions/${item.id}`, {
           method: "PATCH",
           headers: {
@@ -120,7 +124,7 @@ function BidItem({ item, userId }) {
         <p className="card-text">Startpris: ${startPrice}</p>
         <p className="card-text">
           <small className="text-muted">
-            Slutdatum: {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : 'Ogiltigt eller saknas'}
+            Slutdatum: {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : <span>Auktionen har avslutats</span>}
           </small>
         </p>
         <div className="d-grid gap-2">
