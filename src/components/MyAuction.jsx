@@ -130,7 +130,7 @@ function MyAuction() {
       console.log(filteredItems[indexFiltered])
 
       await storeAuctionBid(filteredItems[indexFiltered], auctionId)
-      alert(`Auction object with id ${filteredItems[indexFiltered].id} has now recieved a new highest bid!`)
+      // alert(`Auction object with id ${filteredItems[indexFiltered].id} has now recieved a new highest bid!`)
 
     } catch (error) {
       console.error("Error placing bid:", error.message);
