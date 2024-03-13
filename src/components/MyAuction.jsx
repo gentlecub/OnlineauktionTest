@@ -55,13 +55,44 @@ function MyAuction() {
     setBidAmount(e.target.value);
   };
 
+  async function storeAuctionBid(data, id) {
+
+    await fetch(`/api/auctions/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+  }
+
+  function getAuctionIndexFromId(id, filteredItems) {
+
+    let index = -1
+    let i = 0
+
+    for (i = 0; i < filteredItems.length; i++) {
+      if (filteredItems[i].id == id) {
+        index = i
+      }
+    }
+
+    return index
+
+  }
+
   async function placeBid(auctionId, bidAmount) {
     try {
-      const highestBid = filteredItems.find(
-        (auction) => auction.id === auctionId
+
+      let highestBid = filteredItems.find(
+        (auction) => auction.id == auctionId
       )?.highestBid;
 
-      if (bidAmount <= highestBid) {
+      console.log("bidAmount: " + bidAmount)
+      console.log("highestBid: " + highestBid)
+
+      if (parseInt(bidAmount) <= parseInt(highestBid)) {
         throw new Error("Bid amount must be higher than the highest bid");
       }
 
@@ -82,11 +113,26 @@ function MyAuction() {
       }
 
       alert("Bid placed successfully!");
-      loadAuctions();
+
+      let indexFiltered = getAuctionIndexFromId(auctionId, filteredItems)
+      let indexAuction = getAuctionIndexFromId(auctionId, auctions)
+
+      filteredItems[indexFiltered].highestBid = bidAmount.toString()
+      auctions[indexAuction].highestBid = bidAmount.toString()
+
+      setFilteredItems([...filteredItems])
+      setAuctions([...auctions])
+
+      console.log(filteredItems[indexFiltered])
+
+      await storeAuctionBid(filteredItems[indexFiltered], auctionId)
+      alert(`Auction object with id ${filteredItems[indexFiltered].id} has now recieved a new highest bid!`)
+
     } catch (error) {
       console.error("Error placing bid:", error.message);
       alert(error.message);
     }
+
   }
 
   return (
