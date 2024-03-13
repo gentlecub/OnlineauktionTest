@@ -13,7 +13,7 @@ function MyAuction() {
   useEffect(() => {
     async function loadAuctions() {
       try {
-        const response = await fetch("/api/Auctions");
+        const response = await fetch("/api/auctions");
         if (!response.ok) throw new Error("Failed to fetch auctions");
         const data = await response.json();
         console.log("DATA", data);

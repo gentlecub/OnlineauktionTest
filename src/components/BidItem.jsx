@@ -1,8 +1,11 @@
 import { useState } from "react";
 import Countdown from "react-countdown";
-
+import { AuthContext } from "../context/AuthContext.jsx";
 function BidItem({ item, userId }) {
   console.log(item);
+
+  const { user } = useContext(AuthContext);
+
   const endTime = new Date(item.duration);
   const day = endTime.getDate();
   const namemonths = [
@@ -30,12 +33,16 @@ function BidItem({ item, userId }) {
   const highestBidAmount = latestBid.bidAmount || 0;
   const startPrice = item.price; //startpriset för denna auction?
 
-  const renderer = ({ days, hours, minutes }) => {
-    return (
-      <span>
-        {days}d {hours}h {minutes}m
-      </span>
-    );
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <span className="align-middle fs-4">Auktionen har avslutats</span>;
+    } else {
+      return (
+        <span className="align-middle fs-4">
+          {days}d {hours}h {minutes}m {seconds}s kvar
+        </span>
+      );
+    }
   };
 
   const validateBid = (bidAmount) => {
@@ -104,20 +111,16 @@ function BidItem({ item, userId }) {
       <div className="card-body">
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">Startpris: ${startPrice}</p>
-        <div className="card">
-          <div className="row">
-            <div className="col" style={{ marginLeft: "8px" }}>
-              <span className="fs-6">Date :</span>
-              <br />
-              <span> {`${day} ${moth} ${year}`}</span>
-            </div>
-            <div className="col">
-              <span className="fs-6">Date :</span>
-              <br />
-              <Countdown date={endTime.getTime()} renderer={renderer} />
-            </div>
-          </div>
-        </div>
+        <p className="card-text">
+          <small className="text-muted">
+            Slutdatum:{" "}
+            {isValidDate ? (
+              <Countdown date={endTime} renderer={renderer} />
+            ) : (
+              "Ogiltigt eller saknas"
+            )}
+          </small>
+        </p>
         <div className="d-grid gap-2">
           <form onSubmit={addNewBid}>
             <input

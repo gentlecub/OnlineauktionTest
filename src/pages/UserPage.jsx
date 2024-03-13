@@ -13,11 +13,13 @@ function UserPage () {
 
     const handleAuctionSubmit = ( auctionFormData ) => {
         console.log( auctionFormData, "Was created in the Database." )
+        alert('Auction created successfully.')
         setShowForm( false );
     }
 
 
     const handleLogout = () => {
+        alert('Goodbye')
         logout()
     }
 
@@ -35,7 +37,7 @@ function UserPage () {
 
             <div>
                 <br></br>
-                <button onClick={ logout } className="btn btn-primary" >Logout</button>
+                <button onClick={ handleLogout } className="btn btn-primary" >Logout</button>
             </div>
 
 
