@@ -7,14 +7,13 @@ function BidItem({ item }) {
   
   const {user} = useContext(AuthContext)
 
-  const endTime = new Date(item.endTime);
-  const isValidDate = !isNaN(endTime.getTime());
-
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isBidSuccessful, setIsBidSuccessful] = useState(false);
   const [auctions, setAuctions] = useState([]);
   const [startPrice, setStartPrice] = useState(item.price);
+  const [endTime, setEndTime] = useState(null);
+  const isValidDate = endTime !== null
 
   useEffect(() => {
     async function loadAuctions() {
@@ -31,15 +30,21 @@ function BidItem({ item }) {
     loadAuctions();
   }, []);
 
-  console.log("ACTION", auctions);
+  useEffect(() => {
+    const auction = auctions.find((auction) => auction.carId === item.id);
+    if (auction) {
+      const auctionEndTime = new Date(auction.endTime);
+      setEndTime(auctionEndTime);
+    }
+  }, [auctions, item.id]);
 
   const highestBid = auctions.find((auction) => auction.carId === item.id)?.highestBid || 0;
 
-  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+  const renderer = ({ days, hours, minutes, completed }) => {
     if (completed) {
       return <span className="align-middle fs-4">Auktionen har avslutats</span>;
     } else {
-      return <span className="align-middle fs-4">{days}d {hours}h {minutes}m {seconds}s kvar</span>;
+      return <span className="align-middle fs-4">{days} d {hours} h {minutes} m kvar</span>;
     }
   };
 
@@ -93,7 +98,6 @@ function BidItem({ item }) {
         });
         setAuctions(updatedAuctions);
 
-        
         await fetch(`/api/auctions/${item.id}`, {
           method: "PATCH",
           headers: {
@@ -125,7 +129,7 @@ function BidItem({ item }) {
         <p className="card-text">Startpris: ${startPrice}</p>
         <p className="card-text">
           <small className="text-muted">
-            Slutdatum: {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : 'Ogiltigt eller saknas'}
+            Slutdatum: {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : <span>Auktionen har avslutats</span>}
           </small>
         </p>
         <div className="d-grid gap-2">
