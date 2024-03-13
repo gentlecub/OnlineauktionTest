@@ -35,11 +35,11 @@ function BidItem({ item, userId }) {
 
   const highestBid = auctions.find((auction) => auction.carId === item.id)?.highestBid || 0;
 
-  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+  const renderer = ({ days, hours, minutes, completed }) => {
     if (completed) {
       return <span className="align-middle fs-4">Auktionen har avslutats</span>;
     } else {
-      return <span className="align-middle fs-4">{days}d {hours}h {minutes}m {seconds}s kvar</span>;
+      return <span className="align-middle fs-4">{days} d {hours} h {minutes} m kvar</span>;
     }
   };
 
