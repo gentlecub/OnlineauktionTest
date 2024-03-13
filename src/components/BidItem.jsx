@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Countdown from "react-countdown";
+import {AuthContext} from '../context/AuthContext.jsx'
+
 
 function BidItem({ item, userId }) {
+  
+  const {user} = useContext(AuthContext)
+
   const endTime = new Date(item.endTime);
   const isValidDate = !isNaN(endTime.getTime());
 
@@ -89,6 +94,8 @@ function BidItem({ item, userId }) {
           </small>
         </p>
         <div className="d-grid gap-2">
+
+          {user ? (
           <form onSubmit={addNewBid}>
             <input
               className="form-control"
@@ -100,6 +107,8 @@ function BidItem({ item, userId }) {
             />
             <button className="btn btn-primary mt-2" type="submit">Lägg Bud</button>
           </form>
+          ) :
+          ''}
           <p className={`text-${isBidSuccessful ? 'success' : 'danger'}`}>{feedbackMessage}</p>
         </div>
       </div>
