@@ -13,10 +13,10 @@ function MyAuction() {
   useEffect(() => {
     async function loadAuctions() {
       try {
-        const response = await fetch('/api/Auctions');
+        const response = await fetch("/api/Auctions");
         if (!response.ok) throw new Error("Failed to fetch auctions");
         const data = await response.json();
-        console.log("DATA", data)
+        console.log("DATA", data);
         setAuctions(data);
         applyFilters(data);
       } catch (error) {
@@ -26,16 +26,23 @@ function MyAuction() {
     loadAuctions();
   }, []);
 
-  console.log("ACTION", auctions)
-  
+  console.log("ACTION", auctions);
+
   const applyFilters = (auctions) => {
-    let result = auctions.filter(auction => auction.title.toLowerCase().includes(searchTitle.toLowerCase()));
+    let result = auctions.filter((auction) =>
+      auction.title.toLowerCase().includes(searchTitle.toLowerCase())
+    );
     if (maxBidText) {
-      result = result.filter(auction => parseFloat(auction.highestBid) <= parseFloat(maxBidText));
+      result = result.filter(
+        (auction) => parseFloat(auction.highestBid) <= parseFloat(maxBidText)
+      );
     }
     if (currDateText) {
-      const targetDate = new Date(currDateText).toISOString().split('T')[0];
-      result = result.filter(auction => new Date(auction.endTime).toISOString().split('T')[0] === targetDate);
+      const targetDate = new Date(currDateText).toISOString().split("T")[0];
+      result = result.filter(
+        (auction) =>
+          new Date(auction.endTime).toISOString().split("T")[0] === targetDate
+      );
     }
     setFilteredItems(result);
   };
@@ -50,7 +57,9 @@ function MyAuction() {
 
   async function placeBid(auctionId, bidAmount) {
     try {
-      const highestBid = filteredItems.find(auction => auction.id === auctionId)?.highestBid;
+      const highestBid = filteredItems.find(
+        (auction) => auction.id === auctionId
+      )?.highestBid;
 
       if (bidAmount <= highestBid) {
         throw new Error("Bid amount must be higher than the highest bid");
@@ -83,37 +92,94 @@ function MyAuction() {
   return (
     <main>
       <div>
-        <input type="text" value={searchTitle} onChange={(e) => setSearchTitle(e.target.value)} placeholder="Search by title" />
-        <input type="number" value={maxBidText} onChange={(e) => setMaxBidText(e.target.value)} placeholder="Max bid" />
-        <input type="date" value={currDateText} onChange={(e) => setCurrDateText(e.target.value)} />
+        <input
+          type="text"
+          value={searchTitle}
+          onChange={(e) => setSearchTitle(e.target.value)}
+          placeholder="Search by title"
+        />
+        <input
+          type="number"
+          value={maxBidText}
+          onChange={(e) => setMaxBidText(e.target.value)}
+          placeholder="Max bid"
+        />
+        <input
+          type="date"
+          value={currDateText}
+          onChange={(e) => setCurrDateText(e.target.value)}
+        />
       </div>
       <div>
-        <select value={selectedAuction} onChange={(e) => setSelectedAuction(parseInt(e.target.value))}>
+        <select
+          value={selectedAuction}
+          onChange={(e) => setSelectedAuction(parseInt(e.target.value))}
+        >
           <option value="">-- Select Auction --</option>
-          {filteredItems.map(auction => (
-            <option key={auction.id} value={auction.id}>{auction.title}</option>
+          {filteredItems.map((auction) => (
+            <option key={auction.id} value={auction.id}>
+              {auction.title}
+            </option>
           ))}
         </select>
         {selectedAuction && (
-          <button onClick={() => setSelectedAuction(null)}>Back to Auctions</button>
+          <button onClick={() => setSelectedAuction(null)}>
+            Back to Auctions
+          </button>
         )}
       </div>
       <div>
         {selectedAuction ? (
           <div className="auction-details">
-            <h3>{filteredItems.find(auction => auction.id === selectedAuction).title}</h3>
+            <h3>
+              {
+                filteredItems.find(
+                  (auction) => auction.id === selectedAuction.toString()
+                ).title
+              }
+            </h3>
             <p>Auction ID: {selectedAuction}</p>
-            <p>Start Time: {filteredItems.find(auction => auction.id === selectedAuction).startTime}</p>
-            <p>End Time: {filteredItems.find(auction => auction.id === selectedAuction).endTime}</p>
-            <p>Highest Bid: ${filteredItems.find(auction => auction.id === selectedAuction).highestBid}</p>
+            <p>
+              Start Time:{" "}
+              {
+                filteredItems.find(
+                  (auction) => auction.id === selectedAuction.toString()
+                ).startTime
+              }
+            </p>
+            <p>
+              End Time:{" "}
+              {
+                filteredItems.find(
+                  (auction) => auction.id === selectedAuction.toString()
+                ).endTime
+              }
+            </p>
+            <p>
+              Highest Bid: $
+              {
+                filteredItems.find(
+                  (auction) => auction.id === selectedAuction.toString()
+                ).highestBid
+              }
+            </p>
             <div>
-              <input type="number" value={bidAmount} onChange={handleBidInputChange} placeholder="Enter bid amount" />
-              <button onClick={() => placeBid(selectedAuction, parseFloat(bidAmount))}>Place Bid</button>
+              <input
+                type="number"
+                value={bidAmount}
+                onChange={handleBidInputChange}
+                placeholder="Enter bid amount"
+              />
+              <button
+                onClick={() => placeBid(selectedAuction, parseFloat(bidAmount))}
+              >
+                Place Bid
+              </button>
             </div>
           </div>
         ) : (
           <ul className="container">
-            {filteredItems.map(auction => (
+            {filteredItems.map((auction) => (
               <li key={auction.id} className="item">
                 <div className="auction-details">
                   <h3>{auction.title}</h3>

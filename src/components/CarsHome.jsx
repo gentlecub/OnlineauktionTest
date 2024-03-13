@@ -13,15 +13,17 @@ function CarsHome() {
   return (
     <div className="py-3">
       {carItem && (
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div className="row row-cols-1 row-cols-md-3 g-3">
           {carItem.map((car) => (
-            <Link
-              to={`/cars/${car.id}`}
-              key={car.id}
-              style={{ textDecoration: "none" }}
-            >
-              <AuctionCard item={car} />
-            </Link>
+            <div className="col-12 col-sm-6 col-md-4 " key={car.id}>
+              <Link
+                to={`/cars/${car.id}`}
+                key={car.id}
+                style={{ textDecoration: "none" }}
+              >
+                <AuctionCard item={car} />
+              </Link>
+            </div>
           ))}
         </div>
       )}
