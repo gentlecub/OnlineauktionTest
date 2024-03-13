@@ -169,6 +169,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
                 highestBid: auctionForm.highestBid,
                 carId: car.id,
                 userId: auctionForm.userId,
+                status: auctionForm.status
             };
 
 
