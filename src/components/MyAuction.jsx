@@ -92,6 +92,10 @@ function MyAuction() {
       console.log("bidAmount: " + bidAmount)
       console.log("highestBid: " + highestBid)
 
+      if (!bidAmount) {
+        throw new Error("Bid amount must be set to a value");
+      }
+
       if (parseInt(bidAmount) <= parseInt(highestBid)) {
         throw new Error("Bid amount must be higher than the highest bid");
       }

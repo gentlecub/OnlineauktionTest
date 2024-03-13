@@ -207,7 +207,7 @@
       "title": "Honda Civic Auction",
       "startTime": "2024-02-28 13:20:21",
       "endTime": "2024-04-28 13:30:01",
-      "highestBid": "170000",
+      "highestBid": "120000",
       "carId": "2",
       "userId": "1",
       "status": "0"
@@ -479,6 +479,54 @@
       "id": "7675",
       "auctionId": 2,
       "bidAmount": 170000,
+      "userId": "user123"
+    },
+    {
+      "id": "91f6",
+      "auctionId": 2,
+      "bidAmount": null,
+      "userId": "user123"
+    },
+    {
+      "id": "d5c7",
+      "auctionId": 2,
+      "bidAmount": 120000,
+      "userId": "user123"
+    },
+    {
+      "id": "96c7",
+      "auctionId": 2,
+      "bidAmount": null,
+      "userId": "user123"
+    },
+    {
+      "id": "28d6",
+      "auctionId": 2,
+      "bidAmount": 120000,
+      "userId": "user123"
+    },
+    {
+      "id": "562c",
+      "auctionId": 2,
+      "bidAmount": null,
+      "userId": "user123"
+    },
+    {
+      "id": "136e",
+      "auctionId": 2,
+      "bidAmount": null,
+      "userId": "user123"
+    },
+    {
+      "id": "536f",
+      "auctionId": 2,
+      "bidAmount": 120,
+      "userId": "user123"
+    },
+    {
+      "id": "0674",
+      "auctionId": 2,
+      "bidAmount": 120000,
       "userId": "user123"
     }
   ]
