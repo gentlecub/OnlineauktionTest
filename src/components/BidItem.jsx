@@ -9,13 +9,9 @@ function BidItem({ item, userId }) {
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isBidSuccessful, setIsBidSuccessful] = useState(false);
   const [auctions, setAuctions] = useState([]);
-
-  const latestBid = item.latestBid || {};
-  let highestBidAmount = latestBid.bidAmount || 0;
-  const startPrice = item.price; //startpriset för denna auction?
+  const [startPrice, setStartPrice] = useState(item.price);
 
   useEffect(() => {
-
     async function loadAuctions() {
       try {
         const response = await fetch("/api/auctions");
@@ -32,6 +28,8 @@ function BidItem({ item, userId }) {
 
   console.log("ACTION", auctions);
 
+  const highestBid = auctions.find((auction) => auction.carId === item.id)?.highestBid || 0;
+
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
       return <span className="align-middle fs-4">Auktionen har avslutats</span>;
@@ -47,7 +45,7 @@ function BidItem({ item, userId }) {
       return false;
     }
 
-    const minimumBid = Math.max(startPrice, highestBidAmount + 1);
+    const minimumBid = Math.max(startPrice, parseInt(highestBid) + 1);
     if (bidAmount < minimumBid) {
       setFeedbackMessage(`Ditt bud måste vara högre än $${minimumBid}.`);
       setIsBidSuccessful(false);
@@ -57,54 +55,16 @@ function BidItem({ item, userId }) {
     return true;
   };
 
-  function getAuctionIndexFromId(id, filteredItems) {
-
-    let index = -1
-    let i = 0
-
-    for (i = 0; i < filteredItems.length; i++) {
-      if (filteredItems[i].id == id) {
-        index = i
-      }
-    }
-
-    return index
-
-  }
-
-  async function storeAuctionBid(data, id) {
-
-    await fetch(`/api/auctions/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-  }
-
   async function addNewBid(event) {
-
     event.preventDefault();
 
     const bidAmount = parseInt(bidText);
     if (!validateBid(bidAmount)) return;
 
-    let newAuction = auctions.find((auction) => auction.carId == item.id)
-    let auctionIndex = getAuctionIndexFromId(newAuction.id, auctions)
-    highestBidAmount = parseInt(newAuction.highestBid)
-    newAuction.highestBid = bidText
-    auctions[auctionIndex].highestBid = bidText
-    setAuctions([...auctions])
-
-    console.log(newAuction)
-    console.log(auctionIndex)
-
     const newBid = {
-      auctionId: newAuction.id,
+      auctionId: item.id,
       bidAmount,
-      userId: "", // Anta att userId är korrekt hanterat och finns
+      userId: userId, // Anta att userId är korrekt hanterat och finns
     };
 
     try {
@@ -119,14 +79,28 @@ function BidItem({ item, userId }) {
       if (response.ok) {
         setFeedbackMessage("Budet har lagts framgångsrikt!");
         setIsBidSuccessful(true);
+
+        const updatedAuctions = auctions.map((auction) => {
+          if (auction.carId === item.id) {
+            return { ...auction, highestBid: bidText };
+          }
+          return auction;
+        });
+        setAuctions(updatedAuctions);
+
+        
+        await fetch(`/api/auctions/${item.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ highestBid: bidText }),
+        });
+
       } else {
         setFeedbackMessage("Det gick inte att lägga budet. Försök igen.");
         setIsBidSuccessful(false);
       }
-
-
-      await storeAuctionBid(newAuction, newAuction.id)
-
     } catch (error) {
       console.error("Fel vid placering av bud:", error);
       setFeedbackMessage("Ett fel inträffade vid placering av budet. Försök igen senare.");
@@ -154,7 +128,7 @@ function BidItem({ item, userId }) {
             <input
               className="form-control"
               type="number"
-              min={Math.max(startPrice, highestBidAmount) + 1}
+              min={Math.max(startPrice, parseInt(highestBid) + 1)}
               value={bidText}
               onChange={setNewBidText}
               placeholder="Ange ditt bud"
@@ -170,7 +144,7 @@ function BidItem({ item, userId }) {
         ))}
       </ul>
       <div className="card-footer">
-        <small className="text-muted">Högsta bud: ${highestBidAmount}</small>
+        <small className="text-muted">Högsta bud: ${highestBid}</small>
       </div>
     </div>
   );

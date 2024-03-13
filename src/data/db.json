@@ -197,7 +197,7 @@
       "title": "Toyota Corolla Auction",
       "startTime": "2024-02-28 11:35:01",
       "endTime": "2024-04-28 11:45:01",
-      "highestBid": "220000",
+      "highestBid": "1250024",
       "carId": "1",
       "userId": "2",
       "status": "0"
@@ -217,7 +217,7 @@
       "title": "Ford F-150 Auction",
       "startTime": "2024-02-28 14:05:00",
       "endTime": "2024-04-28 15:00:01",
-      "highestBid": "33300",
+      "highestBid": "200000",
       "carId": "3",
       "userId": "3",
       "status": "0"
@@ -536,135 +536,79 @@
       "userId": "user123"
     },
     {
-      "id": "9269",
-      "auctionId": 3,
-      "bidAmount": 220000,
-      "userId": "user123"
-    },
-    {
-      "id": "82ae",
-      "auctionId": 1,
-      "bidAmount": 130000,
-      "userId": "user123"
-    },
-    {
-      "id": "4406",
-      "auctionId": "3",
-      "bidAmount": 120000,
-      "userId": ""
-    },
-    {
-      "id": "dcef",
+      "id": "8e68",
       "auctionId": "1",
-      "bidAmount": 33300,
+      "bidAmount": 40000,
       "userId": ""
     },
     {
-      "id": "5ddc",
-      "auctionId": "3",
-      "bidAmount": 120000,
+      "id": "0c22",
+      "auctionId": "4",
+      "bidAmount": 77777777,
       "userId": ""
     },
     {
-      "id": "4ad5",
-      "auctionId": "3",
-      "bidAmount": 120000,
+      "id": "1c32",
+      "auctionId": "4",
+      "bidAmount": 77777778,
       "userId": ""
     },
     {
-      "id": "db73",
-      "auctionId": "3",
-      "bidAmount": 120000,
+      "id": "1a23",
+      "auctionId": "4",
+      "bidAmount": 77777779,
       "userId": ""
     },
     {
-      "id": "ac8f",
-      "auctionId": "3",
-      "bidAmount": 120000,
+      "id": "1d89",
+      "auctionId": "5",
+      "bidAmount": 50001,
       "userId": ""
     },
     {
-      "id": "ebb1",
-      "auctionId": "3",
-      "bidAmount": 120000,
-      "userId": ""
-    },
-    {
-      "id": "5037",
+      "id": "83d2",
       "auctionId": "1",
-      "bidAmount": 130000,
-      "userId": ""
+      "bidAmount": 125001
     },
     {
-      "id": "d555",
-      "auctionId": "3",
-      "bidAmount": 120000,
-      "userId": ""
+      "id": "8ff9",
+      "auctionId": "1",
+      "bidAmount": 125002
     },
     {
-      "id": "7ee0",
-      "auctionId": "3",
-      "bidAmount": 330000,
-      "userId": ""
+      "id": "d9e3",
+      "auctionId": "1",
+      "bidAmount": 125003
     },
     {
-      "id": "232d",
-      "auctionId": "3",
-      "bidAmount": 330000,
-      "userId": ""
+      "id": "894b",
+      "auctionId": "1",
+      "bidAmount": 125001
     },
     {
-      "id": "8941",
-      "auctionId": "3",
-      "bidAmount": 340000,
-      "userId": ""
+      "id": "90b4",
+      "auctionId": "1",
+      "bidAmount": 125002
     },
     {
-      "id": "8fe5",
-      "auctionId": "3",
-      "bidAmount": 340000,
-      "userId": ""
+      "id": "21ab",
+      "auctionId": "1",
+      "bidAmount": 125001
     },
     {
-      "id": "4e3f",
-      "auctionId": "3",
-      "bidAmount": 340000,
-      "userId": ""
+      "id": "5cb1",
+      "auctionId": "1",
+      "bidAmount": 1250022
     },
     {
-      "id": "a4d6",
-      "auctionId": "3",
-      "bidAmount": 340000,
-      "userId": ""
+      "id": "e527",
+      "auctionId": "1",
+      "bidAmount": 1250023
     },
     {
-      "id": "885c",
-      "auctionId": "3",
-      "bidAmount": 120000,
-      "userId": ""
-    },
-    {
-      "id": "5dfc",
-      "auctionId": "3",
-      "bidAmount": 120000,
-      "userId": ""
-    },
-    {
-      "id": "5ba3",
-      "auctionId": "3",
-      "bidAmount": 33300,
-      "userId": ""
-    },
-    {
-      "id": "5f3b",
-      "auctionId": "3",
-      "bidAmount": 33300,
-      "userId": ""
-    },
-    {
-      "id": "f2a4",
+      "id": "6e18",
       "auctionId": 1,
-      "bidAmount": 220000,
+      "bidAmount": 1250024,
       "userId": "user123"
     }
   ]
