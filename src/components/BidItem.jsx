@@ -2,8 +2,25 @@ import { useState } from "react";
 import Countdown from "react-countdown";
 
 function BidItem({ item, userId }) {
-  const endTime = new Date(item.endTime);
-  const isValidDate = !isNaN(endTime.getTime());
+  console.log(item);
+  const endTime = new Date(item.duration);
+  const day = endTime.getDate();
+  const namemonths = [
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec",
+  ];
+  const moth = namemonths[endTime.getMonth()];
+  const year = endTime.getFullYear();
 
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
@@ -13,12 +30,12 @@ function BidItem({ item, userId }) {
   const highestBidAmount = latestBid.bidAmount || 0;
   const startPrice = item.price; //startpriset för denna auction?
 
-  const renderer = ({ days, hours, minutes, seconds, completed }) => {
-    if (completed) {
-      return <span className="align-middle fs-4">Auktionen har avslutats</span>;
-    } else {
-      return <span className="align-middle fs-4">{days}d {hours}h {minutes}m {seconds}s kvar</span>;
-    }
+  const renderer = ({ days, hours, minutes }) => {
+    return (
+      <span>
+        {days}d {hours}h {minutes}m
+      </span>
+    );
   };
 
   const validateBid = (bidAmount) => {
@@ -28,7 +45,7 @@ function BidItem({ item, userId }) {
       return false;
     }
 
-    const minimumBid = Math.max(startPrice, highestBidAmount + 1); 
+    const minimumBid = Math.max(startPrice, highestBidAmount + 1);
     if (bidAmount < minimumBid) {
       setFeedbackMessage(`Ditt bud måste vara högre än $${minimumBid}.`);
       setIsBidSuccessful(false);
@@ -68,7 +85,9 @@ function BidItem({ item, userId }) {
       }
     } catch (error) {
       console.error("Fel vid placering av bud:", error);
-      setFeedbackMessage("Ett fel inträffade vid placering av budet. Försök igen senare.");
+      setFeedbackMessage(
+        "Ett fel inträffade vid placering av budet. Försök igen senare."
+      );
       setIsBidSuccessful(false);
     }
   }
@@ -79,15 +98,26 @@ function BidItem({ item, userId }) {
 
   return (
     <div className="card">
-      {item.imageUrl && <img src={item.imageUrl} className="card-img-top" alt={item.name} />}
+      {item.imageUrl && (
+        <img src={item.imageUrl} className="card-img-top" alt={item.name} />
+      )}
       <div className="card-body">
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">Startpris: ${startPrice}</p>
-        <p className="card-text">
-          <small className="text-muted">
-            Slutdatum: {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : 'Ogiltigt eller saknas'}
-          </small>
-        </p>
+        <div className="card">
+          <div className="row">
+            <div className="col" style={{ marginLeft: "8px" }}>
+              <span className="fs-6">Date :</span>
+              <br />
+              <span> {`${day} ${moth} ${year}`}</span>
+            </div>
+            <div className="col">
+              <span className="fs-6">Date :</span>
+              <br />
+              <Countdown date={endTime.getTime()} renderer={renderer} />
+            </div>
+          </div>
+        </div>
         <div className="d-grid gap-2">
           <form onSubmit={addNewBid}>
             <input
@@ -98,15 +128,22 @@ function BidItem({ item, userId }) {
               onChange={setNewBidText}
               placeholder="Ange ditt bud"
             />
-            <button className="btn btn-primary mt-2" type="submit">Lägg Bud</button>
+            <button className="btn btn-primary mt-2" type="submit">
+              Lägg Bud
+            </button>
           </form>
-          <p className={`text-${isBidSuccessful ? 'success' : 'danger'}`}>{feedbackMessage}</p>
+          <p className={`text-${isBidSuccessful ? "success" : "danger"}`}>
+            {feedbackMessage}
+          </p>
         </div>
       </div>
       <ul className="list-group list-group-flush">
-        {item.features && item.features.map((feature, index) => (
-          <li className="list-group-item" key={index}>{feature}</li>
-        ))}
+        {item.features &&
+          item.features.map((feature, index) => (
+            <li className="list-group-item" key={index}>
+              {feature}
+            </li>
+          ))}
       </ul>
       <div className="card-footer">
         <small className="text-muted">Högsta bud: ${highestBidAmount}</small>

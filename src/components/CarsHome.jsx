@@ -9,6 +9,9 @@ function CarsHome() {
   useEffect(() => {
     setFilteredCartItems(true);
   }, []);
+  function handleClick() {
+    setFilteredCartItems(false);
+  }
   console.log(carItem);
   return (
     <div className="py-3">
@@ -20,6 +23,7 @@ function CarsHome() {
                 to={`/cars/${car.id}`}
                 key={car.id}
                 style={{ textDecoration: "none" }}
+                onClick={handleClick}
               >
                 <AuctionCard item={car} />
               </Link>

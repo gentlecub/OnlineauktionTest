@@ -33,7 +33,11 @@
         "displacement": "2.0L"
       },
       "transmission": "automatic",
-      "features": ["sunroof", "navigation system", "lane departure warning"]
+      "features": [
+        "sunroof",
+        "navigation system",
+        "lane departure warning"
+      ]
     },
     {
       "id": "3",
@@ -48,7 +52,11 @@
         "displacement": "3.5L"
       },
       "transmission": "automatic",
-      "features": ["towing package", "off-road capability", "parking sensors"]
+      "features": [
+        "towing package",
+        "off-road capability",
+        "parking sensors"
+      ]
     },
     {
       "id": "4",
@@ -82,7 +90,11 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["remote start", "blind spot monitoring", "apple carplay"]
+      "features": [
+        "remote start",
+        "blind spot monitoring",
+        "apple carplay"
+      ]
     },
     {
       "id": "6",
@@ -153,7 +165,11 @@
         "displacement": "1.4L"
       },
       "transmission": "automatic",
-      "features": ["heated seats", "android auto", "wireless phone charger"]
+      "features": [
+        "heated seats",
+        "android auto",
+        "wireless phone charger"
+      ]
     },
     {
       "id": "10",
@@ -168,7 +184,11 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["all-wheel drive", "roof rails", "power liftgate"]
+      "features": [
+        "all-wheel drive",
+        "roof rails",
+        "power liftgate"
+      ]
     }
   ],
   "Auctions": [
@@ -281,7 +301,8 @@
     {
       "userId": "user_id_here",
       "auctionId": "auction_id_here",
-      "bidAmount": 1000
+      "bidAmount": 1000,
+      "id": "ba21"
     },
     {
       "id": "3307",
@@ -316,6 +337,18 @@
       "auctionId": "2",
       "bidAmount": 70000,
       "userId": ""
+    },
+    {
+      "id": "7f00",
+      "auctionId": "1",
+      "bidAmount": 40000,
+      "userId": ""
+    },
+    {
+      "id": "8333",
+      "auctionId": 2,
+      "bidAmount": null,
+      "userId": "user123"
     }
   ]
 }
