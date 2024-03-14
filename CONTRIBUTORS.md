@@ -6,7 +6,7 @@ github användarnamn: ShivaMoradi
 git email: shiva.moradi1@gmail.com
 
 
-Samarbete med integration av kodsegment från andra medlemmar. 
+Samarbete med integration av kodsegment från andra medlemmar.
 
 Arbetade med följande feature i gitHub: 
 
@@ -20,15 +20,16 @@ Arbetade med följande feature i gitHub:
 
 Arbetade med följande Komponenter: 
 
-RegisterUser.jsx 
+- RegisterUser.jsx 
 
-NewUser.jsx 
+- NewUser.jsx 
 
-Login.jsx 
+- Login.jsx 
 
-MyNav.jsx 
+- MyNav.jsx 
 
-MyRouter.jsx 
+- MyRouter.jsx
+- db.json
 
  
 
