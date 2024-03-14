@@ -2,20 +2,21 @@ Shiva Moradi
 
 Git användarnamn: https://github.com/ShivaMoradi 
 
-github användarnamn: 
-git email: 
+github användarnamn: ShivaMoradi 
+git email: shiva.moradi1@gmail.com
+
 
 Samarbete med integration av kodsegment från andra medlemmar. 
 
 Arbetade med följande feature i gitHub: 
 
-feature/registering-login-page  
+- feature/registering-login-page  
 
-Feature/FinalAuctionsystem 
+- feature/FinalAuctionsystem 
 
-feature/Final-Shiva 
+- feature/Final-Shiva 
 
-main 
+- main 
 
 Arbetade med följande Komponenter: 
 
@@ -66,6 +67,8 @@ Arbetade med följande komponenter i gitHub
 Joakim Kvistholm 
 
 Git användarnamn: https://github.com/JoakimBLK eller https://github.com/JoakimBLK/JoakimKV 
+E-post: joakim.kvistholm@student.nbi-handelsakademin.se eller joakim.kvistholm@gmail.com 
+
 
 Implementering av början av main (med navbar, router och globalcontext), auktionsidan, en del på adminsidan och filtrering av auktionsidan. 
 
@@ -82,8 +85,6 @@ feature/FinalAuctionsystemJoakim
 feature/auctionbids 
 
 feature/admineditauctions 
-
-E-post: joakim.kvistholm@student.nbi-handelsakademin.se eller joakim.kvistholm@gmail.com 
 
 Arbetade med bland annat följande komponenter i gitHub 
 
