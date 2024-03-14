@@ -178,7 +178,7 @@
       "title": "Toyota Corolla Auction",
       "startTime": "2024-02-28 11:35:01",
       "endTime": "2024-04-28 11:45:01",
-      "highestBid": "150000",
+      "highestBid": "4444444444444444444",
       "carId": "1",
       "userId": "2",
       "status": "0"
@@ -188,7 +188,7 @@
       "title": "Honda Civic Auction",
       "startTime": "2024-02-28 13:20:21",
       "endTime": "2024-04-28 13:30:01",
-      "highestBid": "190000",
+      "highestBid": "160000",
       "carId": "2",
       "userId": "1",
       "status": "0"

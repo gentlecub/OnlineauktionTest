@@ -1,45 +1,51 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Countdown from "react-countdown";
 import { AuthContext } from "../context/AuthContext.jsx";
+
 function BidItem({ item, userId }) {
-  console.log(item);
-
   const { user } = useContext(AuthContext);
-
-  const endTime = new Date(item.duration);
-  const day = endTime.getDate();
-  const namemonths = [
-    "jan",
-    "feb",
-    "mar",
-    "apr",
-    "may",
-    "jun",
-    "jul",
-    "aug",
-    "sep",
-    "oct",
-    "nov",
-    "dec",
-  ];
-  const moth = namemonths[endTime.getMonth()];
-  const year = endTime.getFullYear();
 
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isBidSuccessful, setIsBidSuccessful] = useState(false);
+  const [auctions, setAuctions] = useState([]);
+  const [startPrice, setStartPrice] = useState(item.price);
+  const [endTime, setEndTime] = useState(null);
+  const isValidDate = endTime !== null;
 
-  const latestBid = item.latestBid || {};
-  const highestBidAmount = latestBid.bidAmount || 0;
-  const startPrice = item.price; //startpriset för denna auction?
+  useEffect(() => {
+    async function loadAuctions() {
+      try {
+        const response = await fetch("/api/auctions");
+        if (!response.ok) throw new Error("Failed to fetch auctions");
+        const data = await response.json();
+        console.log("DATA", data);
+        setAuctions(data);
+      } catch (error) {
+        console.error("Error loading auctions:", error);
+      }
+    }
+    loadAuctions();
+  }, []);
 
-  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+  useEffect(() => {
+    const auction = auctions.find((auction) => auction.carId === item.id);
+    if (auction) {
+      const auctionEndTime = new Date(auction.endTime);
+      setEndTime(auctionEndTime);
+    }
+  }, [auctions, item.id]);
+
+  const highestBid =
+    auctions.find((auction) => auction.carId === item.id)?.highestBid || 0;
+
+  const renderer = ({ days, hours, minutes, completed }) => {
     if (completed) {
       return <span className="align-middle fs-4">Auktionen har avslutats</span>;
     } else {
       return (
         <span className="align-middle fs-4">
-          {days}d {hours}h {minutes}m {seconds}s kvar
+          {days} d {hours} h {minutes} m kvar
         </span>
       );
     }
@@ -52,7 +58,7 @@ function BidItem({ item, userId }) {
       return false;
     }
 
-    const minimumBid = Math.max(startPrice, highestBidAmount + 1);
+    const minimumBid = Math.max(startPrice, parseInt(highestBid) + 1);
     if (bidAmount < minimumBid) {
       setFeedbackMessage(`Ditt bud måste vara högre än $${minimumBid}.`);
       setIsBidSuccessful(false);
@@ -71,7 +77,7 @@ function BidItem({ item, userId }) {
     const newBid = {
       auctionId: item.id,
       bidAmount,
-      userId: "", // Anta att userId är korrekt hanterat och finns
+      userId: user.id, // Anta att userId är korrekt hanterat och finns
     };
 
     try {
@@ -86,6 +92,22 @@ function BidItem({ item, userId }) {
       if (response.ok) {
         setFeedbackMessage("Budet har lagts framgångsrikt!");
         setIsBidSuccessful(true);
+
+        const updatedAuctions = auctions.map((auction) => {
+          if (auction.carId === item.id) {
+            return { ...auction, highestBid: bidText };
+          }
+          return auction;
+        });
+        setAuctions(updatedAuctions);
+
+        await fetch(`/api/auctions/${item.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ highestBid: bidText }),
+        });
       } else {
         setFeedbackMessage("Det gick inte att lägga budet. Försök igen.");
         setIsBidSuccessful(false);
@@ -113,7 +135,12 @@ function BidItem({ item, userId }) {
         <p className="card-text">Startpris: ${startPrice}</p>
         <p className="card-text">
           <small className="text-muted">
-            <Countdown date={endTime} renderer={renderer} />
+            Slutdatum:{" "}
+            {isValidDate ? (
+              <Countdown date={endTime} renderer={renderer} />
+            ) : (
+              <span>Auktionen har avslutats</span>
+            )}
           </small>
         </p>
         <div className="d-grid gap-2">
@@ -121,7 +148,7 @@ function BidItem({ item, userId }) {
             <input
               className="form-control"
               type="number"
-              min={Math.max(startPrice, highestBidAmount) + 1}
+              min={Math.max(startPrice, parseInt(highestBid) + 1)}
               value={bidText}
               onChange={setNewBidText}
               placeholder="Ange ditt bud"
@@ -144,7 +171,7 @@ function BidItem({ item, userId }) {
           ))}
       </ul>
       <div className="card-footer">
-        <small className="text-muted">Högsta bud: ${highestBidAmount}</small>
+        <small className="text-muted">Högsta bud: ${highestBid}</small>
       </div>
     </div>
   );

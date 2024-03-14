@@ -21,7 +21,7 @@ const renderer = ({ days, hours, minutes, props }) => {
             <p className="lead display-8">{props.item.brand}</p>
             <div className="d-flex jsutify-content-between align-item-center">
               <h5>
-                {days}days {hours} hr: {minutes} min:
+                {days} days {hours} hr: {minutes} min:
               </h5>
             </div>
             <p className="card-text">{props.item.desc}</p>
