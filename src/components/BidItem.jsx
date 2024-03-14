@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Countdown from "react-countdown";
 import { AuthContext } from "../context/AuthContext.jsx";
 function BidItem({ item, userId }) {
@@ -113,12 +113,7 @@ function BidItem({ item, userId }) {
         <p className="card-text">Startpris: ${startPrice}</p>
         <p className="card-text">
           <small className="text-muted">
-            Slutdatum:{" "}
-            {isValidDate ? (
-              <Countdown date={endTime} renderer={renderer} />
-            ) : (
-              "Ogiltigt eller saknas"
-            )}
+            <Countdown date={endTime} renderer={renderer} />
           </small>
         </p>
         <div className="d-grid gap-2">

@@ -1,4 +1,5 @@
 import FilterModel from "./FilterModel";
+import FiltrePrice from "./FiltrePrice";
 
 function Filter() {
   return (
@@ -19,7 +20,7 @@ function Filter() {
           </div>
           <div className="col-md-3">
             {/* Aquí colocas el segundo Form.Select */}
-            <FilterModel />
+            <FiltrePrice />
           </div>
         </div>
       </div>
