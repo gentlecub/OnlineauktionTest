@@ -52,10 +52,10 @@ Arbetade med följande feature i gitHub:
 
 Arbetade med följande komponenter i gitHub 
 
--BidItem.jsx (kunna buda på carHome) 
+-BidItem.jsx (kunna buda på carHome, se senaste budet) 
 -MyAuction.jsx (Budgivnings funktion på ShowMyAuction sidan) 
--MyNav.jsx (lade till länk för bud) 
--MyRouter.jsx (lade till  
+-MyNav.jsx (länk för Show Current Auction) 
+-MyRouter.jsx (route för ShowAuctionPage)
 -db.json (lade till bidoch en del i auctions kring highbids) 
 
  
