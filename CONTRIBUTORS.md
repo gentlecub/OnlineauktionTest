@@ -133,20 +133,7 @@ I improved the performance of the filters to ensure a fast and efficient user ex
 
 Desmond Dibba 
 
-Git användarnamn: https://github.com/desmonddibba  
+desmonddibba
+https://github.com/desmonddibba  
 
 Desmonddibba@gmail.com 
-
-Arbetade med följande features: 
-
-Skapa ny auktion + bil, validera auktionsdata  
-
-Login userstate, html rendering baserat på userstate 
-
-Userpage / user dashboard 
-
-Arbetade med följande komponenter: 
-
-Login, ProtectedRoute, context/AuthContext, Auctionform, UserPage 
-
-Branch: feature/userpage 
