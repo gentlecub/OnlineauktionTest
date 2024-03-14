@@ -33,11 +33,7 @@
         "displacement": "2.0L"
       },
       "transmission": "automatic",
-      "features": [
-        "sunroof",
-        "navigation system",
-        "lane departure warning"
-      ]
+      "features": ["sunroof", "navigation system", "lane departure warning"]
     },
     {
       "id": "3",
@@ -52,17 +48,13 @@
         "displacement": "3.5L"
       },
       "transmission": "automatic",
-      "features": [
-        "towing package",
-        "off-road capability",
-        "parking sensors"
-      ]
+      "features": ["towing package", "off-road capability", "parking sensors"]
     },
     {
       "id": "4",
       "brand": "Chevrolet",
       "model": "Malibu",
-      "price": "40000",
+      "price": "40800",
       "year": 2019,
       "color": "blue",
       "mileage": 25000,
@@ -90,11 +82,7 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": [
-        "remote start",
-        "blind spot monitoring",
-        "apple carplay"
-      ]
+      "features": ["remote start", "blind spot monitoring", "apple carplay"]
     },
     {
       "id": "6",
@@ -113,82 +101,6 @@
         "leather seats",
         "premium sound system",
         "adaptive headlights"
-      ]
-    },
-    {
-      "id": "7",
-      "brand": "Audi",
-      "model": "A4",
-      "price": "40000",
-      "year": 2020,
-      "color": "black",
-      "mileage": 22000,
-      "engine": {
-        "type": "4-cylinder",
-        "displacement": "2.0L"
-      },
-      "transmission": "automatic",
-      "features": [
-        "virtual cockpit",
-        "quattro all-wheel drive",
-        "ambient lighting"
-      ]
-    },
-    {
-      "id": "8",
-      "brand": "Tesla",
-      "model": "Model 3",
-      "price": "40000",
-      "year": 2021,
-      "color": "red",
-      "mileage": 15000,
-      "engine": {
-        "type": "electric",
-        "displacement": "N/A"
-      },
-      "transmission": "automatic",
-      "features": [
-        "autopilot",
-        "full self-driving capability",
-        "panoramic sunroof"
-      ]
-    },
-    {
-      "id": "9",
-      "brand": "Volkswagen",
-      "model": "Golf",
-      "price": "40000",
-      "year": 2018,
-      "color": "white",
-      "mileage": 28000,
-      "engine": {
-        "type": "4-cylinder",
-        "displacement": "1.4L"
-      },
-      "transmission": "automatic",
-      "features": [
-        "heated seats",
-        "android auto",
-        "wireless phone charger"
-      ]
-    },
-    {
-      "id": "10",
-      "brand": "Subaru",
-      "model": "Outback",
-      "price": 70000,
-      "year": 2017,
-      "color": "green",
-      "mileage": 32000,
-      "engine": {
-        "type": "4-cylinder",
-        "displacement": "2.5L"
-      },
-      "transmission": "automatic",
-      "features": [
-        "all-wheel drive",
-        "roof rails",
-        "power liftgate"
       ]
     }
   ],
@@ -237,7 +149,7 @@
       "id": "5",
       "title": "Nissan Altima Auction",
       "startTime": "2024-02-28 08:15:01",
-      "endTime": "2024-03-06 10:00:01",
+      "endTime": "2024-03-16 10:00:01",
       "highestBid": "300000",
       "carId": "5",
       "userId": "4",
