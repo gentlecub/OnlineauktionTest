@@ -41,7 +41,6 @@ Celeste Sun
 Git användarnamn: https://github.com/cesu1 
 Git email: celestesun@hotmail.com
 
-  
 
 Arbetade med följande feature i gitHub: 
 
@@ -52,13 +51,14 @@ Arbetade med följande feature i gitHub:
 -backup 
 -main 
 
+
 Arbetade med följande komponenter i gitHub 
 
--BidItem.jsx (kunna buda på carsHome, kunna se senaste budet) 
--MyAuction.jsx (Budgivnings funktion på ShowMyAuction sidan) 
+-BidItem.jsx (kunna buda vid carsHome--> car details sidan och kunna se senaste budet som man själv eller anna användare budat) 
+-MyAuction.jsx (Budgivnings funktion på ShowMyAuction sidan och även en filtrernigs funktion med rulllistan att kunna få fram en vald auction att buda på) 
 -MyNav.jsx (länk för Show Current Auction) 
--MyRouter.jsx (route för ShowAuctionPage)
--db.json (lade till bid och en del i auctions kring highbids) 
+-MyRouter.jsx (route path för ShowAuctionPage)
+-db.json (skapade bid och kopplade highbids från auctions till bids funktionen i berörda komponenter) 
 
  
 
