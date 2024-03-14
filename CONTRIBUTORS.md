@@ -1,0 +1,151 @@
+Shiva Moradi 
+
+Git användarnamn: https://github.com/ShivaMoradi 
+
+github användarnamn: 
+git email: 
+
+Samarbete med integration av kodsegment från andra medlemmar. 
+
+Arbetade med följande feature i gitHub: 
+
+feature/registering-login-page  
+
+Feature/FinalAuctionsystem 
+
+feature/Final-Shiva 
+
+main 
+
+Arbetade med följande Komponenter: 
+
+RegisterUser.jsx 
+
+NewUser.jsx 
+
+Login.jsx 
+
+MyNav.jsx 
+
+MyRouter.jsx 
+
+ 
+
+  
+
+  
+
+Celeste Sun 
+
+Git användarnamn: https://github.com/cesu1 
+
+  
+
+Arbetade med följande feature i gitHub: 
+
+-feature/auctionbids-Celeste 
+-FinalCeleste 
+-mergto 
+-feature/FinalAuctionSystem 
+-backup 
+-main 
+
+Arbetade med följande komponenter i gitHub 
+
+-BidItem.jsx (kunna buda på carHome) 
+-MyAuction.jsx (Budgivnings funktion på ShowMyAuction sidan) 
+-MyNav.jsx (lade till länk för bud) 
+-MyRouter.jsx (lade till  
+-db.json (lade till bidoch en del i auctions kring highbids) 
+
+ 
+
+  
+
+Joakim Kvistholm 
+
+Git användarnamn: https://github.com/JoakimBLK eller https://github.com/JoakimBLK/JoakimKV 
+
+Implementering av början av main (med navbar, router och globalcontext), auktionsidan, en del på adminsidan och filtrering av auktionsidan. 
+
+Samarbete med integration av kodsegment (till exempel FinalAuctionsystemJoakim) från andra medlemmar (framförallt Celeste).   
+
+  
+
+Arbetade med följande feature i gitHub: 
+
+main 
+
+feature/FinalAuctionsystemJoakim 
+
+feature/auctionbids 
+
+feature/admineditauctions 
+
+E-post: joakim.kvistholm@student.nbi-handelsakademin.se eller joakim.kvistholm@gmail.com 
+
+Arbetade med bland annat följande komponenter i gitHub 
+
+-BidItem.jsx 
+-MyAuction.jsx 
+-MyNav.jsx 
+-MyRouter.jsx  
+-db.json 
+
+  
+
+  
+
+Johan Gentle-Hilton 
+
+Git användarnamn: https://github.com/gentlecub 
+
+  
+
+Arbetade med följande feature i gitHub: 
+
+Development of the Home Page: 
+
+I designed and developed the platform's home page, which displays a list of vehicles in auction. 
+
+I implemented the logic to retrieve and display the vehicles in auction, including details such as model, year, initial price, and remaining time of the auction. 
+
+I used React to build a dynamic and responsive user interface, ensuring a smooth user experience. 
+
+Vehicle Details Page: 
+
+I created the vehicle details page, where users can view all the characteristics of a particular vehicle. 
+
+I displayed detailed information about the vehicle, such as model, year, mileage, engine, transmission, etc. 
+
+I implemented an intuitive and user-friendly design to allow users to navigate smoothly through the vehicle details page. 
+
+Search Filters: 
+
+I developed filtering functionalities on the home page to allow users to search for vehicles by model and price range. 
+
+I implemented the logic to filter and display only the vehicles that meet the criteria selected by the user. 
+
+I improved the performance of the filters to ensure a fast and efficient user experience, even with large data sets. 
+
+  
+
+Desmond Dibba 
+
+Git användarnamn: https://github.com/desmonddibba  
+
+Desmonddibba@gmail.com 
+
+Arbetade med följande features: 
+
+Skapa ny auktion + bil, validera auktionsdata  
+
+Login userstate, html rendering baserat på userstate 
+
+Userpage / user dashboard 
+
+Arbetade med följande komponenter: 
+
+Login, ProtectedRoute, context/AuthContext, Auctionform, UserPage 
+
+Branch: feature/userpage 
