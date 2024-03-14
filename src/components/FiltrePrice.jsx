@@ -23,8 +23,13 @@ function FiltrePrice() {
               id2: carItem[i + 1].id,
               precio2: carItem[i + 1].price,
             });
-
-            if (carItem[i].price === carItem[i + 1].price) {
+            while (
+              carItem[i].price === carItem[i + 1].price &&
+              i + 2 < carItem.length
+            ) {
+              i++;
+            }
+            if (carItem[i].price == !carItem[i + 1].price) {
               if (i + 2 < carItem.length) {
                 pricesTwoInTwo.push({
                   id1: carItem[i + 1].id,
