@@ -138,7 +138,11 @@ function BidItem({ item }) {
       <div className="card-body">
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">Startpris: ${startPrice}</p>
+        <small className="card-text">Högsta bud: ${highestBid}</small>
+       
         <p className="card-text">
+        <br></br>
+
           <small className="text-muted">
             {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : <span>Auktionen har avslutats</span>}
           </small>
@@ -169,8 +173,14 @@ function BidItem({ item }) {
         ))}
       </ul>
       <div className="card-footer">
-        <small className="text-muted">Högsta bud: ${highestBid}</small>
+        {/* Högsta bud used to be here 
+           <small className="text-muted">Högsta bud: ${highestBid}</small> 
+           
+           ADD username/ name of auction creator here ?*/}
+     
       </div>
+    
+    
     </div>
   );
 }
