@@ -1,11 +1,14 @@
 import { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import Countdown from "react-countdown";
 import {AuthContext} from '../context/AuthContext.jsx'
-
+import { GlobalContext } from "../context/GlobalContext.jsx";
 
 function BidItem({ item }) {
   
   const {user} = useContext(AuthContext)
+  const {auction} = useContext(GlobalContext)
+  const {id} = useParams()
 
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
@@ -121,6 +124,14 @@ function BidItem({ item }) {
     setBidText(event.target.value);
   }
 
+
+
+  const auctionData = auction.find(auction => auction.carId === id)
+  console.log('auctionData:', auctionData)
+
+  const auctionUserId = auctionData ? auctionData.userId : null;
+
+
   return (
     <div className="card">
       {item.imageUrl && <img src={item.imageUrl} className="card-img-top" alt={item.name} />}
@@ -134,7 +145,7 @@ function BidItem({ item }) {
         </p>
         <div className="d-grid gap-2">
 
-          {user ? (
+          {user && user.id !== auctionUserId ? (
           <form onSubmit={addNewBid}>
             <input
               className="form-control"
@@ -146,8 +157,9 @@ function BidItem({ item }) {
             />
             <button className="btn btn-primary mt-2" type="submit">Lägg Bud</button>
           </form>
-          ) :
-          ''}
+          ) : (
+          "" )}
+          
           <p className={`text-${isBidSuccessful ? 'success' : 'danger'}`}>{feedbackMessage}</p>
         </div>
       </div>
