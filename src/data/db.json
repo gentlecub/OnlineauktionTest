@@ -7,7 +7,7 @@
       "price": "30000",
       "year": 2022,
       "color": "silver",
-      "image": "https://cdn.motor1.com/images/mgl/NGZpEy/s3/2023-toyota-gr-corolla-circuit-edition-exterior.jpg",
+      "imageUrl": "https://cdn.motor1.com/images/mgl/NGZpEy/s3/2023-toyota-gr-corolla-circuit-edition-exterior.jpg",
       "mileage": 15000,
       "engine": {
         "type": "4-cylinder",
@@ -28,7 +28,7 @@
       "price": "60000",
       "year": 2020,
       "color": "black",
-      "image": "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2022/09/896/500/civic-1.jpg?ve=1&tl=1",
+      "imageUrl": "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2022/09/896/500/civic-1.jpg?ve=1&tl=1",
       "mileage": 20000,
       "engine": {
         "type": "4-cylinder",
@@ -48,7 +48,7 @@
       "price": "20000",
       "year": 2021,
       "color": "red",
-      "image": "https://media.ed.edmunds-media.com/ford/f-150/2024/oem/2024_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_600.jpg",
+      "imageUrl": "https://media.ed.edmunds-media.com/ford/f-150/2024/oem/2024_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_600.jpg",
       "mileage": 30000,
       "engine": {
         "type": "V6",
@@ -68,8 +68,7 @@
       "price": "40800",
       "year": 2019,
       "color": "blue",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/0/01/2019_Chevrolet_Malibu_%28facelift%29_LT%2C_front_10.19.19.jpg",
-
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/01/2019_Chevrolet_Malibu_%28facelift%29_LT%2C_front_10.19.19.jpg",
       "mileage": 25000,
       "engine": {
         "type": "4-cylinder",
@@ -89,7 +88,7 @@
       "price": "50000",
       "year": 2020,
       "color": "white",
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4w8yL0grfn3T1PrBoRHfFqzkm8QhIOBTLwBaYiTpxSg&s",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4w8yL0grfn3T1PrBoRHfFqzkm8QhIOBTLwBaYiTpxSg&s",
       "mileage": 18000,
       "engine": {
         "type": "4-cylinder",
@@ -109,7 +108,7 @@
       "price": "50000",
       "year": 2021,
       "color": "gray",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/8/8d/BMW_G20_IMG_0167.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/BMW_G20_IMG_0167.jpg",
       "mileage": 20000,
       "engine": {
         "type": "6-cylinder",
@@ -129,7 +128,7 @@
       "price": "150",
       "year": "1989",
       "color": "Yellow and red",
-      "image": "https://cdn-fastly.thetruthaboutcars.com/media/2022/07/10/8973567/curbside-classic-1989-ford-festiva-korea-week-shitbox-shoot-out-loser.jpg?size=720x845&nocrop=1",
+      "imageUrl": "https://cdn-fastly.thetruthaboutcars.com/media/2022/07/10/8973567/curbside-classic-1989-ford-festiva-korea-week-shitbox-shoot-out-loser.jpg?size=720x845&nocrop=1",
       "mileage": "1200000",
       "engine": {
         "type": "4-cylinder",
