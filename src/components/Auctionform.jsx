@@ -137,7 +137,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             price: auctionForm.highestBid,
             year: auctionForm.year,
             color: auctionForm.color,
-            image: auctionForm.imageUrl,
+            imageUrl: auctionForm.imageUrl,
             mileage: auctionForm.mileage,
             engine: {
               type: auctionForm.engineType,
