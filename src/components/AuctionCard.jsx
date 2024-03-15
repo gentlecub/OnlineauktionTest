@@ -8,9 +8,10 @@ const renderer = ({ days, hours, minutes, props }) => {
         <div className="card shadow-sm">
           <div
             style={{
-              height: "93px",
+              height: "200px",
+              width: "100%",
               backgroundImage: `url(${props.item.imageUrl})`,
-              backgroundSize: "contain",
+              backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
             }}
@@ -21,7 +22,7 @@ const renderer = ({ days, hours, minutes, props }) => {
             <p className="lead display-8">{props.item.brand}</p>
             <div className="d-flex jsutify-content-between align-item-center">
               <p>
-                Ends in {days} days {hours} hours {minutes} min
+                Ends in {days}d {hours}h {minutes}m
               </p>
             </div>
             <p className="card-text">{props.item.desc}</p>
