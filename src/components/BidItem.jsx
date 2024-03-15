@@ -16,7 +16,7 @@ function BidItem({ item }) {
   const [auctions, setAuctions] = useState([]);
   const [startPrice, setStartPrice] = useState(item.price);
   const [endTime, setEndTime] = useState(null);
-  const isValidDate = endTime !== null
+  const isValidDate = endTime !== null;
 
   useEffect(() => {
     async function loadAuctions() {
@@ -41,13 +41,18 @@ function BidItem({ item }) {
     }
   }, [auctions, item.id]);
 
-  const highestBid = auctions.find((auction) => auction.carId === item.id)?.highestBid || 0;
+  const highestBid =
+    auctions.find((auction) => auction.carId === item.id)?.highestBid || 0;
 
   const renderer = ({ days, hours, minutes, completed }) => {
     if (completed) {
       return <span className="align-middle fs-4">Auktionen har avslutats</span>;
     } else {
-      return <span className="align-middle fs-4">{days} d {hours} h {minutes} m kvar</span>;
+      return (
+        <span className="align-middle fs-4">
+          {days} d {hours} h {minutes} m kvar
+        </span>
+      );
     }
   };
 
@@ -108,14 +113,15 @@ function BidItem({ item }) {
           },
           body: JSON.stringify({ highestBid: bidText }),
         });
-
       } else {
         setFeedbackMessage("Det gick inte att lägga budet. Försök igen.");
         setIsBidSuccessful(false);
       }
     } catch (error) {
       console.error("Fel vid placering av bud:", error);
-      setFeedbackMessage("Ett fel inträffade vid placering av budet. Försök igen senare.");
+      setFeedbackMessage(
+        "Ett fel inträffade vid placering av budet. Försök igen senare."
+      );
       setIsBidSuccessful(false);
     }
   }
@@ -134,7 +140,9 @@ function BidItem({ item }) {
 
   return (
     <div className="card">
-      {item.imageUrl && <img src={item.imageUrl} className="card-img-top" alt={item.name} />}
+      {item.imageUrl && (
+        <img src={item.imageUrl} className="card-img-top" alt={item.name} />
+      )}
       <div className="card-body">
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">Startpris: ${startPrice}</p>
@@ -159,7 +167,9 @@ function BidItem({ item }) {
               onChange={setNewBidText}
               placeholder="Ange ditt bud"
             />
-            <button className="btn btn-primary mt-2" type="submit">Lägg Bud</button>
+            <button className="btn btn-primary mt-2" type="submit">
+              Lägg Bud
+            </button>
           </form>
           ) : (
           "" )}
@@ -168,9 +178,12 @@ function BidItem({ item }) {
         </div>
       </div>
       <ul className="list-group list-group-flush">
-        {item.features && item.features.map((feature, index) => (
-          <li className="list-group-item" key={index}>{feature}</li>
-        ))}
+        {item.features &&
+          item.features.map((feature, index) => (
+            <li className="list-group-item" key={index}>
+              {feature}
+            </li>
+          ))}
       </ul>
       <div className="card-footer">
         {/* Högsta bud used to be here 
