@@ -140,7 +140,7 @@ function BidItem({ item }) {
         <p className="card-text">Startpris: ${startPrice}</p>
         <p className="card-text">
           <small className="text-muted">
-            Slutdatum: {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : <span>Auktionen har avslutats</span>}
+            {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : <span>Auktionen har avslutats</span>}
           </small>
         </p>
         <div className="d-grid gap-2">
