@@ -20,7 +20,7 @@ function MyAuction() {
         const response = await fetch("/api/auctions");
         if (!response.ok) throw new Error("Failed to fetch auctions");
         const data = await response.json();
-        console.log("DATA", data);
+       // console.log("DATA", data);
         setAuctions(data);
         applyFilters(data);
       } catch (error) {
@@ -30,7 +30,7 @@ function MyAuction() {
     loadAuctions();
   }, []);
 
-  console.log("ACTION", auctions);
+  // console.log("ACTION", auctions);
 
   const applyFilters = (auctions) => {
     let result = auctions.filter((auction) =>
@@ -93,8 +93,8 @@ function MyAuction() {
         (auction) => auction.id == auctionId
       )?.highestBid;
 
-      console.log("bidAmount: " + bidAmount)
-      console.log("highestBid: " + highestBid)
+      // console.log("bidAmount: " + bidAmount)
+      // console.log("highestBid: " + highestBid)
 
       if (!bidAmount) {
         throw new Error("Bid amount must be set to a value");
@@ -131,13 +131,13 @@ function MyAuction() {
       setFilteredItems([...filteredItems])
       setAuctions([...auctions])
 
-      console.log(filteredItems[indexFiltered])
+     // console.log(filteredItems[indexFiltered])
 
       await storeAuctionBid(filteredItems[indexFiltered], auctionId)
       // alert(`Auction object with id ${filteredItems[indexFiltered].id} has now recieved a new highest bid!`)
 
     } catch (error) {
-      console.error("Error placing bid:", error.message);
+     // console.error("Error placing bid:", error.message);
       alert(error.message);
     }
 

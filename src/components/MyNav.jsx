@@ -13,7 +13,7 @@ function MyNav() {
   const { currentUser, logout } = useContext(AuthContext);
   const [showFiltre, setShowFiltre] = useState(false);
   const { filteredCartItems, setFilteredCartItems } = useContext(GlobalContext);
-  console.log("FiltreCar item", filteredCartItems);
+  // console.log("FiltreCar item", filteredCartItems);
 
   return (
     <header>
@@ -27,8 +27,11 @@ function MyNav() {
           Show Current Auction
         </Link>
 
-
-        {user ? (<Link to="/userpage" className="text-sm-right nav-link" >Userpage</Link>) : (<Link to="/registering-page" className="text-sm-right nav-link" >Register / Login</Link>)}
+        {/* Add condition based on usertype? admin / user*/}
+        {user ? (
+          <Link to="/userpage" className="text-sm-right nav-link" >Userpage</Link>
+        ) : (
+          <Link to="/registering-page" className="text-sm-right nav-link" >Register / Login</Link>)}
 
       </nav>
 

@@ -70,7 +70,7 @@ function AuthProvider({ children }) {
         (user) => user.email === email && user.password === password
       );
       if (!user) setCurrentUser(null);
-      console.log("LoginUser", user);
+     // console.log("LoginUser", user);
       setCurrentUser(user);
     } catch (err) {
       setGlobalMsg(err.message);
@@ -100,7 +100,7 @@ function AuthProvider({ children }) {
         const response = await fetch("http://localhost:3000/users");
         if (!response.ok) throw Error("Did not receive expected data");
         const listUserItem = await response.json();
-        console.log(listUserItem);
+      //  console.log(listUserItem);
         const userSubcribe = listUserItem.find(
           (subscribe) => subscribe.id === user.id
         );

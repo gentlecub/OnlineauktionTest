@@ -23,10 +23,10 @@ function Login () {
 
         if(user) {
             login(user)
-            console.log(user, 'Logged in successfully.')
+           // console.log(user, 'Logged in successfully.')
             navigate('/userpage')
         }else{
-            console.log(user, 'Failed to login')
+          //  console.log(user, 'Failed to login')
         }
     };
 

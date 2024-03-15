@@ -41,6 +41,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         status: auction?.highestBid || '0'
 
         // "status": must be added */ 
+        // add place for image url
     });
 
 

@@ -1,5 +1,5 @@
 function CarItem(props) {
-  console.log("items", props.item);
+  //console.log("items", props.item);
   const renderCarDetails = () => {
     return Object.keys(props.item).map((key) => {
       if (key === "id" || key === "duration") {
@@ -31,7 +31,7 @@ function CarItem(props) {
 
   return (
     <>
-      {console.log("Item", props.item)}
+      {/* {console.log("Item", props.item)} */}
       <div className="col-sm">
         <div className="container-xl ">
           <div className="card">

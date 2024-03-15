@@ -9,7 +9,7 @@ function CarsHome() {
   useEffect(() => {
     setFilteredCartItems(true);
   }, []);
-  console.log(carItem);
+ // console.log(carItem);
   return (
     <div className="py-3">
       {carItem && (
