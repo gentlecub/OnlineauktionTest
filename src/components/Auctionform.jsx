@@ -93,6 +93,10 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             errors.color = 'Color is required.'
         }
 
+        if (!auctionForm.imageUrl){
+          errors.imageUrl = 'ImageURL not found.'
+        }
+
         if (!auctionForm.mileage || isNaN(auctionForm.mileage) || auctionForm.mileage < 0){
             errors.mileage = 'Please enter valid mileage.'
         }
