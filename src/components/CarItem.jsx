@@ -2,7 +2,7 @@ function CarItem(props) {
   //console.log("items", props.item);
   const renderCarDetails = () => {
     return Object.keys(props.item).map((key) => {
-      if (key === "id" || key === "duration" || key === "image") {
+      if (key === "id" || key === "duration" || key === "imageUrl") {
         return null;
       }
       if (typeof props.item[key] === "object") {
@@ -45,7 +45,7 @@ function CarItem(props) {
               <div className="d-flex justify-content-center align-items-center h-100">
                 <div style={{ width: "60%" }}>
                   <img
-                    src="https://media.istockphoto.com/id/1157655660/es/foto/suv-rojo-gen%C3%A9rico-sobre-un-fondo-blanco-vista-lateral.jpg?s=612x612&w=0&k=20&c=0I2xA9oCnNUfluy5m1ErkM4NwHQOkhDUr2HwKXNO1z8="
+                    src={props.item.imageUrl}
                     className="img-fluid mx-auto d-block"
                     alt="..."
                   />
