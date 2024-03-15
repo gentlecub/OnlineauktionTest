@@ -6,30 +6,16 @@ import { Link } from "react-router-dom";
 import AuctionCard from "./AuctionCard";
 
 
-
-
-
-
-
 function UserDashboard(){
-
-
-
-
     const {carItem, auction } = useContext( GlobalContext );
     const { logout, user } = useContext( AuthContext );
-    console.log('Desmond Car::  ', carItem);
-    console.log('Desmond Auction::  ', auction);
-
-    const userAuctions = auction.filter(auction => auction.userId === user.id)
-    const userCars = userAuctions.filter(auction => carItem.id === auction.carId)
     
+    const userAuctions = auction.filter(auction => auction.userId === user.id)
+    const userCars = userAuctions.map(auction => carItem.find(car => car.id === auction.carId))
+
     // console.log('Userauctions: ', userAuctions)
     // console.log('Usercars: ', userCars)
     
-
-
-
     // must be connected to user & should only be visible when user is logged in
 
     const [ showForm, setShowForm ] = useState( false );
@@ -50,11 +36,28 @@ function UserDashboard(){
 
     return (
         <>
-            <h1>User Dashboard</h1>  
+            <h1>User Dashboard</h1>
+            
+            <p>Welcome {user.name} </p>
+
+            {userCars.map(car => (
+                <div className="py-3"   key={car.id}>
+                    <div className="row row-cols-1 row-cols-md-3 g-3"  key={car.id}> 
+                            <div className="col-12 col-sm-6 col-md-4 " key={car.id}>
+                                <Link
+                                    to={`/cars/${car.id}`}
+                                    key={car.id}
+                                    style={{ textDecoration: "none" }}
+                                    >
+                                    <AuctionCard key={car.id} item={car} />
+                                </Link>
+                          </div>
+                    </div>
+                </div>
+            ))}
 
 
-
-
+            <br></br>
             <div>
                 { showForm ? ( <AuctionForm onSubmit={ handleAuctionSubmit } closeForm={ () => setShowForm( false ) } /> ) :
                     ( <button className="btn btn-primary" onClick={ () => setShowForm( true ) }> Create new Auction </button> ) }
