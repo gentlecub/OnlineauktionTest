@@ -32,6 +32,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         transmission: auction?.transmission || '',
         features: auction?.features || [],
         price: auction?.price || '',
+        imageUrl: auction?.imageUrl || '',
 
 
         title: auction?.title || '',
@@ -132,6 +133,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             price: auctionForm.highestBid,
             year: auctionForm.year,
             color: auctionForm.color,
+            image: auctionForm.imageUrl,
             mileage: auctionForm.mileage,
             engine: {
               type: auctionForm.engineType,
@@ -155,7 +157,9 @@ function AuctionForm({ onSubmit, closeForm, auction}){
            
             
             const car = await carRespone.json();
-    
+            
+
+            // Add current hour, minute and seconds to end-date.
             const endDateWithTime = new Date(auctionForm.endDate);
             endDateWithTime.setHours(new Date().getHours());
             endDateWithTime.setMinutes(new Date().getMinutes());
@@ -241,6 +245,10 @@ function AuctionForm({ onSubmit, closeForm, auction}){
                     <div className="col-md-6">
                       <label htmlFor="color" className="form-label">Color:</label>
                       <input type="text" className="form-control" id="color" name="color" value={auctionForm.color} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="imageUrl" className="form-label">Image URL:</label>
+                      <input type="text" className="form-control" id="imageUrl" name="imageUrl" placeholder="Enter image URL" value={auctionForm.imageUrl} onChange={handleChange} />
                     </div>
                     <div className="col-md-6">
                       <label htmlFor="mileage" className="form-label">Mileage:</label>
