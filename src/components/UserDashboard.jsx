@@ -7,11 +7,12 @@ import AuctionCard from "./AuctionCard";
 
 
 function UserDashboard(){
-    const {carItem, auction } = useContext( GlobalContext );
+    const { carItem, auction } = useContext( GlobalContext );
     const { logout, user } = useContext( AuthContext );
-    
+
     const userAuctions = auction.filter(auction => auction.userId === user.id)
     const userCars = userAuctions.map(auction => carItem.find(car => car.id === auction.carId))
+
 
     // console.log('Userauctions: ', userAuctions)
     // console.log('Usercars: ', userCars)
@@ -34,11 +35,26 @@ function UserDashboard(){
     }
 
 
+    const renderCarList = () => {
+        
+    };
+
+
     return (
         <>
-            <h1>User Dashboard</h1>
-            
+            <h1>User Dashboard</h1>      
             <p>Welcome {user.name} </p>
+
+            <br></br>
+            <div>
+                { showForm ? ( <AuctionForm onSubmit={ handleAuctionSubmit } closeForm={ () => setShowForm( false ) } /> ) :
+                    ( <button className="btn btn-primary" onClick={ () => setShowForm( true ) }> Create new Auction </button> ) }
+            </div>
+
+            <div>
+                <br></br>
+                <button onClick={ handleLogout } className="btn btn-primary" >Logout</button>
+            </div>
 
             {userCars.map(car => (
                 <div className="py-3"   key={car.id}>
@@ -51,24 +67,10 @@ function UserDashboard(){
                                     >
                                     <AuctionCard key={car.id} item={car} />
                                 </Link>
-                          </div>
+                        </div>
                     </div>
                 </div>
             ))}
-
-
-            <br></br>
-            <div>
-                { showForm ? ( <AuctionForm onSubmit={ handleAuctionSubmit } closeForm={ () => setShowForm( false ) } /> ) :
-                    ( <button className="btn btn-primary" onClick={ () => setShowForm( true ) }> Create new Auction </button> ) }
-            </div>
-
-
-            <div>
-                <br></br>
-                <button onClick={ handleLogout } className="btn btn-primary" >Logout</button>
-            </div>
-
 
         </>
     )
