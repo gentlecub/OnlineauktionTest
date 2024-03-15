@@ -20,9 +20,9 @@
             <div className="card-body">
               <p className="lead display-8">{props.item.brand}</p>
               <div className="d-flex jsutify-content-between align-item-center">
-                <h5>
-                  {days} days {hours} hr: {minutes} min:
-                </h5>
+                <p>
+                  Ends in {days} days {hours} hours {minutes} min
+                </p>
               </div>
               <p className="card-text">{props.item.desc}</p>
               <div className="d-flex justify-content-between align-item-center">
