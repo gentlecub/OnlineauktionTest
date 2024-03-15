@@ -40,6 +40,7 @@ function UserDashboard(){
     const handleEditAuction = (car) => {
         return () => {
             const auctionToEdit = auction.find(a => a.carId === car.id)
+            console.log('Auction to edit: (should be imageURL here): ', auctionToEdit, car)
             setAuctionForm({...auctionToEdit, ...car})
             setShowForm(true)
         }
