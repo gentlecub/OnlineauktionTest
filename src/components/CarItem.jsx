@@ -2,7 +2,7 @@ function CarItem(props) {
   //console.log("items", props.item);
   const renderCarDetails = () => {
     return Object.keys(props.item).map((key) => {
-      if (key === "id" || key === "duration") {
+      if (key === "id" || key === "duration" || key === "image") {
         return null;
       }
       if (typeof props.item[key] === "object") {
