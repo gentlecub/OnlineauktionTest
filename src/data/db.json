@@ -33,7 +33,11 @@
         "displacement": "2.0L"
       },
       "transmission": "automatic",
-      "features": ["sunroof", "navigation system", "lane departure warning"]
+      "features": [
+        "sunroof",
+        "navigation system",
+        "lane departure warning"
+      ]
     },
     {
       "id": "3",
@@ -48,7 +52,11 @@
         "displacement": "3.5L"
       },
       "transmission": "automatic",
-      "features": ["towing package", "off-road capability", "parking sensors"]
+      "features": [
+        "towing package",
+        "off-road capability",
+        "parking sensors"
+      ]
     },
     {
       "id": "4",
@@ -82,7 +90,11 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["remote start", "blind spot monitoring", "apple carplay"]
+      "features": [
+        "remote start",
+        "blind spot monitoring",
+        "apple carplay"
+      ]
     },
     {
       "id": "6",
@@ -101,6 +113,25 @@
         "leather seats",
         "premium sound system",
         "adaptive headlights"
+      ]
+    },
+    {
+      "id": "ff95",
+      "brand": "Ford",
+      "model": "Festiva ",
+      "price": "150",
+      "year": "1989",
+      "color": "Yellow and red",
+      "image": "https://cdn-fastly.thetruthaboutcars.com/media/2022/07/10/8973567/curbside-classic-1989-ford-festiva-korea-week-shitbox-shoot-out-loser.jpg?size=720x845&nocrop=1",
+      "mileage": "1200000",
+      "engine": {
+        "type": "4-cylinder",
+        "displacement": "1.3L"
+      },
+      "transmission": "manual",
+      "features": [
+        "features",
+        ""
       ]
     }
   ],
@@ -153,6 +184,16 @@
       "highestBid": "300000",
       "carId": "5",
       "userId": "4",
+      "status": "0"
+    },
+    {
+      "id": "7e6b",
+      "title": "old car for sale",
+      "startTime": "2024-03-15 14:47:17",
+      "endTime": "2024-03-17 14:49:19",
+      "highestBid": "150",
+      "carId": "ff95",
+      "userId": "5",
       "status": "0"
     }
   ],
