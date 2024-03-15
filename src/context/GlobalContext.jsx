@@ -25,9 +25,9 @@ function GlobalProvider({ children }) {
         if (!response.ok && !responseDuration.ok)
           throw Error("Did not receive expected data");
         const listCarItem = await response.json();
-        console.log(listCarItem);
+      //  console.log(listCarItem);
         const listDuration = await responseDuration.json();
-        console.log(listDuration);
+      //  console.log(listDuration);
         const updatedCarItem = listCarItem.map((car) => {
           const match = listDuration.find((item) => item.carId === car.id);
           if (match) {
@@ -36,7 +36,7 @@ function GlobalProvider({ children }) {
           }
           return car;
         });
-        console.log(updatedCarItem);
+       // console.log(updatedCarItem);
         setCarItem(updatedCarItem);
         setOriginalCarItem(updatedCarItem);
         setFetchError(null);
