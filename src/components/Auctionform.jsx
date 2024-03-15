@@ -149,9 +149,14 @@ function AuctionForm({ onSubmit, closeForm, auction}){
           
         
 
+
+        const method = auction?.id ? 'PUT' : 'POST'
+        const carEndpoint = auction?.id ? `/api/cars/${auction.carId}` : '/api/cars';
+        const auctionEndpoint = auction?.id ? `/api/auctions/${auction.id}` : '/api/cars';
+
         try {
-            const carRespone = await fetch('/api/cars', {
-                method: 'POST',
+            const carRespone = await fetch(carEndpoint, {
+                method: method,
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(carData)
             });
@@ -176,14 +181,17 @@ function AuctionForm({ onSubmit, closeForm, auction}){
                 startTime: auctionForm.startDate,
                 endTime: formattedEndTime,
                 highestBid: auctionForm.highestBid,
-                carId: car.id,
+                carId: auctionForm?.carId || car.id,
                 userId: auctionForm.userId,
                 status: auctionForm.status
             };
 
 
-            const auctionResponse = await fetch('/api/auctions', {
-                method: 'POST',
+            
+            
+
+            const auctionResponse = await fetch(auctionEndpoint, {
+                method: method,
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(auctionData)
             });
