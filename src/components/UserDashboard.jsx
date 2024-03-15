@@ -20,6 +20,7 @@ function UserDashboard(){
     // must be connected to user & should only be visible when user is logged in
 
     const [ showForm, setShowForm ] = useState( false );
+    const [ auctionForm, setAuctionForm] = useState(null);
 
 
     const handleAuctionSubmit = ( auctionFormData ) => {
@@ -35,6 +36,17 @@ function UserDashboard(){
     }
 
 
+
+    const handleEditAuction = (car) => {
+        return () => {
+            const auctionToEdit = auction.find(a => a.carId === car.id)
+            setAuctionForm({...auctionToEdit, ...car})
+            setShowForm(true)
+        }
+    }
+
+
+
     const renderCarList = () => {
         
     };
@@ -47,8 +59,10 @@ function UserDashboard(){
 
             <br></br>
             <div>
-                { showForm ? ( <AuctionForm onSubmit={ handleAuctionSubmit } closeForm={ () => setShowForm( false ) } /> ) :
-                    ( <button className="btn btn-primary" onClick={ () => setShowForm( true ) }> Create new Auction </button> ) }
+                { showForm ? ( 
+                <AuctionForm auction={auctionForm} onSubmit={ handleAuctionSubmit } closeForm={ () => setShowForm( false ) } /> 
+                ) : ( 
+                <button className="btn btn-primary" onClick={ () => setShowForm( true ) }> Create new Auction </button> ) }
             </div>
 
             <div>
@@ -67,6 +81,7 @@ function UserDashboard(){
                                     >
                                     <AuctionCard key={car.id} item={car} />
                                 </Link>
+                                <button onClick={handleEditAuction(car)}> Edit </button>
                         </div>
                     </div>
                 </div>
