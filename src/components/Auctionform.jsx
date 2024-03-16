@@ -44,7 +44,6 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         price: auction?.price || '',
         imageUrl: auction?.imageUrl || '',
 
-
         title: auction?.title || '',
         startDate: auction?.startTime || formatDateTime(new Date()),
         endDate: formatEndTime(auction?.endTime) || '',
@@ -141,6 +140,11 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             console.error(errors)
             return;
         }
+
+        const lastEditedDate = formatDateTime(new Date())
+        const imageAlt = `${auctionForm.year} ${auctionForm.brand} ${auctionForm.model}`
+
+
         
         const carData = {
             brand: auctionForm.brand,
@@ -149,6 +153,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             year: auctionForm.year,
             color: auctionForm.color,
             imageUrl: auctionForm.imageUrl,
+            imageAlt: imageAlt,
             mileage: auctionForm.mileage,
             engine: {
               type: auctionForm.engineType,
@@ -186,11 +191,8 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             endDateWithTime.setMinutes(new Date().getMinutes());
             endDateWithTime.setSeconds(new Date().getSeconds());
             
+
             const formattedEndTime = formatDateTime(endDateWithTime);
-
-            const lastEditedDate = formatDateTime(new Date())
-
-
             const auctionData = {
                 title: auctionForm.title,
                 startTime: auctionForm.startDate,
@@ -210,11 +212,6 @@ function AuctionForm({ onSubmit, closeForm, auction}){
 
             if (!auctionResponse.ok) throw new Error('Problem posting auction data');
             const auction = await auctionResponse.json()
-
-            setAuctionForm(prevState => ({
-              ...prevState,
-              editedDate: lastEditedDate
-            }))
 
 
             onSubmit({car, auction})
