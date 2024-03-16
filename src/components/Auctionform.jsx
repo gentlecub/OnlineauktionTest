@@ -13,9 +13,19 @@ function formatDateTime(date) {
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 }
 
+function formatEndTime(date){
+
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = `${d.getMonth() + 1}`.padStart(2, '0'); 
+    const day = `${d.getDate()}`.padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  
+}
 
 function AuctionForm({ onSubmit, closeForm, auction}){
-    
+
+    console.log('Sent to AuctionForm: ', auction)
     const {user} = useContext(AuthContext)
 
     const [auctionForm, setAuctionForm] = useState(
@@ -36,8 +46,8 @@ function AuctionForm({ onSubmit, closeForm, auction}){
 
 
         title: auction?.title || '',
-        startDate: auction?.startDate || formatDateTime(new Date()),
-        endDate: auction?.endDate || '',
+        startDate: auction?.startTime || formatDateTime(new Date()),
+        endDate: formatEndTime(auction?.endTime) || '',
         highestBid: auction?.highestBid || '',
         status: auction?.highestBid || '0'
 
