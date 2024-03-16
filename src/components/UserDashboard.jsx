@@ -46,6 +46,10 @@ function UserDashboard(){
         }
     }
 
+    const handleCloseForm = () => {
+        setShowForm(false)
+        setAuctionForm(null)
+    }
 
 
     const renderCarList = () => {
@@ -61,7 +65,7 @@ function UserDashboard(){
             <br></br>
             <div>
                 { showForm ? ( 
-                <AuctionForm auction={auctionForm} onSubmit={ handleAuctionSubmit } closeForm={ () => setShowForm( false ) } /> 
+                <AuctionForm auction={auctionForm} onSubmit={ handleAuctionSubmit } closeForm={ handleCloseForm } /> 
                 ) : ( 
                 <button className="btn btn-primary" onClick={ () => setShowForm( true ) }> Create new Auction </button> ) }
             </div>
