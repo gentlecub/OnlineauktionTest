@@ -23,6 +23,13 @@ function UserDashboard(){
     const [ auctionForm, setAuctionForm] = useState(null);
 
 
+
+    const handleShowForm = () => {
+        setAuctionForm(null)
+        setShowForm(true)
+    };
+
+
     const handleAuctionSubmit = ( auctionFormData ) => {
         console.log( auctionFormData, "Was created in the Database." )
         alert('Auction created successfully.')
@@ -34,8 +41,6 @@ function UserDashboard(){
         alert('Goodbye')
         logout()
     }
-
-
 
     const handleEditAuction = (car) => {
         return () => {
@@ -67,7 +72,7 @@ function UserDashboard(){
                 { showForm ? ( 
                 <AuctionForm auction={auctionForm} onSubmit={ handleAuctionSubmit } closeForm={ handleCloseForm } /> 
                 ) : ( 
-                <button className="btn btn-primary" onClick={ () => setShowForm( true ) }> Create new Auction </button> ) }
+                <button className="btn btn-primary" onClick={ handleShowForm }> Create new Auction </button> ) }
             </div>
 
             <div>
