@@ -49,7 +49,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         startDate: auction?.startTime || formatDateTime(new Date()),
         endDate: formatEndTime(auction?.endTime) || '',
         highestBid: auction?.highestBid || '',
-        status: auction?.highestBid || '0'
+        status: '0'
 
         // "status": must be added */ 
         // add place for image url
@@ -197,7 +197,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
                 endTime: formattedEndTime,
                 highestBid: auctionForm.highestBid,
                 editedDate: lastEditedDate,
-                carId: auctionForm?.carId || car.id,
+                carId: car.id,
                 userId: auctionForm.userId,
                 status: auctionForm.status
             };
