@@ -94,8 +94,9 @@ function AuctionForm({ onSubmit, closeForm, auction}){
 
 
         const endDateTime = new Date(auctionForm.endDate)
+        const lastEditedDate = new Date()
 
-        if(!auctionForm.endDate || endDateTime <= new Date(auctionForm.startDate)){
+        if(!auctionForm.endDate || endDateTime <= new Date(auctionForm.startDate) || endDateTime <= lastEditedDate){
           errors.endDate = 'End date must be in the future'
         }
 
@@ -164,6 +165,7 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         const carEndpoint = auction?.id ? `/api/cars/${auction.carId}` : '/api/cars';
         const auctionEndpoint = auction?.id ? `/api/auctions/${auction.id}` : '/api/cars';
 
+
         try {
             const carRespone = await fetch(carEndpoint, {
                 method: method,
@@ -186,19 +188,19 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             
             const formattedEndTime = formatDateTime(endDateWithTime);
 
+            const lastEditedDate = formatDateTime(new Date())
+
+
             const auctionData = {
                 title: auctionForm.title,
                 startTime: auctionForm.startDate,
                 endTime: formattedEndTime,
                 highestBid: auctionForm.highestBid,
+                editedDate: lastEditedDate,
                 carId: auctionForm?.carId || car.id,
                 userId: auctionForm.userId,
                 status: auctionForm.status
             };
-
-
-            
-            
 
             const auctionResponse = await fetch(auctionEndpoint, {
                 method: method,
@@ -206,10 +208,14 @@ function AuctionForm({ onSubmit, closeForm, auction}){
                 body: JSON.stringify(auctionData)
             });
 
-
             if (!auctionResponse.ok) throw new Error('Problem posting auction data');
-
             const auction = await auctionResponse.json()
+
+            setAuctionForm(prevState => ({
+              ...prevState,
+              editedDate: lastEditedDate
+            }))
+
 
             onSubmit({car, auction})
         }
