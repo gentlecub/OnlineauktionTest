@@ -6,17 +6,18 @@ const renderer = ({ days, hours, minutes, props }) => {
     <>
       <div className="col">
         <div className="card shadow-sm">
-          <div
+          <img 
+          src={props.item.imageUrl} 
+          alt={props.item.imageAlt}
+          className="card-img-top"
             style={{
-              height: "200px",
+              height: "300px",
               width: "100%",
-              backgroundImage: `url(${props.item.imageUrl})`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
+              objectFit: "cover",
+              objectPosition: "center"
             }}
-            className="w-100"
-          />
+           />
+      
 
           <div className="card-body">
             <p className="lead display-8">{props.item.brand}</p>
