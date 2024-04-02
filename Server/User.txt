@@ -1,0 +1,128 @@
+namespace Onlineauction;
+
+using MySql.Data.MySqlClient;
+using System.Data;
+
+public class Users
+{
+    public static void Post(State state)
+    {
+        MySqlCommand command = new("INSERT INTO users(username,email,password) values(@username,@email,@password)", state.DB);
+
+        Console.WriteLine("Please enter username");
+        string username = Console.ReadLine() ?? string.Empty;
+
+        Console.WriteLine("Please enter email");
+        string email = Console.ReadLine() ?? string.Empty;
+
+        Console.WriteLine("Please enter password");
+        string password = Console.ReadLine() ?? string.Empty;
+
+        command.Parameters.AddWithValue("@username", username);
+        command.Parameters.AddWithValue("@email", email);
+        command.Parameters.AddWithValue("@password", password);
+
+        command.ExecuteNonQuery();
+    }
+
+    public static void Update(State state)
+    {
+
+        string strInfo = Users.All(state);
+        Console.WriteLine(strInfo);
+
+        MySqlCommand command = new("Update users set username = @username Where id = @id", state.DB);
+
+        Console.WriteLine("Please enter id");
+        string id = Console.ReadLine() ?? string.Empty;
+
+        Console.WriteLine("Please enter new username");
+        string username = Console.ReadLine() ?? string.Empty;
+
+        command.Parameters.AddWithValue("@username", username);
+        command.Parameters.AddWithValue("@id", id);
+
+        command.ExecuteNonQuery();
+
+    }
+
+    public static void Delete(State state)
+    {
+
+        string strInfo = Users.All(state);
+        Console.WriteLine(strInfo);
+
+        MySqlCommand command = new("Delete from users Where id = @id", state.DB);
+
+        Console.WriteLine("Please enter id of user to be deleted");
+        string id = Console.ReadLine() ?? string.Empty;
+
+        command.Parameters.AddWithValue("@id", id);
+
+        command.ExecuteNonQuery();
+
+    }
+
+    public static void SingleEmail(State state)
+    {
+        MySqlCommand command = new("SELECT email FROM users WHERE username = @username", state.DB);
+
+        Console.WriteLine("Please enter the username you want the email of: ");
+        string username = Console.ReadLine() ?? string.Empty;
+
+        command.Parameters.AddWithValue("@username", username);
+
+        var email = command.ExecuteScalar();
+
+        if (email is string s)
+        {
+            Console.WriteLine(s);
+        }
+    }
+
+    public static string All(State state)
+    {
+        string strInfo = "";
+        MySqlCommand command = new("SELECT * FROM users", state.DB);
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            int id = reader.GetInt32("id");
+            string username = reader.GetString("username");
+            strInfo += $"{username} has id: {id}\n";
+            Console.WriteLine($"{username} has id: {id}");
+        }
+        return strInfo;
+    }
+    public static string AllOfRole(string role, State state)
+    {
+        User myUser = new User();
+
+        if (!(myUser.StringToRole(role) is Role r))
+        {
+            return "No such role exists";
+        }
+
+        string strInfo = string.Empty;
+        MySqlCommand command = new("SELECT * FROM users where role = @role", state.DB);
+        command.Parameters.AddWithValue("@role", role);
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            int id = reader.GetInt32("id");
+            string username = reader.GetString("username");
+            strInfo += $"{username} has id: {id}\n";
+            Console.WriteLine($"{username} has id: {id}");
+        }
+        return strInfo;
+
+    }
+
+}
+
+
+// - Post: All "user data". 
+
+// - Get: All users. 

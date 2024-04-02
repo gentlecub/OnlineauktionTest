@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using Onlineauction;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +21,12 @@ try
     
 
     app.MapGet("/", () => "Hello World!");
+    app.MapGet("/users", Users.All);
 
 
 
-    app.Run();
+
+    app.Run("http://localhost:3008");
 
 
 }
