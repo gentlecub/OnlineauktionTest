@@ -1,0 +1,60 @@
+
+create Database onlineauction;
+use onlineauction;
+
+create table cars
+(
+    id                  int auto_increment primary key,
+    brand               varchar(255)   null,
+    model               varchar(255)   null,
+    price               decimal(10, 2) null,
+    year                int            null,
+    color               varchar(50)    null,
+    imageUrl            varchar(255)   null,
+    mileage             int            null,
+    engine_type         varchar(50)    null,
+    engine_displacement varchar(50)    null,
+    transmission        varchar(50)    null,
+    features            text           null
+);
+
+create table users
+(
+    id int auto_increment primary key,
+    username varchar(255) null,
+    password varchar(255) null,
+    name     varchar(255) null,
+    email    varchar(255) null,
+    roll     varchar(255) null
+);
+
+create table auctions
+(
+    id         int auto_increment primary key,
+    title      varchar(255) null,
+    startTime  datetime     null,
+    endTime    datetime     null,
+    highestBid decimal(20)  null,
+    carId      int          null,
+    userId     int          null,
+    status     int          null,
+    constraint carId
+        foreign key (carId) references cars (id),
+    constraint userId
+        foreign key (userId) references users (id)
+);
+
+create table bid
+(
+    id        int auto_increment primary key,
+    auctionId int            null,
+    bidAmount decimal(18, 2) null,
+    userId    int            null,
+    constraint auctionId
+        foreign key (auctionId) references auctions (id),
+    constraint bid_ibfk_1
+        foreign key (userId) references users (id)
+);
+
+create index userId
+    on bid (userId);
