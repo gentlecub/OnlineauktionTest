@@ -20,12 +20,12 @@ create table cars
 
 create table users
 (
-    id int auto_increment primary key,
-    username varchar(255) null,
-    password varchar(255) null,
-    name     varchar(255) null,
-    email    varchar(255) null,
-    roll     varchar(255) null
+    id       int auto_increment primary key,
+    username varchar(255)           null,
+    password varchar(255)           null,
+    name     varchar(255)           null,
+    email    varchar(255)           null,
+    roll     enum ('admin', 'user') not null
 );
 
 create table auctions

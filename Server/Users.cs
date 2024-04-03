@@ -42,9 +42,27 @@ public class Users
         command.Parameters.AddWithValue("@username", user.username);
         command.Parameters.AddWithValue("@email", user.email);
         command.Parameters.AddWithValue("@password", user.password);
-        command.Parameters.AddWithValue("@name", user.name);
+        command.Parameters.AddWithValue("@name", user.name);      
         command.Parameters.AddWithValue("@roll", user.roll);
 
+        command.ExecuteNonQuery();
+        return TypedResults.Created();
+
+    }
+
+    public static IResult PostUser(User user, State state)
+    {
+
+        string strQuery = "INSERT INTO users (username, password, email, name, roll) " +
+                          "values(@username, @password, @email, @name, 'user')";
+
+        MySqlCommand command = new(strQuery, state.DB);
+
+        command.Parameters.AddWithValue("@username", user.username);
+        command.Parameters.AddWithValue("@email", user.email);
+        command.Parameters.AddWithValue("@password", user.password);
+        command.Parameters.AddWithValue("@name", user.name);
+        
         command.ExecuteNonQuery();
         return TypedResults.Created();
 
