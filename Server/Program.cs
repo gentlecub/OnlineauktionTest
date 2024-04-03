@@ -22,6 +22,8 @@ try
 
     app.MapGet("/", () => "Hello World!");
     app.MapGet("/users", Users.All);
+    app.MapPost("/users", Users.Post);
+    app.MapPost("/users/user", Users.PostUser);
 
 
 

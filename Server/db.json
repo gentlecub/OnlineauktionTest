@@ -1,0 +1,358 @@
+{
+  "cars": [
+    {
+      "id": "1",
+      "brand": "Toyota",
+      "model": "Corolla",
+      "price": "30000",
+      "year": 2022,
+      "color": "silver",
+      "imageUrl": "https://cdn.motor1.com/images/mgl/NGZpEy/s3/2023-toyota-gr-corolla-circuit-edition-exterior.jpg",
+      "mileage": 15000,
+      "engine": {
+        "type": "4-cylinder",
+        "displacement": "1.8L"
+      },
+      "transmission": "automatic",
+      "features": [
+        "backup camera",
+        "bluetooth connectivity",
+        "power windows",
+        "keyless entry"
+      ]
+    },
+    {
+      "id": "2",
+      "brand": "Honda",
+      "model": "Civic",
+      "price": "60000",
+      "year": 2020,
+      "color": "black",
+      "imageUrl": "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2022/09/896/500/civic-1.jpg?ve=1&tl=1",
+      "mileage": 20000,
+      "engine": {
+        "type": "4-cylinder",
+        "displacement": "2.0L"
+      },
+      "transmission": "automatic",
+      "features": [
+        "sunroof",
+        "navigation system",
+        "lane departure warning"
+      ]
+    },
+    {
+      "id": "3",
+      "brand": "Ford",
+      "model": "F-150",
+      "price": "20000",
+      "year": 2021,
+      "color": "red",
+      "imageUrl": "https://media.ed.edmunds-media.com/ford/f-150/2024/oem/2024_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_600.jpg",
+      "mileage": 30000,
+      "engine": {
+        "type": "V6",
+        "displacement": "3.5L"
+      },
+      "transmission": "automatic",
+      "features": [
+        "towing package",
+        "off-road capability",
+        "parking sensors"
+      ]
+    },
+    {
+      "id": "4",
+      "brand": "Chevrolet",
+      "model": "Malibu",
+      "price": "40800",
+      "year": 2019,
+      "color": "blue",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/01/2019_Chevrolet_Malibu_%28facelift%29_LT%2C_front_10.19.19.jpg",
+      "mileage": 25000,
+      "engine": {
+        "type": "4-cylinder",
+        "displacement": "1.5L"
+      },
+      "transmission": "automatic",
+      "features": [
+        "adaptive cruise control",
+        "lane-keep assist",
+        "wireless charging"
+      ]
+    },
+    {
+      "id": "5",
+      "brand": "Nissan",
+      "model": "Altima",
+      "price": "50000",
+      "year": 2020,
+      "color": "white",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4w8yL0grfn3T1PrBoRHfFqzkm8QhIOBTLwBaYiTpxSg&s",
+      "mileage": 18000,
+      "engine": {
+        "type": "4-cylinder",
+        "displacement": "2.5L"
+      },
+      "transmission": "automatic",
+      "features": [
+        "remote start",
+        "blind spot monitoring",
+        "apple carplay"
+      ]
+    },
+    {
+      "id": "6",
+      "brand": "BMW",
+      "model": "3 Series",
+      "price": "50000",
+      "year": 2021,
+      "color": "gray",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/BMW_G20_IMG_0167.jpg",
+      "mileage": 20000,
+      "engine": {
+        "type": "6-cylinder",
+        "displacement": "3.0L"
+      },
+      "transmission": "automatic",
+      "features": [
+        "leather seats",
+        "premium sound system",
+        "adaptive headlights"
+      ]
+    },
+    {
+      "id": "ff95",
+      "brand": "Ford",
+      "model": "Festiva ",
+      "price": "150",
+      "year": "1989",
+      "color": "Yellow and red",
+      "imageUrl": "https://cdn-fastly.thetruthaboutcars.com/media/2022/07/10/8973567/curbside-classic-1989-ford-festiva-korea-week-shitbox-shoot-out-loser.jpg?size=720x845&nocrop=1",
+      "mileage": "1200000",
+      "engine": {
+        "type": "4-cylinder",
+        "displacement": "1.3L"
+      },
+      "transmission": "manual",
+      "features": [
+        "features",
+        ""
+      ]
+    }
+  ],
+  "auctions": [
+    {
+      "id": "1",
+      "title": "Toyota Corolla Auction",
+      "startTime": "2024-02-28 11:35:01",
+      "endTime": "2024-04-28 11:45:01",
+      "highestBid": "4444444444444444444",
+      "carId": "1",
+      "userId": "2",
+      "status": "0"
+    },
+    {
+      "id": "2",
+      "title": "Honda Civic Auction",
+      "startTime": "2024-02-28 13:20:21",
+      "endTime": "2024-04-28 13:30:01",
+      "highestBid": "160000",
+      "carId": "2",
+      "userId": "1",
+      "status": "0"
+    },
+    {
+      "id": "3",
+      "title": "Ford F-150 Auction",
+      "startTime": "2024-02-28 14:05:00",
+      "endTime": "2024-04-28 15:00:01",
+      "highestBid": "200000",
+      "carId": "3",
+      "userId": "3",
+      "status": "0"
+    },
+    {
+      "id": "4",
+      "title": "Chevrolet Malibu Auction",
+      "startTime": "2024-02-28 10:30:01",
+      "endTime": "2024-03-28 11:50:01",
+      "highestBid": "110000",
+      "carId": "4",
+      "userId": "5",
+      "status": "0"
+    },
+    {
+      "id": "5",
+      "title": "Nissan Altima Auction",
+      "startTime": "2024-02-28 08:15:01",
+      "endTime": "2024-03-16 10:00:01",
+      "highestBid": "300000",
+      "carId": "5",
+      "userId": "4",
+      "status": "0"
+    },
+    {
+      "id": "7e6b",
+      "title": "old car for sale",
+      "startTime": "2024-03-15 14:47:17",
+      "endTime": "2024-03-17 14:49:19",
+      "highestBid": "150",
+      "carId": "ff95",
+      "userId": "5",
+      "status": "0"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "john",
+      "password": "123_john",
+      "name": "John G",
+      "email": "john.g@example.com",
+      "roll": "admin"
+    },
+    {
+      "id": "2",
+      "username": "shiva",
+      "password": "306_shiva",
+      "name": "Shiva M",
+      "email": "shiva.m@example.com",
+      "roll": "admin"
+    },
+    {
+      "id": "3",
+      "username": "joakim",
+      "password": "456_joakim",
+      "name": "Joakim K",
+      "email": "joakim.k@example.com",
+      "roll": "user"
+    },
+    {
+      "id": "4",
+      "username": "Celeste",
+      "password": "142_celeste",
+      "name": "Celeste S",
+      "email": "celeste.s@example.com",
+      "roll": "user"
+    },
+    {
+      "id": "5",
+      "username": "Desmond",
+      "password": "234_desmond",
+      "name": "Desmond D",
+      "email": "desmond.d@example.com",
+      "roll": "user"
+    },
+    {
+      "id": "37e3"
+    },
+    {
+      "id": "4ec5"
+    },
+    {
+      "id": "e52e"
+    },
+    {
+      "id": "c0da"
+    },
+    {
+      "id": "0f0c",
+      "Username": "john.g@example.com",
+      "password": "123_john",
+      "name": "",
+      "Email": "",
+      "roll": ""
+    },
+    {
+      "id": "1893",
+      "Username": "john.g@example.com",
+      "password": "123_john",
+      "name": "",
+      "Email": "",
+      "roll": ""
+    },
+    {
+      "id": "1395",
+      "Username": "john.g@example.com",
+      "password": "123_john",
+      "name": "",
+      "Email": "",
+      "roll": ""
+    },
+    {
+      "id": "60b6",
+      "Username": "john.g@example.com",
+      "password": "123_john",
+      "name": "",
+      "Email": "",
+      "roll": ""
+    },
+    {
+      "id": "5082",
+      "Username": "john.g@example.com",
+      "password": "123_john",
+      "name": "",
+      "Email": "",
+      "roll": ""
+    },
+    {
+      "id": "0aab",
+      "Username": "john.g@example.com",
+      "password": "123_john",
+      "name": "",
+      "Email": "",
+      "roll": ""
+    },
+    {
+      "id": "10b1",
+      "Username": "john.g@example.com",
+      "password": "123_john",
+      "name": "",
+      "Email": "",
+      "roll": ""
+    }
+  ],
+  "bid": [
+    {
+      "userId": "user_id_here",
+      "auctionId": "auction_id_here",
+      "bidAmount": 1000,
+      "id": "ba21"
+    },
+    {
+      "id": "3307",
+      "auctionId": 1,
+      "bidAmount": 4000000
+    },
+    {
+      "id": "1748",
+      "auctionId": 1,
+      "bidAmount": 1000
+    },
+    {
+      "id": "17bc",
+      "auctionId": 1,
+      "bidAmount": 12121212,
+      "userId": ""
+    },
+    {
+      "id": "a97c",
+      "auctionId": 1,
+      "bidAmount": 160000,
+      "userId": ""
+    },
+    {
+      "id": "1c32",
+      "auctionId": 2,
+      "bidAmount": 222222,
+      "userId": "user123"
+    },
+    {
+      "id": "3deb",
+      "auctionId": "2",
+      "bidAmount": 70000,
+      "userId": ""
+    }
+  ]
+}
