@@ -49,7 +49,7 @@ public class Users
         return TypedResults.Created();
 
     }
-
+    //creting post to not allow a user choos a roll
     public static IResult PostUser(User user, State state)
     {
 
