@@ -50,6 +50,7 @@ public class Users
 
     }
 
+    // Creating post to not allow a user choose a roll.
     public static IResult PostUser(User user, State state)
     {
 
