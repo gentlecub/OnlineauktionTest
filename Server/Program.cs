@@ -31,9 +31,9 @@ try
     app.MapPost("/auctions", Auctions.Post);
     app.MapPatch("/auctions/fromid/{id}", Auctions.UpdateBidFromAuctionId);
     app.MapPatch("/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
+    app.MapDelete("/auctions/fromid/{id}", Auctions.DeleteAuctionFromId);
 
     app.Run("http://localhost:3008");
-
 
 }
 catch (MySqlException e)

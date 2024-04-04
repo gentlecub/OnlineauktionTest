@@ -87,4 +87,16 @@ public class Auctions
 
     }
 
+    public static IResult DeleteAuctionFromId(int id, State state)
+    {
+
+        MySqlCommand command = new("Delete from auctions where id = @id", state.DB);
+
+        command.Parameters.AddWithValue("@id", id);
+
+        command.ExecuteNonQuery();
+        return TypedResults.Created();
+
+    }
+
 }
