@@ -14,7 +14,12 @@ public class Cars
     List<Car> updatedCars = new();
     try
     {
-      var carQuery = "SELECT * FROM cars;";
+      var carQuery = @"
+                      SELECT c.id, c.brand, c.model, c.price, c.year, c.color, c.imageUrl, c.mileage, c.engine_type, c.engine_displacement, 
+                      c.transmission, c.features, a.title, a.startTime, a.endTime, a.highestBid, a.userId, a.status, a.endTime
+                      FROM cars AS c
+                      JOIN auctions AS a ON c.id = a.carId;
+                      ";
       using (var command = new MySqlCommand(carQuery, state.DB))
       {
         using (var reader = command.ExecuteReader())
@@ -33,41 +38,16 @@ public class Cars
             string engine_displacement = reader.GetString("engine_displacement");
             string transmission = reader.GetString("transmission");
             string features = reader.GetString("features");
-
-            cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features)); // Agregar el objeto car a la lista carItems
-          }
-        }
-
-      }
-      var durationDict = new Dictionary<int, double>();
-      string durationQuery = "SELECT carId, endTime FROM auctions;";
-
-      using (var command = new MySqlCommand(durationQuery, state.DB))
-      {
-        using (var reader = command.ExecuteReader())
-        {
-          while (reader.Read())
-          {
-            var carId = reader.GetInt32(reader.GetOrdinal("carId"));
             var endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
             var durationHrs = Math.Abs((endTime - DateTime.Now).TotalHours);
-            durationDict.Add(carId, durationHrs);
+            cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features, durationHrs));
           }
-
         }
 
       }
-      foreach (var car in cars)
-      {
-        var duration = durationDict.ContainsKey(car.id) ? durationDict[car.id] : 0;
-        var updatedCar = car with { duration = duration };
-        updatedCars.Add(updatedCar);
 
 
-      }
-
-
-      return updatedCars;
+      return cars;
     }
     catch (MySqlException ex)
     {
@@ -75,6 +55,7 @@ public class Cars
       return cars;
     }
   }
+
 
 
 }
