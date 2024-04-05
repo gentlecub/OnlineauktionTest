@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using Onlineauction;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ try
     app.MapGet("/users", Users.All);
     app.MapPost("/users", Users.Post);
     app.MapPost("/users/user", Users.PostUser);
+    app.MapPatch("/users/password", Users.UpdateUserPassword);
+    app.MapDelete("/users/fromid/{id}", Users.DeleteUserId);
 
 
 

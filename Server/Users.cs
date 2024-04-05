@@ -68,5 +68,28 @@ public class Users
         return TypedResults.Created();
 
     }
+    public static IResult UpdateUserPassword(User user , State state)
+    {
+
+        MySqlCommand command = new("Update users password = @password where userPassword = @userPassword", state.DB);
+
+        command.Parameters.AddWithValue("@password", user.password);
+
+        command.ExecuteNonQuery();
+        return TypedResults.Created();
+
+    }
+
+    public static IResult DeleteUserId(int Id, State state)
+    {
+
+        MySqlCommand command = new("Delete from users where id = @id", state.DB);
+
+        command.Parameters.AddWithValue("@id", Id);
+
+        command.ExecuteNonQuery();
+        return TypedResults.Created();
+
+    }
 
 }
