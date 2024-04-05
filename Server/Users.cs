@@ -1,6 +1,5 @@
 namespace Onlineauction;
 using MySql.Data.MySqlClient;
-
 using System.Data;
 
 public class Users
@@ -80,12 +79,14 @@ public class Users
 
     }
 
-    public static IResult DeleteUserId(int Id, State state)
+    public static IResult DeleteUserId(int id, State state)
     {
+        
+        MySqlCommand command = new("Delete from users Where id = @id", state.DB);
+        Console.WriteLine("Please enter id of user to be deleted");
+        string Id = Console.ReadLine() ?? string.Empty;
 
-        MySqlCommand command = new("Delete from users where id = @id", state.DB);
-
-        command.Parameters.AddWithValue("@id", Id);
+        command.Parameters.AddWithValue("@id", id);
 
         command.ExecuteNonQuery();
         return TypedResults.Created();
