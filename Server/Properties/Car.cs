@@ -136,6 +136,7 @@ public class Cars
 
   }
 
+  // Add car in the Bd 
   public static IResult PostCar(Car car, State state)
   {
     string Query = "INSERT INTO cars (brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features) " +
@@ -163,8 +164,36 @@ public class Cars
 
 
   }
+  public static IResult EditCar(int id, Car car, State state)
+  {
+    string Query = "UPDATE cars SET brand = @brand, model = @model, price = @price, year = @year, color = @color, imageUrl = @imageUrl," +
+    "mileage = @mileage, engine_type = @engine_type, engine_displacement = @engine_displacement, transmission = @transmission, features = @features WHERE id = @id";
+
+    MySqlCommand command = new MySqlCommand(Query, state.DB);
+    command.Parameters.AddWithValue("@id", id);
+    command.Parameters.AddWithValue("@brand", car.brand);
+    command.Parameters.AddWithValue("@model", car.model);
+    command.Parameters.AddWithValue("@price", car.price);
+    command.Parameters.AddWithValue("@year", car.year);
+    command.Parameters.AddWithValue("@color", car.color);
+    command.Parameters.AddWithValue("@imageUrl", car.imageUrl);
+    command.Parameters.AddWithValue("@mileage", car.mileage);
+    command.Parameters.AddWithValue("@engine_type", car.engine_type);
+    command.Parameters.AddWithValue("@engine_displacement", car.engine_displacement);
+    command.Parameters.AddWithValue("@transmission", car.transmission);
+    command.Parameters.AddWithValue("@features", car.features);
+
+    command.ExecuteNonQuery();
+
+    return TypedResults.Created();
+
+
+
+  }
+
 
 }
+
 
 
 
