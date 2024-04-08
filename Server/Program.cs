@@ -24,6 +24,7 @@ try
 
     app.MapGet("/users", Users.All);
     app.MapPost("/users", Users.Post);
+    app.MapPost("/users/user", Users.PostUser);
 
     app.MapGet("/auctions", Auctions.All);
     app.MapPost("/auctions", Auctions.Post);
