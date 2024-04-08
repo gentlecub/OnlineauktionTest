@@ -136,6 +136,34 @@ public class Cars
 
   }
 
+  public static IResult PostCar(Car car, State state)
+  {
+    string Query = "INSERT INTO cars (brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features) " +
+                         "values(@brand, @model, @price, @year, @color, @imageUrl, @mileage, @engine_type, @engine_displacement, @transmission, @features)";
+
+    MySqlCommand command = new(Query, state.DB);
+
+    command.Parameters.AddWithValue("@brand", car.brand);
+    command.Parameters.AddWithValue("@model", car.model);
+    command.Parameters.AddWithValue("@price", car.price);
+    command.Parameters.AddWithValue("@year", car.year);
+    command.Parameters.AddWithValue("@color", car.color);
+    command.Parameters.AddWithValue("@imageUrl", car.imageUrl);
+    command.Parameters.AddWithValue("@mileage", car.mileage);
+    command.Parameters.AddWithValue("@engine_type", car.engine_type);
+    command.Parameters.AddWithValue("@engine_displacement", car.engine_displacement);
+    command.Parameters.AddWithValue("@transmission", car.transmission);
+    command.Parameters.AddWithValue("@features", car.features);
+
+    command.ExecuteNonQuery();
+
+    return TypedResults.Created();
+
+
+
+
+  }
+
 }
 
 

@@ -31,6 +31,7 @@ try
     app.MapGet("/", Cars.GetCarsHome);
     app.MapGet("/cars", Cars.GetAllCars);
     app.MapGet("/cars/{id}", Cars.GetCarId);
+    app.MapPost("/cars", Cars.PostCar);
 
 
     app.Run("http://localhost:3008");
