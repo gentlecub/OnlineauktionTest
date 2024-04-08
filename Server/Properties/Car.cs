@@ -190,7 +190,17 @@ public class Cars
 
 
   }
+  public static IResult DeleteCar(int id, State state)
+  {
+    string query = "DELETE FROM cars WHERE id = @id";
+    MySqlCommand command = new MySqlCommand(query, state.DB);
 
+    command.Parameters.AddWithValue("@id", id);
+
+    command.ExecuteNonQuery();
+
+    return TypedResults.Created();
+  }
 
 }
 
