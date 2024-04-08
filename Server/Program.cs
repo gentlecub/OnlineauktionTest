@@ -33,6 +33,11 @@ try
     app.MapPatch("/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
     app.MapDelete("/auctions/fromid/{id}", Auctions.DeleteAuctionFromId);
 
+    //obtaining car data
+    app.MapGet("/", Cars.GetCarsHome);
+    app.MapGet("/cars", Cars.GetAllCars);
+    app.MapGet("/cars/{id}", Cars.GetCarId);
+
     app.Run("http://localhost:3008");
 
 }
