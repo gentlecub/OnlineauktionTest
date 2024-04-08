@@ -506,3 +506,9 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+#Sql Connection
+MyConnection.session.sql
+
+Server.sln
+
+.vscode/

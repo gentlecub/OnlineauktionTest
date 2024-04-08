@@ -23,15 +23,17 @@ try
     app.MapGet("/user", () => "Hello, User!").RequireAuthorization("user_route");
 
     app.MapGet("/", () => "Hello World!");
+
+    app.MapGet("/", () => "Hello World!");
     app.MapGet("/users", Users.All);
     app.MapPost("/users", Users.Post);
-    app.MapPost("/users/user", Users.PostUser);
-
     app.MapGet("/auctions", Auctions.All);
     app.MapPost("/auctions", Auctions.Post);
     app.MapPatch("/auctions/fromid/{id}", Auctions.UpdateBidFromAuctionId);
     app.MapPatch("/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
     app.MapDelete("/auctions/fromid/{id}", Auctions.DeleteAuctionFromId);
+
+
 
     //obtaining car data
     app.MapGet("/", Cars.GetCarsHome);
