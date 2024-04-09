@@ -1,0 +1,31 @@
+
+Endpoints (in table):
+
+Auth:
+
+- Get: One user (role, id) from (username, password).
+
+Users:
+
+- Post: All "user data".
+- Get: All users.
+
+Cars:
+
+- Post: All "car data".
+- Get: All cars. 
+
+Bid(s):
+
+- Post: All "bid data".
+- Post:  (auctionId, bidAmount, userId)
+
+Auctions:
+
+- Get: All auctions.
+- Post: All "auction data".
+- Patch: auction/carId. [highestBid].
+- Patch: auction/id (auctionId). [highestBid].
+
+
+Av Joakim Kvistholm.

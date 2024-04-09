@@ -24,9 +24,9 @@ public class Users
 
 
 
-           strInfo += $"{username} has id: {id}, password: {password}, email:{email},\n" + 
-                      $" name:{name}, roll: {roll}\n";
-           Console.WriteLine(strInfo);
+            strInfo += $"{username} has id: {id}, password: {password}, email:{email},\n" +
+                       $" name:{name}, roll: {roll}\n";
+            Console.WriteLine(strInfo);
         }
         return users;
     }
@@ -41,7 +41,7 @@ public class Users
         command.Parameters.AddWithValue("@username", user.username);
         command.Parameters.AddWithValue("@email", user.email);
         command.Parameters.AddWithValue("@password", user.password);
-        command.Parameters.AddWithValue("@name", user.name);      
+        command.Parameters.AddWithValue("@name", user.name);
         command.Parameters.AddWithValue("@roll", user.roll);
 
         command.ExecuteNonQuery();
@@ -62,7 +62,7 @@ public class Users
         command.Parameters.AddWithValue("@email", user.email);
         command.Parameters.AddWithValue("@password", user.password);
         command.Parameters.AddWithValue("@name", user.name);
-        
+
         command.ExecuteNonQuery();
         return TypedResults.Created();
 
