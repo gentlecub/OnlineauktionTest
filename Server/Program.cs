@@ -6,16 +6,12 @@ builder.Services.AddAuthentication().AddCookie("opa23.onlineauction.cars");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddAuthorizationBuilder().AddPolicy("user_route", policy => policy.RequireRole("user"));
 
-MySqlConnection? db = null;
 string connectionString = "server=localhost;uid=root;pwd=mypassword;database=onlineauction;port=3306";
 
 try
 {
 
-    db = new(connectionString);
-    db.Open();
-
-    builder.Services.AddSingleton(new State(db));
+    builder.Services.AddSingleton(new State(connectionString));
     var app = builder.Build();
 
     app.MapPost("/login", Auth.Login);
@@ -46,9 +42,5 @@ catch (MySqlException e)
     Console.WriteLine(e);
 
 }
-finally
-{
-    db.Close();
-}
 
-public record State(MySqlConnection DB);
+public record State(string DB);
