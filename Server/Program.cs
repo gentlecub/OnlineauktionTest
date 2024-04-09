@@ -18,10 +18,12 @@ try
     app.MapGet("/admin", () => "Hello, Admin!").RequireAuthorization("admin_route");
     app.MapGet("/user", () => "Hello, User!").RequireAuthorization("user_route");
 
+    //users
     app.MapGet("/users", Users.All);
     app.MapPost("/users", Users.Post);
     app.MapPost("/users/user", Users.PostUser);
 
+    //auctions
     app.MapGet("/auctions", Auctions.All);
     app.MapGet("/auctions/{id}", Auctions.GetAuctionFromId);
     app.MapPost("/auctions", Auctions.Post);
@@ -33,6 +35,11 @@ try
     app.MapGet("/", Cars.GetCarsHome);
     app.MapGet("/cars", Cars.GetAllCars);
     app.MapGet("/cars/{id}", Cars.GetCarId);
+
+    //bid
+    app.MapGet("/bid", BidData.All);
+    app.MapPost("/bid", BidData.PostBid);
+
 
     app.Run("http://localhost:3008");
 
