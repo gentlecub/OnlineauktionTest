@@ -27,6 +27,7 @@ try
     app.MapPost("/users/user", Users.PostUser);
 
     app.MapGet("/auctions", Auctions.All);
+    app.MapGet("/auctions/{id}", Auctions.GetAuctionFromId);
     app.MapPost("/auctions", Auctions.Post);
     app.MapPatch("/auctions/fromid/{id}", Auctions.UpdateBidFromAuctionId);
     app.MapPatch("/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
