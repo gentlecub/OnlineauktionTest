@@ -2,6 +2,7 @@ namespace Onlineauction;
 using MySql.Data.MySqlClient;
 
 using System.Data;
+using static Onlineauction.Cars;
 using static Onlineauction.Users;
 
 public class Auctions
@@ -37,6 +38,45 @@ public class Auctions
             Console.WriteLine(strInfo);
         }
         return auctions;
+    }
+
+    // Get auction by id. 
+    public static Auction GetAuctionFromId(int id, State state)
+    {
+        string query = "SELECT * FROM auctions Where id = @id";
+        MySqlCommand cmd = new MySqlCommand(query, state.DB);
+        cmd.Parameters.AddWithValue("@id", id);
+        string strInfo = "";
+
+        using (var reader = cmd.ExecuteReader())
+        {
+
+            if (reader.Read())
+            {
+                int auctId = reader.GetInt32("id");
+                string title = reader.GetString("title");
+                DateTime startTime = reader.GetDateTime("startTime");
+                DateTime endTime = reader.GetDateTime("endTime");
+                double highestBid = reader.GetDouble("highestBid");
+                int carId = reader.GetInt32("carId");
+                int userId = reader.GetInt32("userId");
+                int status = reader.GetInt32("status");
+                Auction auction = new(auctId, title, startTime, endTime, highestBid, carId, userId, status);
+
+                strInfo += $"{title} has id: {auctId}, start time: {startTime}, end time: \n" +
+                           $"{endTime}, the highestBid: {highestBid}, carId: {carId}, carId: {carId} and \n" +
+                           $"status: {status}.\n";
+                Console.WriteLine(strInfo);
+                return auction;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+
     }
 
     public static IResult Post(AuctionPost auction, State state)
