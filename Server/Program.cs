@@ -31,14 +31,14 @@ try
     app.MapPatch("/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
     app.MapDelete("/auctions/fromid/{id}", Auctions.DeleteAuctionFromId);
 
-    //obtaining car data
+    //obtaining cars data
     app.MapGet("/", Cars.GetCarsHome);
     app.MapGet("/cars", Cars.GetAllCars);
     app.MapGet("/cars/{id}", Cars.GetCarId);
 
-    //bid
-    app.MapGet("/bid", BidData.All);
-    app.MapPost("/bid", BidData.PostBid);
+    //bids
+    app.MapGet("/bids", Bids.All);
+    app.MapPost("/bids", Bids.PostBid);
 
 
     app.Run("http://localhost:3008");
