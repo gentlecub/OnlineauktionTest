@@ -68,29 +68,31 @@ public class Users
         return TypedResults.Created();
 
     }
-    public static IResult UpdateUserPassword(User user , State state)
+    public static IResult UpdateUserPassword(int id, User user , State state)
     {
 
-        MySqlCommand command = new("Update users password = @password where userPassword = @userPassword", state.DB);
+        string strQuery = "Update users password = @password where id = @id";
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+                [
+            new("@id", id),
+           new("@password", user.password),
+                ]);
 
-        command.Parameters.AddWithValue("@password", user.password);
-
-        command.ExecuteNonQuery();
         return TypedResults.Created();
 
     }
 
     public static IResult DeleteUserId(int id, State state)
     {
-        
-        MySqlCommand command = new("Delete from users Where id = @id", state.DB);
-        Console.WriteLine("Please enter id of user to be deleted");
-        string Id = Console.ReadLine() ?? string.Empty;
 
-        command.Parameters.AddWithValue("@id", id);
+        string strQuery = "Delete from users Where id = @id";
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+           new("@id", id)
+        ]);
 
-        command.ExecuteNonQuery();
-        return TypedResults.Created();
+        return TypedResults.Ok("User with id {id} deleted!");
+
 
     }
 
