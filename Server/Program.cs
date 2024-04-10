@@ -23,9 +23,9 @@ try
     app.MapGet("/users", Users.All);
     app.MapPost("/users", Users.Post);
     app.MapPost("/users/user", Users.PostUser);
-    app.MapPatch("/users/password", Users.UpdateUserPassword);
+    app.MapPatch("/users/password/{id}", Users.UpdateUserPassword);
     app.MapDelete("/users/fromid/{id}", Users.DeleteUserId);
-    app.MapGet("/bids", Bids.All);
+    
 
 
     //auctions
