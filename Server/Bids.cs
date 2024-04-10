@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Onlineauction
 {
-  public class BidData
+  public class Bids
   {
     public record Bid(int id, int auctionId, decimal bidAmount, string userId);
 
