@@ -1,7 +1,9 @@
 namespace Onlineauction;
 using MySql.Data.MySqlClient;
-
+using System.Collections.Specialized;
 using System.Data;
+using static Onlineauction.Auctions;
+using static Onlineauction.Cars;
 using static Onlineauction.Users;
 
 public class Auctions
@@ -16,9 +18,8 @@ public class Auctions
     {
         List<Auction> auctions = new();
         string strInfo = "";
-        MySqlCommand command = new("SELECT * FROM auctions", state.DB);
+        var reader =  MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM auctions");
 
-        using var reader = command.ExecuteReader();
         while (reader.Read())
         {
             int id = reader.GetInt32("id");
@@ -39,6 +40,38 @@ public class Auctions
         return auctions;
     }
 
+    // Get auction by id. 
+    public static Auction GetAuctionFromId(int id, State state)
+    {
+        string query = "SELECT * FROM auctions Where id = @id";
+        var reader = MySqlHelper.ExecuteReader(state.DB, query, [ new("@id", id) ]);
+        string strInfo = "";
+
+        if (reader.Read())
+        {
+            int auctId = reader.GetInt32("id");
+            string title = reader.GetString("title");
+            DateTime startTime = reader.GetDateTime("startTime");
+            DateTime endTime = reader.GetDateTime("endTime");
+            double highestBid = reader.GetDouble("highestBid");
+            int carId = reader.GetInt32("carId");
+            int userId = reader.GetInt32("userId");
+            int status = reader.GetInt32("status");
+            Auction auction = new(auctId, title, startTime, endTime, highestBid, carId, userId, status);
+
+            strInfo += $"{title} has id: {auctId}, start time: {startTime}, end time: \n" +
+                        $"{endTime}, the highestBid: {highestBid}, carId: {carId}, carId: {carId} and \n" +
+                        $"status: {status}.\n";
+            Console.WriteLine(strInfo);
+            return auction;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
     public static IResult Post(AuctionPost auction, State state)
     {
 
@@ -46,30 +79,31 @@ public class Auctions
                           "userId, status) values(@title, @startTime, @endTime, " +
                           "@highestBid, @carId, @userId, @status)";
 
-        MySqlCommand command = new(strQuery, state.DB);
+        MySqlHelper.ExecuteNonQuery(state.DB,strQuery, 
+        [
+           new("@title", auction.title),
+           new("@startTime", auction.startTime),
+           new("@endTime", auction.endTime),
+           new("@highestBid", auction.highestBid),
+           new("@carId", auction.carId),
+           new("@userId", auction.userId),
+           new("@status", auction.status)
+        ]);
 
-        command.Parameters.AddWithValue("@title", auction.title);
-        command.Parameters.AddWithValue("@startTime", auction.startTime);
-        command.Parameters.AddWithValue("@endTime", auction.endTime);
-        command.Parameters.AddWithValue("@highestBid", auction.highestBid);
-        command.Parameters.AddWithValue("@carId", auction.carId);
-        command.Parameters.AddWithValue("@userId", auction.userId);
-        command.Parameters.AddWithValue("@status", auction.status);
-
-        command.ExecuteNonQuery();
         return TypedResults.Created();
 
     }
 
     public static IResult UpdateBidFromAuctionId(int id, AuctionPost auction, State state)
     {
+        string strQuery = "Update auctions set highestBid = @highestBid where id = @id";
 
-        MySqlCommand command = new("Update auctions set highestBid = @highestBid where id = @id", state.DB);
-
-        command.Parameters.AddWithValue("@highestBid", auction.highestBid);
-        command.Parameters.AddWithValue("@id", id);
-
-        command.ExecuteNonQuery();
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+           new("@id", id),
+           new("@highestBid", auction.highestBid)
+        ]);
+ 
         return TypedResults.Created();
 
     }
@@ -77,12 +111,14 @@ public class Auctions
     public static IResult UpdateBidFromCarId(int carId, AuctionPost auction, State state)
     {
 
-        MySqlCommand command = new("Update auctions set highestBid = @highestBid where carId = @carId", state.DB);
+        string strQuery = "Update auctions set highestBid = @highestBid where carId = @carId";
 
-        command.Parameters.AddWithValue("@highestBid", auction.highestBid);
-        command.Parameters.AddWithValue("@carId", carId);
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+           new("@carId", carId),
+           new("@highestBid", auction.highestBid)
+        ]);
 
-        command.ExecuteNonQuery();
         return TypedResults.Created();
 
     }
@@ -90,12 +126,13 @@ public class Auctions
     public static IResult DeleteAuctionFromId(int id, State state)
     {
 
-        MySqlCommand command = new("Delete from auctions where id = @id", state.DB);
-
-        command.Parameters.AddWithValue("@id", id);
-
-        command.ExecuteNonQuery();
-        return TypedResults.Created();
+        string strQuery = "Delete from auctions where id = @id";
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+           new("@id", id)
+        ]);
+  
+        return TypedResults.Ok("Auction with id {id} deleted!");
 
     }
 

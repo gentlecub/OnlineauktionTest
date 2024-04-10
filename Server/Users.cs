@@ -1,6 +1,8 @@
 namespace Onlineauction;
 using MySql.Data.MySqlClient;
 using System.Data;
+using static Onlineauction.Auctions;
+using static Onlineauction.Users;
 
 public class Users
 {
@@ -9,9 +11,9 @@ public class Users
     {
         List<User> users = new();
         string strInfo = "";
-        MySqlCommand command = new("SELECT * FROM users", state.DB);
+        string strQuery = "SELECT * FROM users";
+        var reader = MySqlHelper.ExecuteReader(state.DB, strQuery);
 
-        using var reader = command.ExecuteReader();
         while (reader.Read())
         {
             int id = reader.GetInt32("id");
@@ -22,29 +24,28 @@ public class Users
             string roll = reader.GetString("roll");
             users.Add(new(id, username, password, email, name, roll));
 
-
-
             strInfo += $"{username} has id: {id}, password: {password}, email:{email},\n" +
                        $" name:{name}, roll: {roll}\n";
             Console.WriteLine(strInfo);
         }
         return users;
     }
+
     public static IResult Post(User user, State state)
     {
 
         string strQuery = "INSERT INTO users (username, password, email, name, roll) " +
                           "values(@username, @password, @email, @name, @roll)";
 
-        MySqlCommand command = new(strQuery, state.DB);
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+           new("@username", user.username),
+           new("@email", user.email),
+           new("@password", user.password),
+           new("@name", user.name),
+           new("@roll", user.roll)
+        ]);
 
-        command.Parameters.AddWithValue("@username", user.username);
-        command.Parameters.AddWithValue("@email", user.email);
-        command.Parameters.AddWithValue("@password", user.password);
-        command.Parameters.AddWithValue("@name", user.name);
-        command.Parameters.AddWithValue("@roll", user.roll);
-
-        command.ExecuteNonQuery();
         return TypedResults.Created();
 
     }
@@ -56,14 +57,14 @@ public class Users
         string strQuery = "INSERT INTO users (username, password, email, name, roll) " +
                           "values(@username, @password, @email, @name, 'user')";
 
-        MySqlCommand command = new(strQuery, state.DB);
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+           new("@username", user.username),
+           new("@email", user.email),
+           new("@password", user.password),
+           new("@name", user.name)
+        ]);
 
-        command.Parameters.AddWithValue("@username", user.username);
-        command.Parameters.AddWithValue("@email", user.email);
-        command.Parameters.AddWithValue("@password", user.password);
-        command.Parameters.AddWithValue("@name", user.name);
-
-        command.ExecuteNonQuery();
         return TypedResults.Created();
 
     }
