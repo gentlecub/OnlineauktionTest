@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using Onlineauction;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication().AddCookie("opa23.onlineauction.cars");
@@ -22,6 +23,10 @@ try
     app.MapGet("/users", Users.All);
     app.MapPost("/users", Users.Post);
     app.MapPost("/users/user", Users.PostUser);
+    app.MapPatch("/users/password/{id}", Users.UpdateUserPassword);
+    app.MapDelete("/users/fromid/{id}", Users.DeleteUserId);
+    
+
 
     //auctions
     app.MapGet("/auctions", Auctions.All);

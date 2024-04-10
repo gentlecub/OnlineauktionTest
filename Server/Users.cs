@@ -1,6 +1,5 @@
 namespace Onlineauction;
 using MySql.Data.MySqlClient;
-
 using System.Data;
 using static Onlineauction.Auctions;
 using static Onlineauction.Users;
@@ -67,6 +66,33 @@ public class Users
         ]);
 
         return TypedResults.Created();
+
+    }
+    public static IResult UpdateUserPassword(int id, User user , State state)
+    {
+
+        string strQuery = "Update users set password = @password where id = @id";
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+           new("@id", id),
+           new("@password", user.password)
+        ]);
+
+        return TypedResults.Created();
+
+    }
+
+    public static IResult DeleteUserId(int id, State state)
+    {
+
+        string strQuery = "Delete from users Where id = @id";
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+          new("@id", id)
+        ]);
+
+        return TypedResults.Ok("User with id {id} deleted!");
+
 
     }
 
