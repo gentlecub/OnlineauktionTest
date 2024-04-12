@@ -18,10 +18,10 @@ function FiltrePrice() {
         for (let i = 0; i < carItem.length; i += 2) {
           if (i + 1 < carItem.length) {
             pricesTwoInTwo.push({
-              id1: carItem[i].id,
-              precio1: carItem[i].price,
-              id2: carItem[i + 1].id,
-              precio2: carItem[i + 1].price,
+              id1: carItem[i].id.toString(),
+              precio1: carItem[i].price.toString(),
+              id2: carItem[i + 1].id.toString(),
+              precio2: carItem[i + 1].price.toString(),
             });
             while (
               carItem[i].price === carItem[i + 1].price &&
@@ -32,18 +32,18 @@ function FiltrePrice() {
             if (carItem[i].price == !carItem[i + 1].price) {
               if (i + 2 < carItem.length) {
                 pricesTwoInTwo.push({
-                  id1: carItem[i + 1].id,
-                  precio1: carItem[i + 1].price,
-                  id2: carItem[i + 2].id,
-                  precio2: carItem[i + 2].price,
+                  id1: carItem[i + 1].id.toString(),
+                  precio1: carItem[i + 1].price.toString(),
+                  id2: carItem[i + 2].id.toString(),
+                  precio2: carItem[i + 2].price.toString(),
                 });
                 i++;
               }
             }
           } else {
             pricesTwoInTwo.push({
-              id1: carItem[i].id,
-              precio1: carItem[i].price,
+              id1: carItem[i].id.toString(),
+              precio1: carItem[i].price.toString(),
               id2: null,
               precio2: null,
             });
@@ -72,8 +72,11 @@ function FiltrePrice() {
       );
       console.log(objetosConId1);
       SetCarObject(objetosConId1);
-      const precio1 = objetosConId1[0].precio1;
-      const precio2 = objetosConId1[0].precio2;
+      let precio1 = objetosConId1[0].precio1;
+      let precio2 = objetosConId1[0].precio2;
+      if (precio2 === null) {
+        precio2 = precio1;
+      }
       const carrosEnRango = originalCarItem.filter(
         (carro) => carro.price >= precio1 && carro.price <= precio2
       );
