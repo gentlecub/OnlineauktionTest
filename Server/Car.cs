@@ -38,9 +38,10 @@ public class Cars
         string engine_displacement = reader.GetString("engine_displacement");
         string transmission = reader.GetString("transmission");
         string features = reader.GetString("features");
-        var endTime = reader.GetDateTime(reader.GetOrdinal("endTime")).ToString();
+        var endTime = reader.GetDateTime("endTime").ToString();
+        var durationHrs = endTime;
         //var durationHrs = Math.Abs((endTime - DateTime.Now).TotalHours);
-        cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features, endTime));
+        cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features, durationHrs));
       }
 
       return cars;
