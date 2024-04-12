@@ -21,33 +21,27 @@ public class Cars
                       FROM cars AS c
                       JOIN auctions AS a ON c.id = a.carId;
                       ";
-      using (var command = new MySqlCommand(carQuery, state.DB))
+
+      var reader = MySqlHelper.ExecuteReader(state.DB, carQuery);
+
+      while (reader.Read())
       {
-        using (var reader = command.ExecuteReader())
-        {
-          while (reader.Read())
-          {
-            int id = reader.GetInt32(reader.GetOrdinal("id"));
-            string brand = reader.GetString("brand");
-            string model = reader.GetString("model");
-            double price = reader.GetDouble("price");
-            int year = reader.GetInt32("year");
-            string color = reader.GetString("color");
-            string imageUrl = reader.GetString("imageUrl");
-            int mileage = reader.GetInt32("mileage");
-            string engine_type = reader.GetString("engine_type");
-            string engine_displacement = reader.GetString("engine_displacement");
-            string transmission = reader.GetString("transmission");
-            string features = reader.GetString("features");
-            var endTime = reader.GetDateTime("endTime").ToString();
-            var durationHrs = endTime;
-            // Math.Abs((endTime - DateTime.Now).Milliseconds);
-            cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features, durationHrs));
-          }
-        }
-
+        int id = reader.GetInt32(reader.GetOrdinal("id"));
+        string brand = reader.GetString("brand");
+        string model = reader.GetString("model");
+        double price = reader.GetDouble("price");
+        int year = reader.GetInt32("year");
+        string color = reader.GetString("color");
+        string imageUrl = reader.GetString("imageUrl");
+        int mileage = reader.GetInt32("mileage");
+        string engine_type = reader.GetString("engine_type");
+        string engine_displacement = reader.GetString("engine_displacement");
+        string transmission = reader.GetString("transmission");
+        string features = reader.GetString("features");
+        var endTime = reader.GetDateTime(reader.GetOrdinal("endTime")).ToString();
+        //var durationHrs = Math.Abs((endTime - DateTime.Now).TotalHours);
+        cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features, endTime));
       }
-
 
       return cars;
     }
@@ -65,30 +59,25 @@ public class Cars
     try
     {
       var carQuery = "SELECT * FROM cars;";
-      using (var command = new MySqlCommand(carQuery, state.DB))
+
+      var reader = MySqlHelper.ExecuteReader(state.DB, carQuery);
+
+      while (reader.Read())
       {
-        using (var reader = command.ExecuteReader())
-        {
-          while (reader.Read())
-          {
-            int id = reader.GetInt32(reader.GetOrdinal("id"));
-            string brand = reader.GetString("brand");
-            string model = reader.GetString("model");
-            double price = reader.GetDouble("price");
-            int year = reader.GetInt32("year");
-            string color = reader.GetString("color");
-            string imageUrl = reader.GetString("imageUrl");
-            int mileage = reader.GetInt32("mileage");
-            string engine_type = reader.GetString("engine_type");
-            string engine_displacement = reader.GetString("engine_displacement");
-            string transmission = reader.GetString("transmission");
-            string features = reader.GetString("features");
-            cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features));
-          }
-        }
-
+        int id = reader.GetInt32(reader.GetOrdinal("id"));
+        string brand = reader.GetString("brand");
+        string model = reader.GetString("model");
+        double price = reader.GetDouble("price");
+        int year = reader.GetInt32("year");
+        string color = reader.GetString("color");
+        string imageUrl = reader.GetString("imageUrl");
+        int mileage = reader.GetInt32("mileage");
+        string engine_type = reader.GetString("engine_type");
+        string engine_displacement = reader.GetString("engine_displacement");
+        string transmission = reader.GetString("transmission");
+        string features = reader.GetString("features");
+        cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features));
       }
-
 
       return cars;
     }
@@ -103,37 +92,31 @@ public class Cars
   public static Car GetCarId(int id, State state)
   {
     string query = "SELECT * FROM cars WHERE id = @id";
-    MySqlCommand cmd = new MySqlCommand(query, state.DB);
-    cmd.Parameters.AddWithValue("@id", id);
 
-    using (var reader = cmd.ExecuteReader())
+    var reader = MySqlHelper.ExecuteReader(state.DB, query, [new("@id", id)]);
+
+    if (reader.Read())
     {
+      int idCar = reader.GetInt32(reader.GetOrdinal("id"));
+      string brand = reader.GetString("brand");
+      string model = reader.GetString("model");
+      double price = reader.GetDouble("price");
+      int year = reader.GetInt32("year");
+      string color = reader.GetString("color");
+      string imageUrl = reader.GetString("imageUrl");
+      int mileage = reader.GetInt32("mileage");
+      string engine_type = reader.GetString("engine_type");
+      string engine_displacement = reader.GetString("engine_displacement");
+      string transmission = reader.GetString("transmission");
+      string features = reader.GetString("features");
 
-      if (reader.Read())
-      {
-        int idCar = reader.GetInt32(reader.GetOrdinal("id"));
-        string brand = reader.GetString("brand");
-        string model = reader.GetString("model");
-        double price = reader.GetDouble("price");
-        int year = reader.GetInt32("year");
-        string color = reader.GetString("color");
-        string imageUrl = reader.GetString("imageUrl");
-        int mileage = reader.GetInt32("mileage");
-        string engine_type = reader.GetString("engine_type");
-        string engine_displacement = reader.GetString("engine_displacement");
-        string transmission = reader.GetString("transmission");
-        string features = reader.GetString("features");
-
-        Car carItem = new(idCar, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features);
-        return carItem;
-      }
-      else
-      {
-        return null;
-      }
-
+      Car carItem = new(idCar, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features);
+      return carItem;
     }
-
+    else
+    {
+      return null;
+    }
 
   }
 
@@ -143,21 +126,21 @@ public class Cars
     string Query = "INSERT INTO cars (brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features) " +
                          "values(@brand, @model, @price, @year, @color, @imageUrl, @mileage, @engine_type, @engine_displacement, @transmission, @features)";
 
-    MySqlCommand command = new(Query, state.DB);
+    //MySqlCommand command = new(Query, state.DB);
+    var reader = MySqlHelper.ExecuteReader(state.DB, Query,
+     [new("@brand", car.brand),
+     new("@model", car.model),
+     new("@price", car.price),
+     new("@year", car.year),
+     new("@color", car.color),
+     new("@imageUrl", car.imageUrl),
+     new("@mileage", car.mileage),
+     new("@engine_type", car.engine_type),
+     new("@engine_displacement", car.engine_displacement),
+     new("@transmission", car.transmission),
+     new("@features", car.features)]
 
-    command.Parameters.AddWithValue("@brand", car.brand);
-    command.Parameters.AddWithValue("@model", car.model);
-    command.Parameters.AddWithValue("@price", car.price);
-    command.Parameters.AddWithValue("@year", car.year);
-    command.Parameters.AddWithValue("@color", car.color);
-    command.Parameters.AddWithValue("@imageUrl", car.imageUrl);
-    command.Parameters.AddWithValue("@mileage", car.mileage);
-    command.Parameters.AddWithValue("@engine_type", car.engine_type);
-    command.Parameters.AddWithValue("@engine_displacement", car.engine_displacement);
-    command.Parameters.AddWithValue("@transmission", car.transmission);
-    command.Parameters.AddWithValue("@features", car.features);
-
-    command.ExecuteNonQuery();
+     );
 
     return TypedResults.Created();
 
@@ -170,21 +153,21 @@ public class Cars
     string Query = "UPDATE cars SET brand = @brand, model = @model, price = @price, year = @year, color = @color, imageUrl = @imageUrl," +
     "mileage = @mileage, engine_type = @engine_type, engine_displacement = @engine_displacement, transmission = @transmission, features = @features WHERE id = @id";
 
-    MySqlCommand command = new MySqlCommand(Query, state.DB);
-    command.Parameters.AddWithValue("@id", id);
-    command.Parameters.AddWithValue("@brand", car.brand);
-    command.Parameters.AddWithValue("@model", car.model);
-    command.Parameters.AddWithValue("@price", car.price);
-    command.Parameters.AddWithValue("@year", car.year);
-    command.Parameters.AddWithValue("@color", car.color);
-    command.Parameters.AddWithValue("@imageUrl", car.imageUrl);
-    command.Parameters.AddWithValue("@mileage", car.mileage);
-    command.Parameters.AddWithValue("@engine_type", car.engine_type);
-    command.Parameters.AddWithValue("@engine_displacement", car.engine_displacement);
-    command.Parameters.AddWithValue("@transmission", car.transmission);
-    command.Parameters.AddWithValue("@features", car.features);
+    var reader = MySqlHelper.ExecuteReader(state.DB, Query,
+    [new("@id", id),
+     new("@brand", car.brand),
+     new("@model", car.model),
+     new("@price", car.price),
+     new("@year", car.year),
+     new("@color", car.color),
+     new("@imageUrl", car.imageUrl),
+     new("@mileage", car.mileage),
+     new("@engine_type", car.engine_type),
+     new("@engine_displacement", car.engine_displacement),
+     new("@transmission", car.transmission),
+     new("@features", car.features)]
 
-    command.ExecuteNonQuery();
+    );
 
     return TypedResults.Created();
 
@@ -194,11 +177,8 @@ public class Cars
   public static IResult DeleteCar(int id, State state)
   {
     string query = "DELETE FROM cars WHERE id = @id";
-    MySqlCommand command = new MySqlCommand(query, state.DB);
 
-    command.Parameters.AddWithValue("@id", id);
-
-    command.ExecuteNonQuery();
+    var reader = MySqlHelper.ExecuteReader(state.DB, query, [new("@id", id)]);
 
     return TypedResults.Created();
   }

@@ -13,13 +13,13 @@ public class Auth
     public static async Task<IResult> Login(LoginData user, State state, HttpContext ctx)
     {
 
-        MySqlCommand cmd = new("select id, roll from users where username = @Username and password = @Password", state.DB);
+        string strQuery = "select id, roll from users where username = @Username and password = @Password";
 
-        cmd.Parameters.AddWithValue("@Username", user.Username);
-
-        cmd.Parameters.AddWithValue("@Password", user.Password);
-
-        using var reader = cmd.ExecuteReader();
+        var reader = MySqlHelper.ExecuteReader(state.DB, strQuery, 
+            [   new("@Username", user.Username), 
+                new("@Password", user.Password)
+            ]
+        );
 
         // Check if any are found, if none it returns false, if 1 or more, it gives access to them
 

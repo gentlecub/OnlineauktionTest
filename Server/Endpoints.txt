@@ -18,14 +18,14 @@ Cars:
 Bid(s):
 
 - Post: All "bid data".
-
+- Post:  (auctionId, bidAmount, userId)
 
 Auctions:
 
 - Get: All auctions.
 - Post: All "auction data".
-- Patch: auction/carId.
-- Patch: auction/id (auctionId).
-- Post:  (auctionId, bidAmount, userId)
+- Patch: auction/carId. [highestBid].
+- Patch: auction/id (auctionId). [highestBid].
+
 
 Av Joakim Kvistholm.
