@@ -1,5 +1,5 @@
 function CarItem(props) {
-  //console.log("items", props.item);
+  console.log("items", props.item);
   const renderCarDetails = () => {
     return Object.keys(props.item).map((key) => {
       if (key === "id" || key === "duration" || key === "imageUrl") {

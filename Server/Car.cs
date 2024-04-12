@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 public class Cars
 {
-  public record Car(int id, string brand, string model, double price, int year, string color, string imageUrl, int mileage, string engine_type, string engine_displacement, string transmission, string features, double duration = 0);
+  public record Car(int id, string brand, string model, double price, int year, string color, string imageUrl, int mileage, string engine_type, string engine_displacement, string transmission, string features, string duration = "0");
 
   //get the cars that are up for auction
   public static List<Car> GetCarsHome(State state)
@@ -39,8 +39,9 @@ public class Cars
             string engine_displacement = reader.GetString("engine_displacement");
             string transmission = reader.GetString("transmission");
             string features = reader.GetString("features");
-            var endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
-            var durationHrs = Math.Abs((endTime - DateTime.Now).TotalHours);
+            var endTime = reader.GetDateTime("endTime").ToString();
+            var durationHrs = endTime;
+            // Math.Abs((endTime - DateTime.Now).Milliseconds);
             cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features, durationHrs));
           }
         }
