@@ -1,6 +1,17 @@
 function CarItem(props) {
   console.log("items", props.item);
   const renderCarDetails = () => {
+    const customnames = {
+      brand: "Factory",
+      model: "Model",
+      price: "Price",
+      year: "Year",
+      color: "Color",
+      mileage: "Mileage",
+      engine_type: "Type of Motor",
+      engine_displacement: "Engine Displacement",
+      transmission: "Transmission",
+    };
     return Object.keys(props.item).map((key) => {
       if (key === "id" || key === "duration" || key === "imageUrl") {
         return null;
@@ -11,17 +22,28 @@ function CarItem(props) {
             key={subKey}
             className="text-nowrap bg-light border fs-6 d-flex justify-content-between"
           >
-            <span className="fw-bolder">{subKey}</span>
+            <span className="fw-bolder">{customnames[subKey]}</span>
             <span>{props.item[key][subKey]}</span>
           </div>
         ));
+      } else if (key === "features") {
+        const featuresArray = props.item[key]
+          .split(",")
+          .map((feature, index) => <li key={index}>{feature.trim()}</li>);
+
+        return (
+          <div className="text-nowrap bg-light border fs-6">
+            <span className="fw-bolder">Features:</span>
+            <ul>{featuresArray}</ul>
+          </div>
+        );
       } else {
         return (
           <div
             key={key}
             className="text-nowrap bg-light border fs-6 d-flex justify-content-between"
           >
-            <span className="fw-bolder">{key}</span>
+            <span className="fw-bolder">{customnames[key]}</span>
             <span>{props.item[key]}</span>
           </div>
         );
