@@ -82,7 +82,7 @@ function MyAuction() {
         throw new Error("Bid amount must be higher than the highest bid");
       }
 
-      const response = await fetch(`/api/bid`, {
+      const response = await fetch(`/api/bids`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

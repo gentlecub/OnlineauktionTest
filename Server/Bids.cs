@@ -8,7 +8,7 @@ namespace Onlineauction
 {
   public class Bids
   {
-    public record Bid(int id, int auctionId, decimal bidAmount, string userId);
+    public record Bid(int id, int auctionId, decimal bidAmount, int userId);
 
     public static List<Bid> All(State state)
     {
@@ -23,7 +23,7 @@ namespace Onlineauction
         int id = reader.GetInt32("id");
         int auctionId = reader.GetInt32("auctionId");
         decimal bidAmount = reader.GetDecimal("bidAmount");
-        string userId = reader.GetString("userId");
+        int userId = reader.GetInt32("userId");
         bids.Add(new Bid(id, auctionId, bidAmount, userId));
 
         strInfo += $"Bid id: {id}, Auction ID: {auctionId}, Bid Amount: {bidAmount}, User ID: {userId}\n";

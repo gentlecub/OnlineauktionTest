@@ -86,7 +86,7 @@ function BidItem({ item }) {
     };
 
     try {
-      const response = await fetch("/api/bid", {
+      const response = await fetch("/api/bids", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
