@@ -56,7 +56,7 @@ function MyAuction() {
   };
 
   async function storeAuctionBid(data, id) {
-    await fetch(`/api/auctions/${id}`, {
+    await fetch(`/api/auctions/fromid/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ function MyAuction() {
 
   async function placeBid(auctionId, bidAmount) {
     try {
-      const auction = filteredItems.find((auction) => auction.id === auctionId);
+      const auction = filteredItems.find((auction) => auction.id == auctionId);
       if (!auction) throw new Error("Auction not found.");
 
       if (!bidAmount) {
@@ -82,16 +82,18 @@ function MyAuction() {
         throw new Error("Bid amount must be higher than the highest bid");
       }
 
+      const newBid = {
+        auctionId: parseInt(auctionId),
+        bidAmount: parseFloat(bidAmount),
+        userId: parseInt(user.id) // Anta att userId är korrekt hanterat och finns
+      };
+
       const response = await fetch(`/api/bids`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          auctionId,
-          bidAmount,
-          userId,
-        }),
+        body: JSON.stringify(newBid),
       });
 
       if (!response.ok) {

@@ -106,7 +106,7 @@ function BidItem({ item }) {
         });
         setAuctions(updatedAuctions);
 
-        await fetch(`/api/auctions/${item.id}`, {
+        await fetch(`/api/auctions/fromcarid/${item.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
