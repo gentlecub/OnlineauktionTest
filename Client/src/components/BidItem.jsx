@@ -86,7 +86,7 @@ function BidItem({ item }) {
     };
 
     try {
-      const response = await fetch("/api/bid", {
+      const response = await fetch("/api/bids", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +106,7 @@ function BidItem({ item }) {
         });
         setAuctions(updatedAuctions);
 
-        await fetch(`/api/auctions/${item.id}`, {
+        await fetch(`/api/auctions/fromcarid/${item.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
