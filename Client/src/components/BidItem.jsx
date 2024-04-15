@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Countdown from "react-countdown";
-import {AuthContext} from '../context/AuthContext.jsx'
+import { AuthContext } from "../context/AuthContext.jsx";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 
 function BidItem({ item }) {
-  
-  const {user} = useContext(AuthContext)
-  const {auction} = useContext(GlobalContext)
-  const {id} = useParams()
+  console.log("ItemBild", item);
+  const { user } = useContext(AuthContext);
+  const { auction } = useContext(GlobalContext);
+  const { id } = useParams();
 
   const [bidText, setBidText] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
@@ -130,13 +130,10 @@ function BidItem({ item }) {
     setBidText(event.target.value);
   }
 
-
-
-  const auctionData = auction.find(auction => auction.carId === id)
-  console.log('auctionData:', auctionData)
+  const auctionData = auction.find((auction) => auction.carId === id);
+  console.log("auctionData:", auctionData);
 
   const auctionUserId = auctionData ? auctionData.userId : null;
-
 
   return (
     <div className="card">
@@ -147,53 +144,60 @@ function BidItem({ item }) {
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">Startpris: ${startPrice}</p>
         <small className="card-text">Högsta bud: ${highestBid}</small>
-       
+
         <p className="card-text">
-        <br></br>
+          <br></br>
 
           <small className="text-muted">
-            {isValidDate ? <Countdown date={endTime} renderer={renderer} /> : <span>Auktionen har avslutats</span>}
+            {isValidDate ? (
+              <Countdown date={endTime} renderer={renderer} />
+            ) : (
+              <span>Auktionen har avslutats</span>
+            )}
           </small>
         </p>
         <div className="d-grid gap-2">
-
           {user && user.id !== auctionUserId ? (
-          <form onSubmit={addNewBid}>
-            <input
-              className="form-control"
-              type="number"
-              min={Math.max(startPrice, parseInt(highestBid) + 1)}
-              value={bidText}
-              onChange={setNewBidText}
-              placeholder="Ange ditt bud"
-            />
-            <button className="btn btn-primary mt-2" type="submit">
-              Lägg Bud
-            </button>
-          </form>
+            <form onSubmit={addNewBid}>
+              <input
+                className="form-control"
+                type="number"
+                min={Math.max(startPrice, parseInt(highestBid) + 1)}
+                value={bidText}
+                onChange={setNewBidText}
+                placeholder="Ange ditt bud"
+              />
+              <button className="btn btn-primary mt-2" type="submit">
+                Lägg Bud
+              </button>
+            </form>
           ) : (
-          "" )}
-          
-          <p className={`text-${isBidSuccessful ? 'success' : 'danger'}`}>{feedbackMessage}</p>
+            ""
+          )}
+
+          <p className={`text-${isBidSuccessful ? "success" : "danger"}`}>
+            {feedbackMessage}
+          </p>
         </div>
       </div>
       <ul className="list-group list-group-flush">
         {item.features &&
-          item.features.map((feature, index) => (
-            <li className="list-group-item" key={index}>
-              {feature}
-            </li>
-          ))}
+          item.features
+            .trim()
+            .split(",")
+            .map((feature, index) => (
+              <li className="list-group-item" key={index}>
+                {feature.trim()}{" "}
+                {/* trim() para eliminar espacios en blanco alrededor */}
+              </li>
+            ))}
       </ul>
       <div className="card-footer">
         {/* Högsta bud used to be here 
            <small className="text-muted">Högsta bud: ${highestBid}</small> 
            
            ADD username/ name of auction creator here ?*/}
-     
       </div>
-    
-    
     </div>
   );
 }

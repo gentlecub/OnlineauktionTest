@@ -6,18 +6,17 @@ const renderer = ({ days, hours, minutes, props }) => {
     <>
       <div className="col">
         <div className="card shadow-sm">
-          <img 
-          src={props.item.imageUrl} 
-          alt={props.item.imageAlt}
-          className="card-img-top"
+          <img
+            src={props.item.imageUrl}
+            alt={props.item.imageAlt}
+            className="card-img-top"
             style={{
               height: "300px",
               width: "100%",
               objectFit: "cover",
-              objectPosition: "center"
+              objectPosition: "center",
             }}
-           />
-      
+          />
 
           <div className="card-body">
             <p className="lead display-8">{props.item.brand}</p>
@@ -38,8 +37,9 @@ const renderer = ({ days, hours, minutes, props }) => {
 };
 
 const AuctionCard = ({ item }) => {
-  // console.log("Item", item);
+  console.log("Item", item);
   let expiredDate = new Date(item.duration).getTime();
+  console.log("ExpireTime", expiredDate);
 
   return <Countdown date={expiredDate} item={item} renderer={renderer} />;
 };

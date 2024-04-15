@@ -13,11 +13,11 @@ function FilterModel() {
   useEffect(() => {
     const fetchCar = async () => {
       try {
-        const response = await fetch("http://localhost:3000/cars");
+        const response = await fetch("/api/cars");
         if (!response.ok) throw Error("Did not receive expected data");
         const listCarItem = await response.json();
         SetListCard(listCarItem);
-       // console.log(listCarItem);
+        // console.log(listCarItem);
         const model = listCarItem.reduce((acc, car) => {
           if (!acc.includes(car.brand)) {
             acc.push(car.brand);
@@ -25,7 +25,7 @@ function FilterModel() {
           return acc;
         }, []);
         SetCarModel(model);
-       // console.log(model);
+        // console.log(model);
       } catch (err) {
         setFetchError(err.message);
       }
@@ -37,7 +37,7 @@ function FilterModel() {
   function handleModel(e) {
     e.preventDefault();
     const selectBrach = e.target.value;
-   // console.debug("SELECTED: ", selectBrach === "Model");
+    // console.debug("SELECTED: ", selectBrach === "Model");
     let models;
     if (selectBrach === "Model") {
       models = originalCarItem;

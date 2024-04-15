@@ -7,7 +7,7 @@ builder.Services.AddAuthentication().AddCookie("opa23.onlineauction.cars");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddAuthorizationBuilder().AddPolicy("user_route", policy => policy.RequireRole("user"));
 
-string connectionString = "server=localhost;uid=root;pwd=mypassword;database=onlineauction;port=3306";
+string connectionString = "server=localhost;uid=root;pwd=admin;database=onlineauction;port=3306";
 
 try
 {
@@ -25,7 +25,7 @@ try
     app.MapPost("/users/user", Users.PostUser);
     app.MapPatch("/users/password/{id}", Users.UpdateUserPassword);
     app.MapDelete("/users/fromid/{id}", Users.DeleteUserId);
-    
+
 
 
     //auctions
@@ -40,6 +40,10 @@ try
     app.MapGet("/", Cars.GetCarsHome);
     app.MapGet("/cars", Cars.GetAllCars);
     app.MapGet("/cars/{id}", Cars.GetCarId);
+    app.MapPost("/cars", Cars.PostCar);
+    app.MapPut("/cars/edit/{id}", Cars.EditCar);
+    app.MapDelete("/cars/delete/{id}", Cars.DeleteCar);
+
 
     //bids
     app.MapGet("/bids", Bids.All);

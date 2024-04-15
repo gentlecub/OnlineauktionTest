@@ -12,7 +12,7 @@ function CarsHome() {
   function handleClick() {
     setFilteredCartItems(false);
   }
- // console.log(carItem);
+  console.log("Carhomome", carItem);
   return (
     <div className="py-3">
       {carItem && (
