@@ -1,18 +1,17 @@
 import { useEffect, useState, useContext } from "react";
-import { AuthContext  } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 function MyAuction() {
-
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const [auctions, setAuctions] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [maxBidText, setMaxBidText] = useState("");
   const [currDateText, setCurrDateText] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
-  const [selectedAuction, setSelectedAuction] = useState("");
+  const [selectedAuction, setSelectedAuction] = useState(null);
   const [bidAmount, setBidAmount] = useState("");
-  const [userId, setUserId] = useState("user123"); // Ersätt med faktisk användare logik
+  const [userId, setUserId] = useState("user123");
 
   useEffect(() => {
     async function loadAuctions() {
@@ -20,7 +19,6 @@ function MyAuction() {
         const response = await fetch("/api/auctions");
         if (!response.ok) throw new Error("Failed to fetch auctions");
         const data = await response.json();
-       // console.log("DATA", data);
         setAuctions(data);
         applyFilters(data);
       } catch (error) {
@@ -29,8 +27,6 @@ function MyAuction() {
     }
     loadAuctions();
   }, []);
-
-  // console.log("ACTION", auctions);
 
   const applyFilters = (auctions) => {
     let result = auctions.filter((auction) =>
@@ -60,7 +56,6 @@ function MyAuction() {
   };
 
   async function storeAuctionBid(data, id) {
-
     await fetch(`/api/auctions/${id}`, {
       method: "PATCH",
       headers: {
@@ -68,39 +63,22 @@ function MyAuction() {
       },
       body: JSON.stringify(data),
     });
-
   }
 
-  function getAuctionIndexFromId(id, filteredItems) {
-
-    let index = -1
-    let i = 0
-
-    for (i = 0; i < filteredItems.length; i++) {
-      if (filteredItems[i].id == id) {
-        index = i
-      }
-    }
-
-    return index
-
+  function getAuctionIndexFromId(id, items) {
+    return items.findIndex((auction) => auction.id === id);
   }
 
   async function placeBid(auctionId, bidAmount) {
     try {
-
-      let highestBid = filteredItems.find(
-        (auction) => auction.id == auctionId
-      )?.highestBid;
-
-      // console.log("bidAmount: " + bidAmount)
-      // console.log("highestBid: " + highestBid)
+      const auction = filteredItems.find((auction) => auction.id === auctionId);
+      if (!auction) throw new Error("Auction not found.");
 
       if (!bidAmount) {
         throw new Error("Bid amount must be set to a value");
       }
 
-      if (parseInt(bidAmount) <= parseInt(highestBid)) {
+      if (parseInt(bidAmount) <= parseInt(auction.highestBid)) {
         throw new Error("Bid amount must be higher than the highest bid");
       }
 
@@ -122,25 +100,16 @@ function MyAuction() {
 
       alert("Bid placed successfully!");
 
-      let indexFiltered = getAuctionIndexFromId(auctionId, filteredItems)
-      let indexAuction = getAuctionIndexFromId(auctionId, auctions)
+      const indexFiltered = getAuctionIndexFromId(auctionId, filteredItems);
+      filteredItems[indexFiltered].highestBid = bidAmount.toString();
 
-      filteredItems[indexFiltered].highestBid = bidAmount.toString()
-      auctions[indexAuction].highestBid = bidAmount.toString()
+      setFilteredItems([...filteredItems]);
+      setAuctions([...auctions]);
 
-      setFilteredItems([...filteredItems])
-      setAuctions([...auctions])
-
-     // console.log(filteredItems[indexFiltered])
-
-      await storeAuctionBid(filteredItems[indexFiltered], auctionId)
-      // alert(`Auction object with id ${filteredItems[indexFiltered].id} has now recieved a new highest bid!`)
-
+      await storeAuctionBid(filteredItems[indexFiltered], auctionId);
     } catch (error) {
-     // console.error("Error placing bid:", error.message);
       alert(error.message);
     }
-
   }
 
   return (
@@ -166,8 +135,8 @@ function MyAuction() {
       </div>
       <div>
         <select
-          value={selectedAuction}
-          onChange={(e) => setSelectedAuction(parseInt(e.target.value))}
+          value={selectedAuction || ""}
+          onChange={(e) => setSelectedAuction(parseInt(e.target.value, 10) || null)}
         >
           <option value="">-- Select Auction --</option>
           {filteredItems.map((auction) => (
@@ -185,52 +154,34 @@ function MyAuction() {
       <div>
         {selectedAuction ? (
           <div className="auction-details">
-            <h3>
-              {
-                filteredItems.find(
-                  (auction) => auction.id === selectedAuction.toString()
-                ).title
-              }
-            </h3>
-            <p>Auction ID: {selectedAuction}</p>
-            <p>
-              Start Time:{" "}
-              {
-                filteredItems.find(
-                  (auction) => auction.id === selectedAuction.toString()
-                ).startTime
-              }
-            </p>
-            <p>
-              End Time:{" "}
-              {
-                filteredItems.find(
-                  (auction) => auction.id === selectedAuction.toString()
-                ).endTime
-              }
-            </p>
-            <p>
-              Highest Bid: $
-              {
-                filteredItems.find(
-                  (auction) => auction.id === selectedAuction.toString()
-                ).highestBid
-              }
-            </p>
-            {user ? (
-            <div>
-              <input
-                type="number"
-                value={bidAmount}
-                onChange={handleBidInputChange}
-                placeholder="Enter bid amount"
-              />
-              <button
-                onClick={() => placeBid(selectedAuction, parseFloat(bidAmount))}
-              >
-                Place Bid
-              </button>
-            </div>) : ''}
+            {
+              filteredItems.find((auction) => auction.id === selectedAuction) ? (
+                <>
+                  <h3>{filteredItems.find((auction) => auction.id === selectedAuction).title}</h3>
+                  <p>Auction ID: {selectedAuction}</p>
+                  <p>Start Time: {filteredItems.find((auction) => auction.id === selectedAuction).startTime}</p>
+                  <p>End Time: {filteredItems.find((auction) => auction.id === selectedAuction).endTime}</p>
+                  <p>Highest Bid: ${filteredItems.find((auction) => auction.id === selectedAuction).highestBid}</p>
+                  {user && (
+                    <div>
+                      <input
+                        type="number"
+                        value={bidAmount}
+                        onChange={handleBidInputChange}
+                        placeholder="Enter bid amount"
+                      />
+                      <button
+                        onClick={() => placeBid(selectedAuction, parseFloat(bidAmount))}
+                      >
+                        Place Bid
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <p>No auction details available.</p>
+              )
+            }
           </div>
         ) : (
           <ul className="container">
