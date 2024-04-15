@@ -37,10 +37,11 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       year: auction?.year || '',
       color: auction?.color || '',
       mileage: auction?.mileage || '',
-      engine_type: auction?.type || '',
-      engine_displacement: auction?.displacement || '',
+      engine_type: auction?.engineType || '',
+      engine_displacement: auction?.engineDisplacement || '',
       transmission: auction?.transmission || '',
       features: auction?.features || [],
+      featuresOneLine: auction?.featuresOneLine || '',
       price: auction?.price || '',
       imageUrl: auction?.imageUrl || '',
 
@@ -66,9 +67,11 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
 
 
   const handleFeatureChange = (e) => {
+    // let featuresOneLine = e.target.value;
     const features = e.target.value.split(',').map(feature => feature.trim());
 
     setAuctionForm(prevState => ({ ...prevState, features }))
+    // setAuctionForm(prevState => ({ ...prevState, featuresOneLine }))
   }
 
 
@@ -111,12 +114,12 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       errors.mileage = 'Please enter valid mileage.'
     }
 
-    if (!auctionForm.engine_type) {
-      errors.engine_type = 'Please enter engine type.'
+    if (!auctionForm.engineType) {
+      errors.engineType = 'Please enter engine type.'
     }
 
-    if (!auctionForm.engine_displacement) {
-      errors.engine_displacement = 'Please enter engine displacement.'
+    if (!auctionForm.engineDisplacement) {
+      errors.engineDisplacement = 'Please enter engine displacement.'
     }
 
     if (!auctionForm.transmission || auctionForm.transmission === '') {
@@ -154,10 +157,10 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       color: auctionForm.color,
       imageUrl: auctionForm.imageUrl,
       mileage: auctionForm.mileage,
-      engine_type: auctionForm.engine_type,
-      engine_displacement: auctionForm.engine_displacement,
+      engine_type: auctionForm.engineType,
+      engine_displacement: auctionForm.engineDisplacement,
       transmission: auctionForm.transmission,
-      features: auctionForm.features,
+      features: auctionForm.features.join(', ')
     };
 
 
@@ -170,17 +173,18 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
 
 
     try {
+      console.log("CarEndpoint: ", carEndpoint)
+      console.log("CarData: ", carData)
       const carRespone = await fetch(carEndpoint, {
         method: method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(carData)
       });
 
+      const car = await carRespone.json()
+      console.log("JSON: ", car)
 
       if (!carRespone.ok) throw new Error(`Problem posting car data (with method: ${method}).`);
-
-
-      const car = await carRespone.json();
 
 
       // Add current hour, minute and seconds to end-date.
@@ -196,7 +200,6 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
         startTime: auctionForm.startDate,
         endTime: formattedEndTime,
         highestBid: auctionForm.highestBid,
-        editedDate: lastEditedDate,
         carId: car.id,
         userId: auctionForm.userId,
         status: auctionForm.status
@@ -209,10 +212,7 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       });
 
       if (!auctionResponse.ok) throw new Error(`Problem posting auction data (with method: ${method}).`);
-      const auction = await auctionResponse.json()
 
-
-      onSubmit({ car, auction })
     }
     catch (error) {
       console.error(error)
