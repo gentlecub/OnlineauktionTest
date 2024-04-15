@@ -135,5 +135,27 @@ public class Auctions
         return TypedResults.Ok("Auction with id {id} deleted!");
 
     }
+    public static IResult PutAuctions(int id, AuctionPost auction, State state)
+    {
+
+        string strQuery = "UPDATE auctions SET title = @title, startTime = @startTime, endTime = @endTime, " +
+                       "highestBid = @highestBid, carId = @carId, userId = @userId, status =  @status WHERE id = @id";
+
+        MySqlHelper.ExecuteNonQuery(state.DB, strQuery,
+        [
+           new("@id", id),
+           new("@title", auction.title),
+           new("@startTime", auction.startTime),
+           new("@endTime", auction.endTime),
+           new("@highestBid", auction.highestBid),
+           new("@carId", auction.carId),
+           new("@userId", auction.userId),
+           new("@status", auction.status)
+        ]);
+
+        return TypedResults.Created();
+
+    }
 
 }
+

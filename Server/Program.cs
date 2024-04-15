@@ -35,6 +35,8 @@ try
     app.MapPatch("/auctions/fromid/{id}", Auctions.UpdateBidFromAuctionId);
     app.MapPatch("/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
     app.MapDelete("/auctions/fromid/{id}", Auctions.DeleteAuctionFromId);
+    app.MapPut("/auctions/{id}", Auctions.PutAuctions);
+
 
     //obtaining cars data
     app.MapGet("/", Cars.GetCarsHome);

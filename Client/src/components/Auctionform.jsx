@@ -37,8 +37,8 @@ function AuctionForm({ onSubmit, closeForm, auction}){
         year: auction?.year || '',
         color: auction?.color || '',
         mileage: auction?.mileage || '',
-        engineType: auction?.engine?.type || '',
-        engineDisplacement: auction?.engine?.displacement || '',
+        engine_type: auction?.type || '',
+        engine_isplacement: auction?.displacement || '',
         transmission: auction?.transmission || '',
         features: auction?.features || [],
         price: auction?.price || '',
@@ -155,20 +155,19 @@ function AuctionForm({ onSubmit, closeForm, auction}){
             imageUrl: auctionForm.imageUrl,
             imageAlt: imageAlt,
             mileage: auctionForm.mileage,
-            engine: {
-              type: auctionForm.engineType,
-              displacement: auctionForm.engineDisplacement,
-            },
+            engine_type: auctionForm.engineType,
+            engine_displacement: auctionForm.engineDisplacement,
             transmission: auctionForm.transmission,
             features: auctionForm.features,
-        };
-          
+      };
+      
+     
         
 
 
         const method = auction?.id ? 'PUT' : 'POST'
         const carEndpoint = auction?.id ? `/api/cars/${auction.carId}` : '/api/cars';
-        const auctionEndpoint = auction?.id ? `/api/auctions/${auction.id}` : '/api/cars';
+        const auctionEndpoint = auction?.id ? `/api/auctions/${auction.id}` : '/api/auctions';
 
 
         try {
