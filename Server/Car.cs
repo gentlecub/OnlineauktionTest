@@ -148,12 +148,11 @@ public class Cars
   }
 public static IResult PostCarGetId(Car car, State state)
 {
-       string Query = "INSERT INTO cars (brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features) " +
-                      "values(@brand, @model, @price, @year, @color, @imageUrl, @mileage, @engine_type, @engine_displacement, @transmission, @features); " +
-                      "Select LAST_INSERT_ID()";
+        string Query = "INSERT INTO cars (brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features) " +
+                       "values(@brand, @model, @price, @year, @color, @imageUrl, @mileage, @engine_type, @engine_displacement, @transmission, @features) ";
+                    
 
-      //MySqlCommand command = new(Query, state.DB);
-      var reader = MySqlHelper.ExecuteScalar(state.DB, Query,
+      var rowsAffected = MySqlHelper.ExecuteNonQuery(state.DB, Query,
       [
         new("@brand", car.brand),
         new("@model", car.model),
@@ -168,6 +167,13 @@ public static IResult PostCarGetId(Car car, State state)
         new("@features", car.features)]
      );
 
+     if(rowsAffected != 1)
+     {
+        return TypedResults.Problem("Couldn't post a new car object at route /cars/getid!");
+     }
+        
+     var reader = MySqlHelper.ExecuteScalar(state.DB,"Select LAST_INSERT_ID() from cars");
+    
      int id = Convert.ToInt32(reader);
 
      return TypedResults.Created(id.ToString());

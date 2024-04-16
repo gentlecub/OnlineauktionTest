@@ -165,22 +165,16 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
     const carEndpoint = auction?.id ? `/api/cars/${auction.carId}` : '/api/cars/getid';
     const auctionEndpoint = auction?.id ? `/api/auctions/${auction.id}` : '/api/auctions';
 
-
     try {
-      console.log("CarEndpoint: ", carEndpoint)
-      console.log("CarData: ", carData)
-      const carRespone = await fetch(carEndpoint, {
+      const carResponse = await fetch(carEndpoint, {
         method: method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(carData)
       });
 
-      console.log("JSON: ", carRespone)
-      const car = await carRespone.json()
+      const carId = carResponse.headers.get("Location")
 
-
-      if (!carRespone.ok) throw new Error(`Problem posting car data (with method: ${method}).`);
-
+      if (!carResponse.ok) throw new Error(`Problem posting car data (with method: ${method}).`);
 
       // Add current hour, minute and seconds to end-date.
       const endDateWithTime = new Date(auctionForm.endDate);
@@ -188,14 +182,13 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       endDateWithTime.setMinutes(new Date().getMinutes());
       endDateWithTime.setSeconds(new Date().getSeconds());
 
-
       const formattedEndTime = formatDateTime(endDateWithTime);
       const auctionData = {
         title: auctionForm.title,
         startTime: auctionForm.startDate,
         endTime: formattedEndTime,
         highestBid: auctionForm.highestBid,
-        carId: car.id,
+        carId: carId,
         userId: auctionForm.userId,
         status: auctionForm.status
       };
@@ -208,14 +201,16 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
 
       if (!auctionResponse.ok) throw new Error(`Problem posting auction data (with method: ${method}).`);
 
+      if (carResponse.ok && auctionResponse.ok) {
+        alert("The car and auction data is now saved in the database!")
+      }
+
     }
     catch (error) {
       console.error(error)
       alert(error.message)
     }
   };
-
-
 
   return (
     <div className="auction-form-container">
@@ -297,7 +292,6 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
             </div>
           </div>
 
-
         </div>
 
         <div className="d-grid gap-2 d-md-flex justify-content-center">
@@ -311,6 +305,5 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
   );
 
 }
-
 
 export default AuctionForm;
