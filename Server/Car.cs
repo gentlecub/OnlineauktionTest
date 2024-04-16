@@ -125,31 +125,55 @@ public class Cars
   public static IResult PostCar(Car car, State state)
   {
     string Query = "INSERT INTO cars (brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features) " +
-                         "values(@brand, @model, @price, @year, @color, @imageUrl, @mileage, @engine_type, @engine_displacement, @transmission, @features)";
+                   "values(@brand, @model, @price, @year, @color, @imageUrl, @mileage, @engine_type, @engine_displacement, @transmission, @features)";
 
     //MySqlCommand command = new(Query, state.DB);
     var reader = MySqlHelper.ExecuteReader(state.DB, Query,
-     [new("@brand", car.brand),
-     new("@model", car.model),
-     new("@price", car.price),
-     new("@year", car.year),
-     new("@color", car.color),
-     new("@imageUrl", car.imageUrl),
-     new("@mileage", car.mileage),
-     new("@engine_type", car.engine_type),
-     new("@engine_displacement", car.engine_displacement),
-     new("@transmission", car.transmission),
-     new("@features", car.features)]
-
+     [
+        new("@brand", car.brand),
+        new("@model", car.model),
+        new("@price", car.price),
+        new("@year", car.year),
+        new("@color", car.color),
+        new("@imageUrl", car.imageUrl),
+        new("@mileage", car.mileage),
+        new("@engine_type", car.engine_type),
+        new("@engine_displacement", car.engine_displacement),
+        new("@transmission", car.transmission),
+        new("@features", car.features)]
      );
 
     return TypedResults.Created();
 
+  }
+public static IResult PostCarGetId(Car car, State state)
+{
+       string Query = "INSERT INTO cars (brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features) " +
+                      "values(@brand, @model, @price, @year, @color, @imageUrl, @mileage, @engine_type, @engine_displacement, @transmission, @features); " +
+                      "Select LAST_INSERT_ID()";
 
+      //MySqlCommand command = new(Query, state.DB);
+      var reader = MySqlHelper.ExecuteScalar(state.DB, Query,
+      [
+        new("@brand", car.brand),
+        new("@model", car.model),
+        new("@price", car.price),
+        new("@year", car.year),
+        new("@color", car.color),
+        new("@imageUrl", car.imageUrl),
+        new("@mileage", car.mileage),
+        new("@engine_type", car.engine_type),
+        new("@engine_displacement", car.engine_displacement),
+        new("@transmission", car.transmission),
+        new("@features", car.features)]
+     );
 
+     int id = Convert.ToInt32(reader);
+
+     return TypedResults.Created(id.ToString());
 
   }
-  public static IResult EditCar(int id, Car car, State state)
+    public static IResult EditCar(int id, Car car, State state)
   {
     string Query = "UPDATE cars SET brand = @brand, model = @model, price = @price, year = @year, color = @color, imageUrl = @imageUrl," +
     "mileage = @mileage, engine_type = @engine_type, engine_displacement = @engine_displacement, transmission = @transmission, features = @features WHERE id = @id";

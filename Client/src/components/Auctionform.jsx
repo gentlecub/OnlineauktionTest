@@ -147,8 +147,6 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
     const lastEditedDate = formatDateTime(new Date())
     const imageAlt = `${auctionForm.year} ${auctionForm.brand} ${auctionForm.model}`
 
-
-
     const carData = {
       brand: auctionForm.brand,
       model: auctionForm.model,
@@ -163,12 +161,8 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       features: auctionForm.features.join(', ')
     };
 
-
-
-
-
     const method = auction?.id ? 'PUT' : 'POST'
-    const carEndpoint = auction?.id ? `/api/cars/${auction.carId}` : '/api/cars';
+    const carEndpoint = auction?.id ? `/api/cars/${auction.carId}` : '/api/cars/getid';
     const auctionEndpoint = auction?.id ? `/api/auctions/${auction.id}` : '/api/auctions';
 
 
@@ -181,8 +175,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
         body: JSON.stringify(carData)
       });
 
+      console.log("JSON: ", carRespone)
       const car = await carRespone.json()
-      console.log("JSON: ", car)
+
 
       if (!carRespone.ok) throw new Error(`Problem posting car data (with method: ${method}).`);
 
