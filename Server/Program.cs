@@ -35,15 +35,16 @@ try
     app.MapPatch("/auctions/fromid/{id}", Auctions.UpdateBidFromAuctionId);
     app.MapPatch("/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
     app.MapDelete("/auctions/fromid/{id}", Auctions.DeleteAuctionFromId);
+    app.MapPut("/auctions/{id}", Auctions.PutAuctions);
 
     //obtaining cars data
     app.MapGet("/", Cars.GetCarsHome);
     app.MapGet("/cars", Cars.GetAllCars);
     app.MapGet("/cars/{id}", Cars.GetCarId);
     app.MapPost("/cars", Cars.PostCar);
+    app.MapPost("/cars/getid", Cars.PostCarGetId);  
     app.MapPut("/cars/edit/{id}", Cars.EditCar);
     app.MapDelete("/cars/delete/{id}", Cars.DeleteCar);
-
 
     //bids
     app.MapGet("/bids", Bids.All);
