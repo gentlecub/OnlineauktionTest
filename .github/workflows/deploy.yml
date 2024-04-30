@@ -16,7 +16,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
-          hoportst: ${{ secrets.PORT }}
+          port: ${{ secrets.PORT }}
           script: |
             cd /var/www/Onlineauktion
-  	        git pull
+            git pull
