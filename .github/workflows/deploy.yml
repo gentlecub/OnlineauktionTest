@@ -1,0 +1,22 @@
+name: Deploy test
+
+
+on:
+  push:
+    branches: ["dev"]
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Doing a deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          hoportst: ${{ secrets.PORT }}
+          script: |
+            cd /var/www/onlineauktion
+  	        git pull
