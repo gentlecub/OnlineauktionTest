@@ -51,12 +51,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Installing Cypress dependencies
-          run: npm ci
-          working-directory: ./cypress
+        run: npm ci
+        working-directory: ./cypress
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
