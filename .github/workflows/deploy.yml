@@ -2,14 +2,15 @@ name: Deploy test
 
 on:
   push:
-    branches: ["dev-workflows"]
+    branches: ["dev"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
 
       - name: Setup .NET Server
         uses: actions/setup-dotnet@v4
@@ -54,12 +55,11 @@ jobs:
 
 
 
-
   deploy:
     needs: build_and_test
     runs-on: ubuntu-latest
     steps:
-      - name: Doing a deploy
+      - name: Deploying build
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOST }}
