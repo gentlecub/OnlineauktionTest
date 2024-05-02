@@ -51,7 +51,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name Checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Installing Cypress dependencies
