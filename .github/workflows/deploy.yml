@@ -47,7 +47,7 @@ jobs:
       - name: Install and run Cypress tests
         run: |
           npm ci
-          npm start
+          npm test
         working-directory: ./cypress
 
 
