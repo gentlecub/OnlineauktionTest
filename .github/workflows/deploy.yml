@@ -33,7 +33,7 @@ jobs:
       
       - name: Starting Client Server
         run: npm run dev
-        woring-directory: ./Client   
+        working-directory: ./Client   
 
 
   deploy:
