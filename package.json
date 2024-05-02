@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "cypress.config.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "cypress": "^13.8.1"
+  },
   "scripts": {
     "test": "cd ./cypress && npm run test"
   },
-
   "keywords": [],
   "author": "",
   "license": "ISC"
