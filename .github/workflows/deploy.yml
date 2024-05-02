@@ -42,7 +42,7 @@ jobs:
 
 
       - name: Installing Cypress dependencies
-      - run: npm ci
+        run: npm ci
         working-directory: ./cypress
 
 
