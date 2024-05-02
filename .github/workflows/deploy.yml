@@ -33,6 +33,8 @@ jobs:
         with:
           node-version: "20"
           cache: 'npm'
+      
+      - name: Installing Node.js dependencies
         run: npm ci
         working-directory: ./Client
       
