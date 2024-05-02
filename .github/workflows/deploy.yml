@@ -38,7 +38,7 @@ jobs:
 
 
   deploy:
-    needs: 
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Doing a deploy
