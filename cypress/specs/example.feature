@@ -1,4 +1,4 @@
-Feature: Deployment test
+Feature: Deploy test
 
-    Scenario: See the first page
+    Scenario: Website is launched
         Given that I can see the homepage
