@@ -36,25 +36,20 @@ jobs:
           node-version: "20"
           cache: 'npm'
       
-      - name: Installing Node.js dependencies
-        run: npm ci
-        working-directory: ./Client
-      
-      - name: Starting Client Server
+      - name: Install and start client server
         run: |
+          npm ci
           npm run dev &
           npx wait-on http://localhost:5173
-        working-directory: ./Client   
+        working-directory: ./Client
 
 
-      - name: Installing Cypress dependencies
-        run: npm ci
+      - name: Install and run Cypress tests
+        run: |
+          npm ci
+          npm start
         working-directory: ./cypress
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          start: npm start
 
 
   deploy:
