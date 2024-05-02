@@ -18,20 +18,32 @@ function MyNav() {
   return (
     <header>
       <nav className="nav flex-column flex-sm-row">
-        <Link to="/" className="text-sm-right nav-link" >Home</Link>
+        <Link to="/" data-test="nav-home" 
+        className="text-sm-right nav-link"
+        >Home
+        </Link>
 
+        <Link to="/contact-page" data-test="nav-contact-page" 
+        className="text-sm-right nav-link" 
+        >Contact Us
+        </Link>
 
-        <Link to="/contact-page" className="text-sm-right nav-link" >Contact Us</Link>
-
-        <Link to="/show-auction-page" className="text-sm-right nav-link">
-          Show Current Auction
+        <Link to="/show-auction-page" data-test="nav-show-auction-page" 
+        className="text-sm-right nav-link"
+        >Show Current Auction
         </Link>
 
         {/* Add condition based on usertype? admin / user*/}
         {user ? (
-          <Link to="/userpage" className="text-sm-right nav-link" >Userpage</Link>
+          <Link to="/userpage" data-test="nav-userpage" 
+          className="text-sm-right nav-link" 
+          >Userpage
+          </Link>
         ) : (
-          <Link to="/registering-page" className="text-sm-right nav-link" >Register / Login</Link>)}
+          <Link to="/registering-page" data-test="nav-registering-page" 
+          className="text-sm-right nav-link" 
+          >Register / Login
+          </Link>)}
 
       </nav>
 
