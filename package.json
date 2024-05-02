@@ -5,8 +5,6 @@
   "main": "cypress.config.js",
   "devDependencies": {},
   "scripts": {
-    "build": "start dotnet run --project ./Server",
-    "start": "cd ./Client/ && npm run dev",
     "test": "cd ./cypress && npm run test"
   },
 

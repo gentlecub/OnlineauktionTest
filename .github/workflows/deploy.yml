@@ -5,36 +5,52 @@ on:
     branches: ["dev-workflows"]
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+
       - name: Setup .NET Server
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-      - name: Restore dependencies
+      - name: Restore .NET dependencies
         run: dotnet restore
-      - name: Build
-        run: nohup dotnet build --no-restore &
+        working-directory: ./Server
+
+      - name: Build .NET Server
+        run: dotnet build --no-restore
+        working-directory: ./Server
+
+      - name: Run .NET Server
+        run: nohup dotnet run &
+        working-directory: ./Server
       
-    
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
           cache: 'npm'
-      - run: |
-          cd ./Client
-          npm ci
+      - run: npm ci
+        working-directory: ./Client
       
       - name: Starting Client Server
         run: nohup npm run dev &
         working-directory: ./Client   
 
 
+      - name: Testing homepage
+        run: |
+          npm run test
+
+
+
+
+
   deploy:
-    needs: build
+    needs: build_and_test
     runs-on: ubuntu-latest
     steps:
       - name: Doing a deploy
