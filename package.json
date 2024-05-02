@@ -7,7 +7,7 @@
     "cypress": "^13.8.1"
   },
   "scripts": {
-    "test": "cd ./cypress && npm run test"
+    "start": "cd ./cypress && npm run test"
   },
   "keywords": [],
   "author": "",
