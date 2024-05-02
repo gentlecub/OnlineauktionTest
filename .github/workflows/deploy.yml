@@ -5,6 +5,7 @@ on:
     branches: ["dev-testing"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -40,7 +41,9 @@ jobs:
         working-directory: ./Client
       
       - name: Starting Client Server
-        run: nohup npm run dev &
+        run: |
+          npm run dev &
+          npx wait-on http://localhost:5173
         working-directory: ./Client   
 
 
@@ -60,7 +63,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
           start: npm start
 
 
