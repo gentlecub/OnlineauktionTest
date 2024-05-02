@@ -1,13 +1,43 @@
 name: Deploy test
 
-
 on:
   push:
-    branches: ["dev"]
+    branches: ["dev-workflows"]
 
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET Server
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.8.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      
+      strategy:
+        matrix:
+          node-version: [14.x, 16.x, 18.x]
+      - name: Setup Node.js ${{ matrix.node-version }} server
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: |
+        cd ./Client
+        npm ci
+      
+      - name: Starting Client Server
+        run: npm run dev
+        woring-directory: ./Client   
+
+
   deploy:
+    needs: 
     runs-on: ubuntu-latest
     steps:
       - name: Doing a deploy
@@ -19,4 +49,4 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/Onlineauktion
-            git pull
+     
