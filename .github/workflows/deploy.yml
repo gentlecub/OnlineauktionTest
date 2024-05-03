@@ -1,0 +1,69 @@
+name: Deploy test
+
+on:
+  push:
+    branches: ["dev", "main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET Server
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore .NET dependencies
+        run: dotnet restore
+        working-directory: ./Server
+
+      - name: Build .NET Server
+        run: dotnet build --no-restore
+        working-directory: ./Server
+
+      - name: Run .NET Server
+        run: nohup dotnet run &
+        working-directory: ./Server
+      
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: 'npm'
+      
+      - name: Install and start client server
+        run: |
+          npm ci
+          npm run dev &
+          npx wait-on http://localhost:5173
+        working-directory: ./Client
+
+
+      - name: Install and run Cypress tests
+        run: |
+          npm ci
+          npm run test
+        working-directory: ./cypress
+
+
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploying build
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /var/www/Onlineauktion
+            git pull
+     

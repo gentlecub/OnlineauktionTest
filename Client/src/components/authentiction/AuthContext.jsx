@@ -9,6 +9,9 @@ function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
   const [globalMsg, setGlobalMsg] = useState("");
+  const [fetchError, setFetchError] = useState(null);
+
+  
   useEffect(() => {
     const fetchUser = async () => {
       try {

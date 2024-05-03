@@ -57,7 +57,7 @@ try
 catch (MySqlException e)
 {
     Console.WriteLine(e);
-
+        
 }
 
 public record State(string DB);
