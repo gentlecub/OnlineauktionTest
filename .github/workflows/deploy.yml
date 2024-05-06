@@ -81,5 +81,6 @@ jobs:
             cp -r /var/www/Onlineauktion/Client/dist
             pm2 delete onlineauktion
             pm2 start --name onlineauktion "dotnet run"
+            
 
      
