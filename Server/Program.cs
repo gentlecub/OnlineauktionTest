@@ -53,8 +53,6 @@ try
     app.MapPatch("/users/password/{id}", Users.UpdateUserPassword);
     app.MapDelete("/users/fromid/{id}", Users.DeleteUserId);
 
-
-
     //auctions
     app.MapGet("/auctions", Auctions.All);
     app.MapGet("/auctions/{id}", Auctions.GetAuctionFromId);
@@ -80,19 +78,19 @@ try
 
     app.MapFallback(async context =>
     {
+        string path = context.Request.Path.Value;
 
-        context.Response.ContentType = "text/html";
-        await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));
-
+        if(!path.StartsWith("/cars") || !path.StartsWith("/bids") || !path.StartsWith("/auctions"))
+        {
+            context.Response.ContentType = "text/html";
+            await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));
+        }
     });
-
-    app.Run("http://localhost:3008");
-
+    app.Run();
 }
 catch (MySqlException e)
 {
     Console.WriteLine(e);
-        
 }
 
 public record State(string DB);
