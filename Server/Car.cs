@@ -42,13 +42,13 @@ public class Cars
         var durationHrs = endTime;
         //var durationHrs = Math.Abs((endTime - DateTime.Now).TotalHours);
         cars.Add(new(id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features, durationHrs));
-      }
-
+      } 
+      Console.WriteLine($"Retrieved {cars.Count} cars from the DB");
       return cars;
     }
     catch (MySqlException ex)
     {
-
+      Console.WriteLine($"MySQL Error: {ex.Message}");
       return cars;
     }
   }
