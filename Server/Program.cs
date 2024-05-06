@@ -86,7 +86,7 @@ try
             await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));
         }
     });
-    app.Run();
+    app.Run("http://localhost.com:3008");
 }
 catch (MySqlException e)
 {
