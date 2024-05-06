@@ -42,38 +42,38 @@ try
     app.UseRouting();
 
 
-    app.MapPost("/login", Auth.Login);
-    app.MapGet("/admin", () => "Hello, Admin!").RequireAuthorization("admin_route");
-    app.MapGet("/user", () => "Hello, User!").RequireAuthorization("user_route");
+    app.MapPost("/api/login", Auth.Login);
+    app.MapGet("/api/admin", () => "Hello, Admin!").RequireAuthorization("admin_route");
+    app.MapGet("/api/user", () => "Hello, User!").RequireAuthorization("user_route");
 
     //users
-    app.MapGet("/users", Users.All);
-    app.MapPost("/users", Users.Post);
-    app.MapPost("/users/user", Users.PostUser);
-    app.MapPatch("/users/password/{id}", Users.UpdateUserPassword);
-    app.MapDelete("/users/fromid/{id}", Users.DeleteUserId);
+    app.MapGet("/api/users", Users.All);
+    app.MapPost("/api/users", Users.Post);
+    app.MapPost("/api/users/user", Users.PostUser);
+    app.MapPatch("/api/users/password/{id}", Users.UpdateUserPassword);
+    app.MapDelete("/api/users/fromid/{id}", Users.DeleteUserId);
 
     //auctions
-    app.MapGet("/auctions", Auctions.All);
-    app.MapGet("/auctions/{id}", Auctions.GetAuctionFromId);
-    app.MapPost("/auctions", Auctions.Post);
-    app.MapPatch("/auctions/fromid/{id}", Auctions.UpdateBidFromAuctionId);
-    app.MapPatch("/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
-    app.MapDelete("/auctions/fromid/{id}", Auctions.DeleteAuctionFromId);
-    app.MapPut("/auctions/{id}", Auctions.PutAuctions);
+    app.MapGet("/api/auctions", Auctions.All);
+    app.MapGet("/api/auctions/{id}", Auctions.GetAuctionFromId);
+    app.MapPost("/api/auctions", Auctions.Post);
+    app.MapPatch("/api/auctions/fromid/{id}", Auctions.UpdateBidFromAuctionId);
+    app.MapPatch("/api/auctions/fromcarid/{carId}", Auctions.UpdateBidFromCarId);
+    app.MapDelete("/api/auctions/fromid/{id}", Auctions.DeleteAuctionFromId);
+    app.MapPut("/api/auctions/{id}", Auctions.PutAuctions);
 
     //obtaining cars data
-    app.MapGet("/cars/home", Cars.GetCarsHome);
-    app.MapGet("/cars", Cars.GetAllCars);
-    app.MapGet("/cars/{id}", Cars.GetCarId);
-    app.MapPost("/cars", Cars.PostCar);
-    app.MapPost("/cars/getid", Cars.PostCarGetId);  
-    app.MapPut("/cars/edit/{id}", Cars.EditCar);
-    app.MapDelete("/cars/delete/{id}", Cars.DeleteCar);
+    app.MapGet("/api/cars/home", Cars.GetCarsHome);
+    app.MapGet("/api/cars", Cars.GetAllCars);
+    app.MapGet("/api/cars/{id}", Cars.GetCarId);
+    app.MapPost("/api/cars", Cars.PostCar);
+    app.MapPost("/api/cars/getid", Cars.PostCarGetId);  
+    app.MapPut("/api/cars/edit/{id}", Cars.EditCar);
+    app.MapDelete("/api/cars/delete/{id}", Cars.DeleteCar);
 
     //bids
-    app.MapGet("/bids", Bids.All);
-    app.MapPost("/bids", Bids.PostBid);
+    app.MapGet("/api/bids", Bids.All);
+    app.MapPost("/api/bids", Bids.PostBid);
 
 
     app.MapFallback(async context =>
