@@ -78,10 +78,10 @@ jobs:
             npm run build
             cd /var/www/Onlineauktion/Server
             rm -r dist
-            cp -r /var/www/Onlineauktion/Client/dist
+            cp -r /var/www/Onlineauktion/Client/dist .
             pm2 delete onlineauktion
             pm2 start --name onlineauktion "dotnet run"
-            
+
 
 
      
