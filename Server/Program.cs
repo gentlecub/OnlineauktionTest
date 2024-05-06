@@ -22,7 +22,7 @@ try
     var app = builder.Build();
 
 
-    var distPath = Path.Combine(app.Environment.ContentRootPath, "../Client/dist");
+    var distPath = Path.Combine(app.Environment.ContentRootPath, "./dist");
     var fileProvider = new PhysicalFileProvider(distPath);
 
     app.UseHttpsRedirection();
