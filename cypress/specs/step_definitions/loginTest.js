@@ -32,29 +32,28 @@ When('I enter my login details and click on login', () => {
   cy.getDataTest('login-username-input').type("Desmond");
   cy.getDataTest('login-password-input').type("234_desmond");
 
-  // THIS INTERCEPT IS BREAKING THE TESTS NEED TO FIX
 
-  // cy.intercept({
-  //   method: "GET",
-  //   url: "http://localhost:5173/api/users"
-  // }, {
-  //   statusCode: 200,
-  //   body: [
-  //     {
-  //     username: "Desmond",
-  //     password: "234_desmond",
-  //     name: "Desmond",
-  //     message: "Successfully intercepted login GET request"
-  //     }
-  //   ]
-  // }).as("loginRequest");
+  cy.intercept({
+    method: "GET",
+    url: "http://localhost:5173/api/users"
+  }, {
+    statusCode: 200,
+    body: [
+      {
+      username: "Desmond",
+      password: "234_desmond",
+      name: "Desmond",
+      message: "Successfully intercepted login GET request"
+      }
+    ]
+  }).as("loginRequest");
 
   cy.getDataTest('login-submit-button').click();
 
-  // cy.wait("@loginRequest").then((interception) => {
-  //   expect(interception.response.statusCode).to.eq(200);
-  //   expect(interception.response.body[0].message).to.eq("Successfully intercepted login GET request")
-  // });
+  cy.wait("@loginRequest").then((interception) => {
+    expect(interception.response.statusCode).to.eq(200);
+    expect(interception.response.body[0].message).to.eq("Successfully intercepted login GET request")
+  });
   
 });
 
