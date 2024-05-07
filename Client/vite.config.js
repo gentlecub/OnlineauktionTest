@@ -13,7 +13,7 @@ export default defineConfig({
         target: "http://localhost:3008",
         changeOrigin: true,
         // tar bort /api/ från vår path
-        rewrite: (path) => path.replace(/^\/api/, ""),
+      //  rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
