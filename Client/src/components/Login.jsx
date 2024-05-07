@@ -33,9 +33,9 @@ function Login () {
 
     return (
       <form onSubmit={ ( handleSubmit ) }>
-        <label>Username:</label><br /> <input type="text" name="username" placeholder="Username" /><br /><br />
-        <label>Password:</label><br /><input type="password" name="password" placeholder="Password" /><br /><br />
-            <input type="submit" value="Login" /> 
+        <label>Username:</label><br /> <input data-test="login-username-input"  type="text" name="username" placeholder="Username" /><br /><br />
+        <label>Password:</label><br /><input data-test="login-password-input"  type="password" name="password" placeholder="Password" /><br /><br />
+        <input data-test="login-submit-button" type="submit" value="Login" /> 
         </form>
     );
 }

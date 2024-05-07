@@ -78,12 +78,12 @@ try
 
     app.MapFallback(async context =>
     {
-        // string path = context.Request.Path.Value;
-        // if(!path.StartsWith("/cars") || !path.StartsWith("/bids") || !path.StartsWith("/auctions"))
-        //{
+        string path = context.Request.Path.Value;
+        if(!path.StartsWith("/api/"))
+        {   
             context.Response.ContentType = "text/html";
             await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));
-        //}
+        }
     });
     app.Run();
 }
