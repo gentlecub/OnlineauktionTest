@@ -77,7 +77,7 @@ function UserDashboard(){
 
             <div>
                 <br></br>
-                <button onClick={ handleLogout } className="btn btn-primary" >Logout</button>
+                <button data-test="logout-button" onClick={ handleLogout } className="btn btn-primary" >Logout</button>
             </div>
 
             {userCars.map(car => (
