@@ -1,43 +1,37 @@
 import { useContext, useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-
 import { GlobalContext } from "../context/GlobalContext";
 import OptionModel from "./OptionModel";
-function FilterModel() {
-  const { carItem, setCarItem, originalCarItem } = useContext(GlobalContext);
+function FilterModel({ carItem, setCarItem, originalCarItem }) {
+  //const { carItem, setCarItem, originalCarItem } = useContext(GlobalContext);
   const [fetchError, setFetchError] = useState(null);
   const [carmodel, SetCarModel] = useState([]);
   const [listcar, SetListCard] = useState([]);
   const [actioncar, SetActionCar] = useState([]);
-  //console.log("CAR ITEM SETTER: ", setCarItem);
+  console.log(carItem);
+  console.log(carmodel);
   useEffect(() => {
-    const fetchCar = async () => {
+    const fetchCar = () => {
       try {
-        const response = await fetch("/api/cars");
-        if (!response.ok) throw Error("Did not receive expected data");
-        const listCarItem = await response.json();
-        SetListCard(listCarItem);
-        // console.log(listCarItem);
-        const model = listCarItem.reduce((acc, car) => {
+        const model = carItem.reduce((acc, car) => {
           if (!acc.includes(car.brand)) {
             acc.push(car.brand);
           }
           return acc;
         }, []);
         SetCarModel(model);
-        // console.log(model);
+        console.log(model);
       } catch (err) {
         setFetchError(err.message);
       }
     };
 
     fetchCar();
-  }, []);
+  }, [carItem]);
 
   function handleModel(e) {
     e.preventDefault();
     const selectBrach = e.target.value;
-    // console.debug("SELECTED: ", selectBrach === "Model");
     let models;
     if (selectBrach === "Model") {
       models = originalCarItem;
@@ -49,7 +43,7 @@ function FilterModel() {
 
   return (
     <>
-      <Form.Select size="sm" onChange={handleModel}>
+      <Form.Select size="sm" onChange={handleModel} data-test="selectmodel">
         <option>Model</option>
         <OptionModel item={carmodel} />
       </Form.Select>

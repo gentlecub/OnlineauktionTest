@@ -86,7 +86,7 @@ function FiltrePrice() {
   }
 
   return (
-    <Form.Select size="sm" onClick={handlePrice}>
+    <Form.Select size="sm" onClick={handlePrice} data-test="selectprice">
       <option>Price</option>
       <OptionPrice item={carprice} />
     </Form.Select>

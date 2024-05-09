@@ -6,7 +6,7 @@ import { AuthContext } from "../components/authentiction/AuthContext.jsx";
 import LoadProgress from "../components/authentiction/LoadProgress.jsx";
 
 function HomePage() {
-  const { currentUser, globalMsg } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const [item, setitem] = useState(null);
   return (
     <>

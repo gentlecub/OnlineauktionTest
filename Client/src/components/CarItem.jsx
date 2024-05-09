@@ -32,7 +32,7 @@ function CarItem(props) {
           .map((feature, index) => <li key={index}>{feature.trim()}</li>);
 
         return (
-          <div className="text-nowrap bg-light border fs-6">
+          <div key={key} className="text-nowrap bg-light border fs-6">
             <span className="fw-bolder">Features:</span>
             <ul>{featuresArray}</ul>
           </div>
@@ -56,12 +56,15 @@ function CarItem(props) {
       {/* {console.log("Item", props.item)} */}
       <div className="col-sm">
         <div className="container-xl ">
-          <div className="card">
+          <div className="card" id={`card-${props.item.model}`}>
             <h5 className="card-header  bg-primary text-center">
               {props.item.brand}
             </h5>
             <div className="card-body">
-              <h5 className="card-title text-center">
+              <h5
+                className="card-title text-center"
+                id={`card-title${props.item.brand}`}
+              >
                 Information of {props.item.brand} {props.item.model}
               </h5>
               <div className="d-flex justify-content-center align-items-center h-100">

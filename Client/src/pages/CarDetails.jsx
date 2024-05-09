@@ -16,7 +16,7 @@ function CarDetail() {
     <>
       <div className="container-xl">
         <div className="row">
-          {<CarItem item={carId} key={id} />}
+          {<CarItem item={carId} key={id} data-test={`caritem-${id}`} />}
           <div className="col col-lg-3">
             <BidItem item={carId} />
           </div>

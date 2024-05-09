@@ -7,7 +7,7 @@ builder.Services.AddAuthentication().AddCookie("opa23.onlineauction.cars");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddAuthorizationBuilder().AddPolicy("user_route", policy => policy.RequireRole("user"));
 
-string connectionString = "server=localhost;uid=root;pwd=mypassword;database=onlineauction;port=3306";
+string connectionString = "server=localhost;uid=root;pwd=admin;database=onlineauction;port=3306";
 
 try
 {
@@ -42,7 +42,7 @@ try
     app.MapGet("/cars", Cars.GetAllCars);
     app.MapGet("/cars/{id}", Cars.GetCarId);
     app.MapPost("/cars", Cars.PostCar);
-    app.MapPost("/cars/getid", Cars.PostCarGetId);  
+    app.MapPost("/cars/getid", Cars.PostCarGetId);
     app.MapPut("/cars/edit/{id}", Cars.EditCar);
     app.MapDelete("/cars/delete/{id}", Cars.DeleteCar);
 
@@ -57,7 +57,7 @@ try
 catch (MySqlException e)
 {
     Console.WriteLine(e);
-        
+
 }
 
 public record State(string DB);
