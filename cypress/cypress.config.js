@@ -11,10 +11,13 @@ module.exports = defineConfig({
     specPattern: "**/*.feature",
     baseUrl,
     video: false,
-    supportFile: false,
+    supportFile: "support/commands.js",
     screenshotOnRunFailure: false,
     setupNodeEvents(on, config) {
       // implement node event listeners here
+
+      // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
+      addCucumberPreprocessorPlugin(on, config);
 
       // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
       addCucumberPreprocessorPlugin(on, config);

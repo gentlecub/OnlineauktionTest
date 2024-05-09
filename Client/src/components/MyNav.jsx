@@ -16,7 +16,7 @@ function MyNav() {
 
   return (
     <header>
-      <nav className="nav flex-column flex-sm-row">
+      <nav className="nav flex-column flex-sm-row" data-test="nav">
         <Link to="/" data-test="nav-home" className="text-sm-right nav-link">
           Home
         </Link>

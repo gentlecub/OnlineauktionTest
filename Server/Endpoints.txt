@@ -1,5 +1,5 @@
 
-Endpoints (in table):
+Endpoints (in table): 
 
 Auth:
 

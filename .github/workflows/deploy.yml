@@ -64,6 +64,24 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
+            echo "Deploying to the server"
+            source /root/.nvm/nvm.sh
+            nvm use v20.12.2
+            echo "Checking node and npm versions"
+            node -v
+            npm -v
             cd /var/www/Onlineauktion
             git pull
+            rm -r cypress
+            cd Client
+            npm ci
+            npm run build
+            cd /var/www/Onlineauktion/Server
+            rm -r dist
+            cp -r /var/www/Onlineauktion/Client/dist .
+            pm2 delete onlineauktion
+            pm2 start --name onlineauktion "dotnet run"
+
+
+
      

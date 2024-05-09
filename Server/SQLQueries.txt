@@ -1,0 +1,89 @@
+-- Create the database
+CREATE DATABASE IF NOT EXISTS onlineauction;
+USE onlineauction;
+
+-- Create table: cars
+CREATE TABLE cars (
+    id                  INT AUTO_INCREMENT PRIMARY KEY,
+    brand               VARCHAR(255)   NULL,
+    model               VARCHAR(255)   NULL,
+    price               DECIMAL(10, 2) NULL,
+    year                INT            NULL,
+    color               VARCHAR(50)    NULL,
+    imageUrl            VARCHAR(255)   NULL,
+    mileage             INT            NULL,
+    engine_type         VARCHAR(50)    NULL,
+    engine_displacement VARCHAR(50)    NULL,
+    transmission        VARCHAR(50)    NULL,
+    features            TEXT           NULL
+);
+
+-- Create table: users
+CREATE TABLE users (
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255)           UNIQUE,
+    password VARCHAR(255)           NULL,
+    name     VARCHAR(255)           NULL,
+    email    VARCHAR(255)           NULL,
+    role     ENUM ('admin', 'user') NOT NULL
+);
+
+-- Create table: auctions
+CREATE TABLE auctions (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    title      VARCHAR(255) NULL,
+    startTime  DATETIME     NULL,
+    endTime    DATETIME     NULL,
+    highestBid DECIMAL(20)  NULL,
+    carId      INT          NULL,
+    userId     INT          NULL,
+    status     INT          NULL,
+    CONSTRAINT fk_carId
+        FOREIGN KEY (carId) REFERENCES cars (id),
+    CONSTRAINT fk_userId
+        FOREIGN KEY (userId) REFERENCES users (id)
+);
+
+-- Create table: bids
+CREATE TABLE bid (
+    id        INT AUTO_INCREMENT PRIMARY KEY,
+    auctionId INT            NULL,
+    bidAmount DECIMAL(18, 2) NULL,
+    userId    INT            NULL,
+    CONSTRAINT fk_auctionId
+        FOREIGN KEY (auctionId) REFERENCES auctions (id),
+    CONSTRAINT fk_userId
+        FOREIGN KEY (userId) REFERENCES users (id)
+);
+
+-- Create index for userId in the bid table
+CREATE INDEX userId_index
+    ON bid (userId);
+
+-- Insert data into users table
+INSERT INTO onlineauction.users (id, username, password, name, email, role)
+VALUES
+    (1, 'john', '123_john', 'John G', 'john.g@example.com', 'admin'),
+    (2, 'shiva', '306_shiva', 'Shiva M', 'shiva.m@example.com', 'admin'),
+    (3, 'joakim', '456_joakim', 'Joakim K', 'joakim.k@example.com', 'user'),
+    (4, 'celeste', '142_celeste', 'Celeste S', 'celeste.s@example.com', 'user'),
+    (5, 'desmond', '234_desmond', 'Desmond D', 'desmond.d@example.com', 'user');
+
+-- Insert data into cars table
+INSERT INTO onlineauction.cars (id, brand, model, price, year, color, imageUrl, mileage, engine_type, engine_displacement, transmission, features)
+VALUES
+    (1, 'Toyota', 'Corolla', 30000.00, 2022, 'silver', 'https://cdn.motor1.com/images/mgl/NGZpEy/s3/2023-toyota-gr-corolla-circuit-edition-exterior.jpg', 15000, '4-cylinder', '1.8L', 'automatic', 'backup camera,bluetooth connectivity,power windows,keyless entry'),
+    (2, 'Honda', 'Civic', 60000.00, 2020, 'black', 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2022/09/896/500/civic-1.jpg?ve=1&tl=1', 20000, '4-cylinder', '2.0L', 'automatic', 'sunroof,navigation system,lane departure warning'),
+    (3, 'Ford', 'F-150', 20000.00, 2021, 'red', 'https://media.ed.edmunds-media.com/ford/f-150/2024/oem/2024_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_600.jpg', 30000, 'V6', '3.5L', 'automatic', 'towing package,off-road capability,parking sensors'),
+    (4, 'Chevrolet', 'Malibu', 40800.00, 2019, 'blue', 'https://upload.wikimedia.org/wikipedia/commons/0/01/2019_Chevrolet_Malibu_%28facelift%29_LT%2C_front_10.19.19.jpg', 25000, '4-cylinder', '1.5L', 'automatic', 'adaptive cruise control,lane-keep assist,wireless charging'),
+    (5, 'Nissan', 'Altima', 50000.00, 2020, 'white', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4w8yL0grfn3T1PrBoRHfFqzkm8QhIOBTLwBaYiTpxSg&s', 18000, '4-cylinder', '2.5L', 'automatic', 'remote start,blind spot monitoring,apple carplay'),
+    (6, 'BMW', '3 Series', 50000.00, 2021, 'gray', 'https://upload.wikimedia.org/wikipedia/commons/8/8d/BMW_G20_IMG_0167.jpg', 20000, '6-cylinder', '3.0L', 'automatic', 'leather seats,premium sound system,adaptive headlights');
+
+-- Insert data into auctions table
+INSERT INTO onlineauction.auctions (id, title, startTime, endTime, highestBid, carId, userId, status)
+VALUES
+    (1, 'Toyota Corolla Auction', '2024-02-28 11:35:01', '2024-04-28 11:45:01', 220000, 1, 2, 0),
+    (2, 'Honda Civic Auction', '2024-02-28 13:20:21', '2024-04-28 13:30:01', 12378932, 2, 1, 0),
+    (3, 'Ford F-150 Auction', '2024-02-28 14:05:00', '2024-04-28 15:00:01', 1232000, 3, 3, 0),
+    (4, 'Chevrolet Malibu Auction', '2024-02-28 10:30:01', '2024-03-28 11:50:01', 110000, 4, 5, 0),
+    (5, 'Nissan Altima Auction', '2024-02-28 08:15:01', '2024-03-16 10:00:01', 300000, 5, 4, 0);
