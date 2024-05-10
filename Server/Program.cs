@@ -94,7 +94,7 @@ try
             await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));
         }
     });
-    
+
     // Remove "http://localhost:3008" when deploying to server. Instead use app.Run();.
 
 
