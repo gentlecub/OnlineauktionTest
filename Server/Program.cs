@@ -8,7 +8,7 @@ builder.Services.AddAuthentication().AddCookie("opa23.onlineauction.cars");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddAuthorizationBuilder().AddPolicy("user_route", policy => policy.RequireRole("user"));
 
-string connectionString = "server=localhost;uid=root;pwd=mypassword;database=onlineauction;port=3306";
+string connectionString = "server=localhost;uid=root;pwd=admin;database=onlineauction;port=3306";
 
 try
 {
@@ -35,7 +35,7 @@ try
 
     app.UseStaticFiles(new StaticFileOptions
     {
-        FileProvider= fileProvider,
+        FileProvider = fileProvider,
         RequestPath = ""
     });
 
@@ -67,7 +67,7 @@ try
     app.MapGet("/api/cars", Cars.GetAllCars);
     app.MapGet("/api/cars/{id}", Cars.GetCarId);
     app.MapPost("/api/cars", Cars.PostCar);
-    app.MapPost("/api/cars/getid", Cars.PostCarGetId);  
+    app.MapPost("/api/cars/getid", Cars.PostCarGetId);
     app.MapPut("/api/cars/edit/{id}", Cars.EditCar);
     app.MapDelete("/api/cars/delete/{id}", Cars.DeleteCar);
 
@@ -79,13 +79,13 @@ try
     app.MapFallback(async context =>
     {
         string path = context.Request.Path.Value;
-        if(!path.StartsWith("/api/"))
-        {   
+        if (!path.StartsWith("/api/"))
+        {
             context.Response.ContentType = "text/html";
             await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));
         }
     });
-    
+
     // Remove "http://localhost:3008" when deploying to server. Instead use app.Run();.
 
 
