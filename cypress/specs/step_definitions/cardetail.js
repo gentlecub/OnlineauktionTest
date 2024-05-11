@@ -9,7 +9,7 @@ When("I click on a specific car", () => {
 });
 
 Then("I should be redirected to the details page of that car", () => {
-  cy.url().should("include", "/cars/3");
+  cy.url().should("include", "s/car/3");
 });
 
 When("I view the details of the car", () => {
